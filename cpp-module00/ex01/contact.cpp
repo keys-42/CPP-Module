@@ -1,64 +1,51 @@
 #include "phonebook.hpp"
+
 Contact::Contact()
 {
-	std::cout << "Contact" << std::endl;
-}
-void	print(int index)
-{
-	if (index == 0)
-		std::cout << "name :";
-	else if (index == 1)
-		std::cout << "last name :";
-	else if (index == 2)
-		std::cout << "nickname :";
-	else if (index == 3)
-		std::cout << "phone number :";
-	else if (index == 4)
-		std::cout << "secret :";
-}
-
-void Contact::init(void)
-{
-	int	i;
-
-	i = 0;
-	while (i < 5)
-	{
-		print(i);
-		std::cin >> this->arr_[i];
-		i++;
-	}
-}
-
-void Contact::ser()
-{
-	int	i;
-
-	i = 0;
-	while (i < 3)
-	{
-		// std::cout.setf(std::ios::right) << std::setw(10) << this->arr_[i] ;
-		std::cout << std::right << std::setw(10) << this->arr_[i] << "|";
-		i++;
-	}
-	std::cout << std::endl;
-}
-
-void Contact::privacy()
-{
-	int	i;
-
-	i = 0;
-	while (i < 5)
-	{
-		// std::cout.setf(std::ios::right) << std::setw(10) << this->arr_[i] ;
-		std::cout << std::right << std::setw(10) << this->arr_[i] << "|";
-		i++;
-	}
-	std::cout << std::endl;
+		std::cout << "new Contact" <<std::endl;
+		f = false;
+		first_name_ = "";
+		last_name_= "";
+		nickname_ = "";
+		phone_number_ = "";
+		darkest_secret_ = "";
 }
 
 Contact::~Contact()
 {
-	std::cout << "~Contact" << std::endl;
+		std::cout << "delete Contact" << std::endl;
+}
+
+void Contact::set()
+{
+		std::cout << "Please enter first name		:";
+		std::cin >> first_name_;
+		std::cout << "Please enter last name 		:";
+		std::cin >> last_name_;
+		std::cout << "Please enter nickname 		:" ;
+		std::cin >> nickname_;
+		std::cout << "Please enter phone number 	:" ;
+		std::cin >> phone_number_;
+		std::cout << "Please enter darkest secret 	:";
+		std::cin >> darkest_secret_;
+		f = true;
+}
+
+void Contact::get()
+{
+		std::cout << "first name is " << first_name_ << std::endl;
+		std::cout << "last name is " << last_name_ << std::endl;
+		std::cout << "nickname is " << nickname_ << std::endl;
+		std::cout << "phone number is " << phone_number_ << std::endl;
+		std::cout << "darkest secret is " << darkest_secret_ << std::endl;
+}
+
+bool Contact::get_flag()
+{
+	return f;
+}
+
+std::string Contact::get_contents()
+{
+	return first_name_ + " " + last_name_ + " " + nickname_;
 }

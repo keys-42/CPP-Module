@@ -2,46 +2,45 @@
 
 Phonebook::Phonebook()
 {
-	std::cout << "Phonebook" << std::endl;
-	this->end_ = 0;
-	this->front_ = 0;
-	this->start_ = 0;
-}
-void Phonebook::f_exit()
-{
-	std::cout << "EXIT!" << std::endl;
-	exit(0);
-}
-
-void Phonebook::add()
-{
-	this->contact_[this->end_ % 8].init();
-	this->end_++;
-}
-
-void Phonebook::f_search()
-{
-	int	i;
-	int	k;
-
-	i = 0;
-	if (this->end_ < 8)
-		k = this->end_;
-	else
-		k = 8;
-	while (i < k)
-	{
-		std::cout << std::right << std::setw(10) << i << "|";
-		this->contact_[i].ser();
-		i++;
-	}
-	std::cout << "index :";
-	std::cin >> i;
-	std::cout << std::right << std::setw(10) << i << "|";
-	this->contact_[i].privacy();
+	std::cout << "new phonebook" << std::endl;
+	next_index = 0;
 }
 
 Phonebook::~Phonebook()
 {
-	std::cout << "~Phonebook" << std::endl;
+	std::cout << "delete Phonebook" << std::endl;
+}
+
+void Phonebook::add()
+{
+	int i;
+
+	i = get_index();
+	contact_[i].set();
+}
+
+int Phonebook::get_index()
+{
+	int ans;
+
+	ans = next_index;
+	if(next_index == 7)
+		next_index = 0;
+	else
+		next_index++;
+	return ans;
+}
+				
+void Phonebook::search()
+{
+	int i;
+
+	i = 0;
+	while(i < 8)
+	{
+		if(contact_[i].get_flag() == false)
+			break;
+		std::cout << i << " " << contact_[i].get_contents() << std::endl;
+		i++;
+	}
 }
