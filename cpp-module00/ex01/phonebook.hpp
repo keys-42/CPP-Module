@@ -3,6 +3,9 @@
 # include "contact.hpp"
 #include <iostream>
 
+void flush_cin();
+int get_cmd(std::string s,std::string *cmd);
+std::string get_line(std::string mess);
 class Phonebook
 {
   public:

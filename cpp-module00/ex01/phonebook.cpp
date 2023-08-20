@@ -17,6 +17,7 @@ void Phonebook::add()
 
 	i = get_index();
 	contact_[i].set();
+	// flush_cin();
 }
 
 int Phonebook::get_index()
@@ -33,10 +34,17 @@ int Phonebook::get_index()
 
 int Phonebook::request_index()
 {
+	std::string str;
 	int index;
 
-	std::cout << "Please enter the index:	 ";
-	std::cin >> index;
+	str = get_line("Please enter the index:	 ");
+	try{
+		index = std::stoi( str );
+	}
+	catch(const std::invalid_argument& e){
+		return -1;
+	}
+	index--;
 	if(0 <= index && index <= 9)
 	{
 		if(contact_[index].get_flag() == true)
@@ -61,7 +69,7 @@ void Phonebook::search()
 	{
 		if(contact_[i].get_flag() == false)
 			break;
-		std::cout << i << " " << contact_[i].get_contents() << std::endl;
+		std::cout << i + 1 << " " << contact_[i].get_contents() << std::endl;
 		i++;
 	}
 	index =request_index();

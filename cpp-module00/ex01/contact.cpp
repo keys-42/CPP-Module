@@ -18,17 +18,14 @@ Contact::~Contact()
 
 void Contact::set()
 {
-		std::cout << "Please enter first name		:";
-		std::cin >> first_name_;
-		std::cout << "Please enter last name 		:";
-		std::cin >> last_name_;
-		std::cout << "Please enter nickname 		:" ;
-		std::cin >> nickname_;
-		std::cout << "Please enter phone number 	:" ;
-		std::cin >> phone_number_;
-		std::cout << "Please enter darkest secret 	:";
-		std::cin >> darkest_secret_;
-		f = true;
+	std::string tmp;
+
+	first_name_ = get_line( "Please enter first name				:");
+	last_name_ = get_line("Please enter last name 				:");
+	nickname_ = get_line("Please enter last nickname 			:");
+	phone_number_ = get_line("Please enter last phone number	 		:");
+	darkest_secret_ = get_line("Please enter last darkest secret 		:");
+	f = true;
 }
 
 bool Contact::get_flag()
