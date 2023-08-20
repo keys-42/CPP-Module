@@ -67,4 +67,6 @@ void Phonebook::search()
 	index =request_index();
 	if(index >= 0)
 		display_contact(index);
+	else
+		std::cout << "Non-existent contact. Please enter the correct index." << std::endl;
 }
