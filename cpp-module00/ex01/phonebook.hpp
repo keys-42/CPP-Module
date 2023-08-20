@@ -3,6 +3,7 @@
 # include "contact.hpp"
 #include <iostream>
 #include <sstream>
+#include <stdlib.h>
 
 void flush_cin();
 int get_cmd(std::string s,std::string *cmd);

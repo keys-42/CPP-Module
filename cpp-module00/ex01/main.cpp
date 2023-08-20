@@ -61,9 +61,6 @@ int main()
 {
 	Phonebook book;
 	std::string cmd;
-	int flag;
-
-	flag = 0;
 
 	order_table();
 	for(;;)
