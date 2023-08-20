@@ -9,7 +9,6 @@ class Contact
 	Contact();
 	~Contact();
 	void set();
-	void get();
 	bool get_flag();
 	std::string get_contents();
 	void		display_info();

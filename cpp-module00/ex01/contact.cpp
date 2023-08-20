@@ -2,20 +2,15 @@
 
 Contact::Contact()
 {
-		std::cout << "new Contact" <<std::endl;
-		f = false;
-		first_name_ = "";
-		last_name_= "";
-		nickname_ = "";
-		phone_number_ = "";
-		darkest_secret_ = "";
+	f = false;
+	first_name_ = "";
+	last_name_= "";
+	nickname_ = "";
+	phone_number_ = "";
+	darkest_secret_ = "";
 }
 
-Contact::~Contact()
-{
-		std::cout << "delete Contact" << std::endl;
-}
-
+Contact::~Contact(){}
 void Contact::set()
 {
 	std::string tmp;
@@ -23,7 +18,14 @@ void Contact::set()
 	first_name_ = get_line( "Please enter first name				:");
 	last_name_ = get_line("Please enter last name 				:");
 	nickname_ = get_line("Please enter last nickname 			:");
-	phone_number_ = get_line("Please enter last phone number	 		:");
+	for(;;){
+		phone_number_ = get_line("Please enter last phone number	 		:");
+		if(std::all_of(phone_number_.cbegin(),phone_number_.cend(),isdigit))
+			break;
+		else
+			std::cout << phone_number_ << "Please enter only numerical values" << std::endl;
+	}
+
 	darkest_secret_ = get_line("Please enter last darkest secret 		:");
 	f = true;
 }
@@ -35,14 +37,14 @@ bool Contact::get_flag()
 
 std::string Contact::change_content(std::string s)
 {
-		std::string ans;
+	std::string ans;
 
-		if(s.length()  < 10){
-			std::string space(10 - s.length(), ' ');
-			return space + s;
-		}
+	if(s.length()  < 10){
+		std::string space(10 - s.length(), ' ');
+		return space + s;
+	}
 
-		return s.substr(1,9) + ".";
+	return s.substr(1,9) + ".";
 }
 
 std::string Contact::get_contents()

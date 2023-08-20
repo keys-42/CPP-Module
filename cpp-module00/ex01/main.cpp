@@ -85,7 +85,6 @@ int main()
 		else{
 			std::cout << "Please enter the correct command!" << std::endl << std::endl;
 		}
-		// cmd.clear();
 	}
 	return 0;
 }

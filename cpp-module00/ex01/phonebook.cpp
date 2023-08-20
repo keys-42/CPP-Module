@@ -2,14 +2,10 @@
 
 Phonebook::Phonebook()
 {
-	std::cout << "new phonebook" << std::endl;
 	next_index = 0;
 }
 
-Phonebook::~Phonebook()
-{
-	std::cout << "delete Phonebook" << std::endl;
-}
+Phonebook::~Phonebook(){}
 
 void Phonebook::add()
 {
@@ -17,7 +13,6 @@ void Phonebook::add()
 
 	i = get_index();
 	contact_[i].set();
-	// flush_cin();
 }
 
 int Phonebook::get_index()
