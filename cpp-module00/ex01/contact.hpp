@@ -12,14 +12,16 @@ class Contact
 	void get();
 	bool get_flag();
 	std::string get_contents();
+	void		display_info();
 
   private:
-	bool 	f;
+	bool 		f;
 	std::string first_name_;
 	std::string last_name_;
 	std::string nickname_;
   	std::string phone_number_;
 	std::string darkest_secret_;
+	std::string change_content(std::string s);
 };
 
 #endif

@@ -15,6 +15,8 @@ class Phonebook
   Contact contact_[8];
   int get_index();
   int next_index;
+  int request_index();
+  void display_contact(int index);
 };
 
 #endif
