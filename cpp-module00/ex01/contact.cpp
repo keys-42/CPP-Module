@@ -18,12 +18,21 @@ void Contact::set()
 	first_name_ = get_line( "Please enter first name				:");
 	last_name_ = get_line("Please enter last name 				:");
 	nickname_ = get_line("Please enter last nickname 			:");
-	for(;;){
+	for (;;) {
 		phone_number_ = get_line("Please enter last phone number	 		:");
-		if(std::all_of(phone_number_.cbegin(),phone_number_.cend(),isdigit))
+		bool all_digits = true;
+
+		for (std::string::const_iterator it = phone_number_.begin(); it != phone_number_.end(); ++it) {
+			if (!std::isdigit(static_cast<unsigned char>(*it))) {
+				all_digits = false;
+				break;
+			}
+		}
+
+		if (all_digits)
 			break;
 		else
-			std::cout << phone_number_ << "Please enter only numerical values" << std::endl;
+			std::cout << phone_number_ << " is not valid. Please enter only numerical values." << std::endl <<std::endl;
 	}
 
 	darkest_secret_ = get_line("Please enter last darkest secret 		:");
@@ -39,7 +48,7 @@ std::string Contact::change_content(std::string s)
 {
 	std::string ans;
 
-	if(s.length()  < 10){
+	if(s.length()  < 10){`
 		std::string space(10 - s.length(), ' ');
 		return space + s;
 	}
