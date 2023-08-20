@@ -48,7 +48,7 @@ std::string Contact::change_content(std::string s)
 {
 	std::string ans;
 
-	if(s.length()  < 10){`
+	if(s.length()  < 10){
 		std::string space(10 - s.length(), ' ');
 		return space + s;
 	}
