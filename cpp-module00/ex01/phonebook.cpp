@@ -37,11 +37,16 @@ int Phonebook::request_index()
 	std::string str;
 	int index;
 
-	str = get_line("Please enter the index:	 ");
+
 	try{
-		index = std::stoi( str );
+		str = get_line("Please enter the index:	 ");
+		std::stringstream ss(str);
+		ss >> index;
+		if (ss.fail() || !ss.eof()) {
+			throw std::runtime_error("Invalid string-to-int conversion.");
+		}
 	}
-	catch(const std::invalid_argument& e){
+   	catch(const std::exception& e){
 		return -1;
 	}
 	index--;

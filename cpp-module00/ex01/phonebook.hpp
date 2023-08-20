@@ -2,6 +2,7 @@
 # define _PHONEBOOK_HPP
 # include "contact.hpp"
 #include <iostream>
+#include <sstream>
 
 void flush_cin();
 int get_cmd(std::string s,std::string *cmd);
