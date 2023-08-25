@@ -1,4 +1,4 @@
-#include "phonebook.hpp"
+#include "PhoneBook.hpp"
 
 Phonebook::Phonebook()
 {
@@ -40,8 +40,7 @@ int Phonebook::request_index()
 		if (ss.fail() || !ss.eof()) {
 			throw std::runtime_error("Invalid string-to-int conversion.");
 		}
-	}
-   	catch(const std::exception& e){
+	} catch(const std::exception& e) {
 		return -1;
 	}
 	index--;
