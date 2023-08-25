@@ -3,14 +3,14 @@
 
 int main()
 {
-		std::string s;
-		Harl h;
+	std::string s;
+	Harl h;
 
-		do{
-				std::cout << "level: ";
-				std::cin >> s;
-				h.complain(s);
-    	} while (s.compare("exit"));
+	do{
+		std::cout << "level: ";
+		std::cin >> s;
+		h.complain(s);
+	} while (s.compare("exit"));
 
-		return 0;
+	return 0;
 }

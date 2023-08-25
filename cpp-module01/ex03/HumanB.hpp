@@ -12,14 +12,14 @@
 
 class HumanB {
 	public:
-			HumanB(const std::string name);
-			~HumanB();
-			void attack();
-            void setWeapon(Weapon& w);
+		HumanB(const std::string name);
+		~HumanB();
+		void attack();
+		void setWeapon(Weapon& w);
 
 	private:
-			std::string name_;
-			Weapon *w_;
+		std::string name_;
+		Weapon *w_;
 
 };
 
