@@ -20,7 +20,7 @@ class ClapTrap{
 		bool checkPoints( void ) const;
 		void consumeEnergyPoints(void);
 		void getInfo( void ) const;
-		virtual void attack(const std::string& target);
+		void attack(const std::string& target);
 	
 	private:
 		std::string name_;
