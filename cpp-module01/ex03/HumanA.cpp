@@ -2,8 +2,7 @@
 
 HumanA::HumanA(const std::string name, Weapon& w): name_(name), w_(&w){};
 
-HumanA::~HumanA(){
-}
+HumanA::~HumanA(){}
 
 void HumanA::attack()
 {

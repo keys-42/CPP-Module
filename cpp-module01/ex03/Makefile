@@ -3,7 +3,10 @@ CXX			= c++
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = $(shell find . -name "*.cpp")
+SRC =	HumanA.cpp \
+		HumanB.cpp \
+		Weapon.cpp \
+		main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

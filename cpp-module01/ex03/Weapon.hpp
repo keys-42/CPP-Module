@@ -10,7 +10,7 @@ class Weapon{
         void  setType(const std::string& new_type);
 
     private:
-            std::string type_;
+        std::string type_;
 };
 
 #endif

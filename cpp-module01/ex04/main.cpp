@@ -21,20 +21,21 @@ int main() {
 
 	std::cout << "file name:";
 	std::cin >> file;
-	std::cout << "What string to change?: ";
+	std::cout << "Change which: ";
 	std::cin >> from;
-	std::cout << "What is the string to the change?: ";
+	std::cout << "After replacement: ";
 	std::cin >> to;
+
 	std::ifstream infile(file.c_str());
     if (!infile) {
-		std::cout << "ファイルが開けませんでした。" << std::endl;
-        return 0;
+		std::cout << "file open error" << std::endl;
+        return 1;
     }
 	std::string newfile = file;
 	newfile.append(".replace");
 	std::ofstream outfile(newfile.c_str());
 	    if (!outfile) {
-        std::cerr << "ファイルが開けませんでした。" << std::endl;
+        std::cerr << "file open error"<< std::endl;
         return 1;
     }
 
