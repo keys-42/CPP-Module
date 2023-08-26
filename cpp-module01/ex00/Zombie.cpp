@@ -1,7 +1,7 @@
 #include "Zombie.hpp"
 Zombie::Zombie(){}
 
-void Zombie::setname(std::string n)
+void Zombie::setName(std::string n)
 {
 	this->name_ = n;
 }

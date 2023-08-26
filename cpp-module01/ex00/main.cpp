@@ -7,7 +7,7 @@ int main()
 
 	zom1->announce();
 	zom2->announce();
-	randomChump("test");
+	randomChump("random");
 	delete(zom1);
 	delete(zom2);
 	return 0;
