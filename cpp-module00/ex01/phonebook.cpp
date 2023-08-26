@@ -46,7 +46,7 @@ int Phonebook::request_index()
 	index--;
 	if(0 <= index && index <= 9)
 	{
-		if(contact_[index].get_flag() == true)
+		if(contact_[index].getFlag() == true)
 				return index;
 	}
 	return -1;
@@ -54,7 +54,7 @@ int Phonebook::request_index()
 
 void Phonebook::display_contact(int index)
 {
-	contact_[index].display_info();
+	contact_[index].displayInfo();
 }
 
 				
@@ -66,9 +66,9 @@ void Phonebook::search()
 	i = 0;
 	while(i < 8)
 	{
-		if(contact_[i].get_flag() == false)
+		if(contact_[i].getFlag() == false)
 			break;
-		std::cout << i + 1 << " " << contact_[i].get_contents() << std::endl;
+		std::cout << i + 1 << " " << contact_[i].getContants() << std::endl;
 		i++;
 	}
 	index =request_index();

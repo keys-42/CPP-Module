@@ -9,9 +9,9 @@ class Contact
 	Contact();
 	~Contact();
 	void set();
-	bool get_flag();
-	std::string get_contents();
-	void		display_info();
+	bool getFlag();
+	std::string getContants();
+	void		displayInfo();
 
   private:
 	bool 		f;
@@ -20,7 +20,7 @@ class Contact
 	std::string nickname_;
   	std::string phone_number_;
 	std::string darkest_secret_;
-	std::string change_content(std::string s);
+	std::string changeContent(std::string s);
 };
 
 #endif

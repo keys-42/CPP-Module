@@ -39,12 +39,12 @@ void Contact::set()
 	f = true;
 }
 
-bool Contact::get_flag()
+bool Contact::getFlag()
 {
 	return f;
 }
 
-std::string Contact::change_content(std::string s)
+std::string Contact::changeContent(std::string s)
 {
 	std::string ans;
 
@@ -56,12 +56,12 @@ std::string Contact::change_content(std::string s)
 	return s.substr(1,9) + ".";
 }
 
-std::string Contact::get_contents()
+std::string Contact::getContants()
 {
-	return "|" + change_content(first_name_) + "|" + change_content(last_name_) + "|" +  change_content(nickname_) + "|";
+	return "|" + changeContent(first_name_) + "|" + changeContent(last_name_) + "|" +  changeContent(nickname_) + "|";
 }
 
-void Contact::display_info()
+void Contact::displayInfo()
 {
 		std::cout << "first name		:" << first_name_ << std::endl;
 		std::cout << "last name		:" << last_name_ << std::endl;
