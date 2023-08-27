@@ -2,12 +2,9 @@
 
 Dog::Dog( void ) : Animal() { 
 	std::cout << "Dog Default constructor called" << std::endl;
-    type_ = "dog";
+    type_ = "Dog";
 }
-Dog::~Dog( void ) {};
 
-void Dog::makeSound( void ) const 
-{
-	std::cout << "Dog Default destructor called" << std::endl;
-    std::cout << "wnwnwnwnwnnwnw!" << std::endl;
-}
+Dog::~Dog( void ) { std::cout << "Dog Default destructor called" << std::endl; };
+
+void Dog::makeSound( void ) const { std::cout << "woof" << std::endl; }

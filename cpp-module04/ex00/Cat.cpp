@@ -2,13 +2,9 @@
 
 Cat::Cat(void): Animal() { 
 	std::cout << "Cat Default constructor called" << std::endl;
-    type_ = "cat";
+    type_ = "Cat";
 }
 
-Cat::~Cat( void ){}
+Cat::~Cat( void ) { std::cout << "Cat Default destructor called" << std::endl; }
 
-void Cat::makeSound( void ) const
-{
-	std::cout << "Cat Default destructor called" << std::endl;
-    std::cout << "" << std::endl;
-}
+void Cat::makeSound( void ) const {}
