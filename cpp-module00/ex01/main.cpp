@@ -38,6 +38,16 @@ int get_cmd(std::string s,std::string *cmd)
 	return 0;
 }
 
+static bool isspace_string(std::string s)
+{
+	for( size_t i = 0; i < s.length(); i++ )
+	{
+		if(!isspace(s[i]))
+			return false;
+	}
+	return true;
+}
+
 std::string get_line(std::string mess)
 {
 	std::string tmp;
@@ -45,7 +55,7 @@ std::string get_line(std::string mess)
 	for(;;)
 	{
 		get_cmd(mess, &tmp);
-		if(!tmp.empty())
+		if(!tmp.empty() && !isspace_string(tmp))
 			break;
 	}
 	return tmp;
