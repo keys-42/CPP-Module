@@ -10,7 +10,6 @@ class Fixed
 		int value_;
 		static const int bit_ = 8;
 
-		friend std::ostream& operator<<(std::ostream& os, const Fixed& obj);
 
 	public:
 		Fixed();
@@ -26,7 +25,6 @@ class Fixed
 		float toFloat( void ) const;
 		int toInt( void ) const;
 
-		//https://runebook.dev/ja/docs/cpp/language/operator_assignment
 		bool operator>(const Fixed & r) const;
 		bool operator<(const Fixed & r) const;
 		bool operator>=(const Fixed & r) const;
@@ -49,5 +47,8 @@ class Fixed
 		static Fixed& max( Fixed& f1, Fixed& f2);
 		static const Fixed& max( const Fixed& f1, const Fixed& f2);
 };
+
+
+std::ostream& operator<<(std::ostream& os, const Fixed& obj);
 
 #endif

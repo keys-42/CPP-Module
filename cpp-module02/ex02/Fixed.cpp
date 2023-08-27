@@ -1,25 +1,12 @@
 #include "Fixed.hpp"
 
-Fixed::Fixed()
-{
-	std::cout << "Default constructor called" << std::endl;
-	value_ = 0;
-}
+Fixed::Fixed() : value_(0) { std::cout << "Default constructor called" << std::endl; }
 
-Fixed::Fixed(const int value)
-{
-	value_ = value << bit_;
-}
+Fixed::Fixed(const int value) { value_ = value << bit_; }
 
-Fixed::Fixed(const float value)
-{
-	value_ = roundf(value * (1 << bit_));
-}
+Fixed::Fixed(const float value) { value_ = roundf(value * (1 << bit_)); }
 
-Fixed::Fixed(const Fixed & f)
-{
-	*this = f;			
-}
+Fixed::Fixed(const Fixed & f) { *this = f; }
 
 Fixed::~Fixed(){}
 
@@ -138,7 +125,7 @@ Fixed Fixed::operator--( int )
 Fixed& Fixed::min( Fixed& f1, Fixed& f2)
 {
 	bool f = f1 < f2;
-	if( f ){ return f1; }
+	if( f ) { return f1; }
 
 	return f2;
 }
@@ -146,7 +133,7 @@ Fixed& Fixed::min( Fixed& f1, Fixed& f2)
 const Fixed& Fixed::min( const Fixed& f1, const Fixed& f2)
 {
 	bool f = f1 < f2;
-	if( f ){ return f1; }
+	if( f ) { return f1; }
 
 	return f2;
 }
@@ -154,7 +141,7 @@ const Fixed& Fixed::min( const Fixed& f1, const Fixed& f2)
 Fixed& Fixed::max( Fixed& f1, Fixed& f2)
 {
 	bool f = f1 < f2;
-	if( f ){ return f2; }
+	if( f ) { return f2; }
 
 	return f1;
 }
@@ -162,7 +149,7 @@ Fixed& Fixed::max( Fixed& f1, Fixed& f2)
 const Fixed& Fixed::max( const Fixed& f1, const Fixed& f2)
 {
 	bool f = f1 < f2;
-	if( f ){ return f2; }
+	if( f ) { return f2; }
 
 	return f1;
 }
