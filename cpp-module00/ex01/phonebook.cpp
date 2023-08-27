@@ -68,7 +68,8 @@ void Phonebook::search()
 	{
 		if(contact_[i].getFlag() == false)
 			break;
-		std::cout << i + 1 << " " << contact_[i].getContants() << std::endl;
+		std::cout <<  std::setw(10) << i + 1 << "|";
+		contact_[i].getContants();
 		i++;
 	}
 	index =request_index();

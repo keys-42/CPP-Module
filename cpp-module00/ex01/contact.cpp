@@ -46,19 +46,15 @@ bool Contact::getFlag()
 
 std::string Contact::changeContent(std::string s)
 {
-	std::string ans;
-
-	if(s.length()  < 10){
-		std::string space(10 - s.length(), ' ');
-		return space + s;
-	}
-
+	if(s.length()  < 10)
+		return s;
 	return s.substr(1,9) + ".";
 }
 
-std::string Contact::getContants()
+void Contact::getContants()
 {
-	return "|" + changeContent(first_name_) + "|" + changeContent(last_name_) + "|" +  changeContent(nickname_) + "|";
+	std::cout << std::setw(10) << changeContent(first_name_) <<  "|" << \
+	std::setw(10) << changeContent(last_name_) <<  "|" << std::setw(10) << changeContent(nickname_) << "|" << std::endl;
 }
 
 void Contact::displayInfo()

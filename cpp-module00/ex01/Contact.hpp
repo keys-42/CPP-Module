@@ -2,6 +2,7 @@
 # define _CONTACT_HPP
 #include <string>
 #include <iostream>
+#include <iomanip>
 
 class Contact
 {
@@ -10,7 +11,7 @@ class Contact
 	~Contact();
 	void set();
 	bool getFlag();
-	std::string getContants();
+	void getContants();
 	void		displayInfo();
 
   private:
