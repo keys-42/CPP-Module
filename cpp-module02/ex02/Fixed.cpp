@@ -1,6 +1,6 @@
 #include "Fixed.hpp"
 
-Fixed::Fixed() : value_(0) { std::cout << "Default constructor called" << std::endl; }
+Fixed::Fixed() : value_(0) {}
 
 Fixed::Fixed(const int value) { value_ = value << bit_; }
 
