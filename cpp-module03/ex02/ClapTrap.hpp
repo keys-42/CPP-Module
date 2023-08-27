@@ -11,7 +11,6 @@ class ClapTrap{
 
 	public:
 		ClapTrap(std::string name);
-		ClapTrap(std::string name, long long hp, long long ep, long long ad);
 		~ClapTrap();
 		void takeDamage(unsigned int amount);
 		void beRepaired(unsigned int amount);
@@ -20,7 +19,7 @@ class ClapTrap{
 		bool checkPoints( void ) const;
 		void consumeEnergyPoints(void);
 		void getInfo( void ) const;
-		virtual void attack(const std::string& target);
+		void attack(const std::string& target);
 	
 	private:
 		std::string name_;

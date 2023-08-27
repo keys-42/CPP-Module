@@ -1,8 +1,13 @@
 #include "FragTrap.hpp"
+# include "ScavTrap.hpp"
 
 int main () 
 {
 	FragTrap a("Emily"), b("James");
+	a.highFivesGuys();
+	b.highFivesGuys();
+	a.getInfo();
+	b.getInfo();
 
 	a.attack(b.getName());
 	b.takeDamage(a.getAttackDamage());
@@ -11,6 +16,43 @@ int main ()
 	a.getInfo();
 	b.getInfo();
 
-	a.highFivesGuys();
+	b.attack(a.getName());
+	a.takeDamage(b.getAttackDamage());
+	a.beRepaired(100);
+	a.getInfo();
+	b.getInfo();
+
+	while( b.checkPoints() )
+	{
+		a.attack(b.getName());
+		b.takeDamage(a.getAttackDamage());
+	}
+
+	std::cout << "--------------------------------" << std::endl;
+	a.getInfo();
+	b.getInfo();
+	std::cout << "Challenge." << std::endl;
+	b.attack(a.getName());
+	std::cout << "Challenge end." << std::endl;
+	a.getInfo();
+	b.getInfo();
+	std::cout << "--------------------------------" << std::endl;
+	FragTrap c("Emma"), d("William");
+	d.beRepaired(10000000);
+	c.getInfo();
+	d.getInfo();
+	while(c.checkPoints())
+	{
+		c.attack(d.getName());
+		d.takeDamage(c.getAttackDamage());
+	}
+	c.getInfo();
+	d.getInfo();
+	std::cout << "Challenge." << std::endl;
+	b.attack(a.getName());
+	std::cout << "Challenge end." << std::endl;
+	c.getInfo();
+	d.getInfo();
 	return 0;
+
 }

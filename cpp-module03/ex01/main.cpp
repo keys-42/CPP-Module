@@ -3,6 +3,8 @@
 int main () 
 {
 	ScavTrap a("Emily"), b("James");
+	a.guardGate();
+	b.guardGate();
 	a.getInfo();
 	b.getInfo();
 

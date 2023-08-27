@@ -5,11 +5,6 @@ ClapTrap::ClapTrap(std::string name) : hit_points_(10), energy_points_(10), atta
 	std::cout << "CrapTrap defualt constructor called: " << name <<std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name, long long hp, long long ep, long long ad) : hit_points_(hp), energy_points_(ep), attack_damage_(ad), name_(name)
-{
-	std::cout << "CrapTrap defualt constructor called: " << name <<std::endl;
-}
-
 ClapTrap::~ClapTrap(){ std::cout << "ClapTrap defualt destructor called" <<std::endl; }
 
 void ClapTrap::attack(const std::string& target)
