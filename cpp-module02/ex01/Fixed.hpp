@@ -10,8 +10,6 @@ class Fixed
 		int value_;
 		static const int bit_ = 8;
 
-		friend std::ostream& operator<<(std::ostream& os, const Fixed& obj);
-
 	public:
 		Fixed();
         Fixed( const int value );
@@ -26,5 +24,7 @@ class Fixed
 		float toFloat( void ) const;
 		int toInt( void ) const;
 };
+
+std::ostream& operator<<(std::ostream& os, const Fixed& obj);
 
 #endif

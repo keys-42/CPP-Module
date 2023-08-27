@@ -1,17 +1,7 @@
 #include "Fixed.hpp"
 
-Fixed::Fixed()
-{
-	std::cout << "Default constructor called" << std::endl;
-	value_ = 0;
-}
+Fixed::Fixed() : value_(0) { std::cout << "Default constructor called" << std::endl; }
 
-/**
- * 仮定:
- * 32ビットの整数を使用。
- * 上位24ビットは整数部分。
- * 下位8ビットは小数部分。
-*/
 Fixed::Fixed(const int value)
 {
 	std::cout << "Int constructor called" << std::endl;
