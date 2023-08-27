@@ -4,7 +4,9 @@ FILENAME	= file
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = $(shell find . -name "*.cpp")
+SRC =	ClapTrap.cpp \
+		ScavTrap.cpp \
+		main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

@@ -11,7 +11,6 @@ class ClapTrap{
 
 	public:
 		ClapTrap(std::string name);
-		ClapTrap(std::string name, long long hp, long long ep, long long ad);
 		~ClapTrap();
 		void takeDamage(unsigned int amount);
 		void beRepaired(unsigned int amount);

@@ -3,6 +3,8 @@
 int main () 
 {
 	ScavTrap a("Emily"), b("James");
+	a.getInfo();
+	b.getInfo();
 
 	a.attack(b.getName());
 	b.takeDamage(a.getAttackDamage());
@@ -11,6 +13,42 @@ int main ()
 	a.getInfo();
 	b.getInfo();
 
-	a.guardGate();
+	b.attack(a.getName());
+	a.takeDamage(b.getAttackDamage());
+	a.beRepaired(100);
+	a.getInfo();
+	b.getInfo();
+
+	while( b.checkPoints() )
+	{
+		a.attack(b.getName());
+		b.takeDamage(a.getAttackDamage());
+	}
+
+	std::cout << "--------------------------------" << std::endl;
+	a.getInfo();
+	b.getInfo();
+	std::cout << "Challenge." << std::endl;
+	b.attack(a.getName());
+	std::cout << "Challenge end." << std::endl;
+	a.getInfo();
+	b.getInfo();
+	std::cout << "--------------------------------" << std::endl;
+	ScavTrap c("Emma"), d("William");
+	d.beRepaired(10000000);
+	c.getInfo();
+	d.getInfo();
+	while(c.checkPoints())
+	{
+		c.attack(d.getName());
+		d.takeDamage(c.getAttackDamage());
+	}
+	c.getInfo();
+	d.getInfo();
+	std::cout << "Challenge." << std::endl;
+	b.attack(a.getName());
+	std::cout << "Challenge end." << std::endl;
+	c.getInfo();
+	d.getInfo();
 	return 0;
 }
