@@ -6,10 +6,6 @@
 #include <iostream>
 #include <string>
 
-#include "Weapon.hpp"
-#include <iostream>
-#include <string>
-
 class HumanB {
 	public:
 		HumanB(const std::string name);
