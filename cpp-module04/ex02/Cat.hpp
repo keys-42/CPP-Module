@@ -12,7 +12,7 @@ class Cat: public Animal
         void makeSound();
 
 		private:
-				Brain* brain;
+			Brain* brain;
 
 };
 

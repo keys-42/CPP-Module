@@ -12,7 +12,7 @@ class Dog: public Animal
         void makeSound();
 
 		private:
-				Brain* brain;
+			Brain* brain;
 };
 
 #endif

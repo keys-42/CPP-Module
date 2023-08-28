@@ -5,24 +5,17 @@
 
 int main()
 {
-	int i = 0;
-	Animal* a[N];
+	Animal* a, * b;
 
-	while(i < N)
-	{
-		if (i < 50)
-			a[i] = new Dog();
-		else
-			a[i] = new Cat();
-		i++;
-	}
+	a = new Dog();
+	b = new Cat();
+	std::cout << a->getType() << " " << std::endl;
+	std::cout << b->getType() << " " << std::endl;
 
-	i = 0;
-	while(i < N)
-	{
-		delete a[i];
-		i++;
-	}
+	a->makeSound();
+	b->makeSound();
 	
+	delete(a);
+	delete(b);
 	return 0;
 }
