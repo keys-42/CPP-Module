@@ -11,8 +11,8 @@ class Cat: public Animal
         virtual ~Cat();
         void makeSound( void ) const;
 
-		private:
-				Brain* brain;
+	private:
+			Brain* brain;
 
 };
 
