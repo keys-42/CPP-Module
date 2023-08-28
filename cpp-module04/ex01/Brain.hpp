@@ -1,17 +1,17 @@
 #ifndef BRAIN_HPP
 # define BRAIN_HPP
 
-#include <iostream>
-#include <string>
+# include <iostream>
+# include <string>
 
 class Brain
 {
-    public:
-        Brain();
-        ~Brain();
-        
+	public:
+		Brain();
+		~Brain();
+
     private:
-        std::string idea[100];
+		std::string ideas[100];
 };
 
 #endif

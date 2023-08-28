@@ -1,8 +1,8 @@
 #ifndef CAT_HPP
 # define CAT_HPP
 
-#include "Animal.hpp"
-#include "Brain.hpp"
+# include "Animal.hpp"
+# include "Brain.hpp"
 
 class Cat: public Animal
 {
@@ -11,8 +11,9 @@ class Cat: public Animal
         virtual ~Cat();
         void makeSound( void ) const;
 
-    private:
-        Brain* brain_;
+		private:
+				Brain* brain;
+
 };
 
 #endif
