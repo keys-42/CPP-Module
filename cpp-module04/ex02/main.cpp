@@ -1,7 +1,7 @@
 #include "Animal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
-# define N 100
+# define N 5
 
 int main()
 {
@@ -20,7 +20,7 @@ int main()
 	i = 0;
 	while(i < N)
 	{
-		delete(a[i]);
+		delete a[i];
 		i++;
 	}
 	

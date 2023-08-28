@@ -1,10 +1,16 @@
-NAME		= ClapTrap
+NAME		= Abstract
 CXX			= c++
 FILENAME	= file
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = $(shell find . -name "*.cpp")
+SRC =	Animal.cpp \
+		Cat.cpp \
+		Dog.cpp \
+		main.cpp \
+		WrongAnimal.cpp \
+		WrongCat.cpp \
+		Brain.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

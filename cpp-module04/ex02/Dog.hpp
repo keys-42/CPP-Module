@@ -1,8 +1,8 @@
 #ifndef DOG_HPP
 # define DOG_HPP
 
-#include "Animal.hpp"
-#include "Brain.hpp"
+# include "Animal.hpp"
+# include "Brain.hpp"
 
 class Dog: public Animal
 {
@@ -10,9 +10,9 @@ class Dog: public Animal
         Dog();
         virtual ~Dog();
         void makeSound();
-    
-    private:
-        Brain* brain_;
+
+		private:
+				Brain* brain;
 };
 
 #endif
