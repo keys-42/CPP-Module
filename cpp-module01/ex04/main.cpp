@@ -34,7 +34,7 @@ int main() {
 	std::string newfile = file;
 	newfile.append(".replace");
 	std::ofstream outfile(newfile.c_str());
-	    if (!outfile) {
+	if (!outfile) {
         std::cerr << "file open error"<< std::endl;
         return 1;
     }
