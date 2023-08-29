@@ -33,6 +33,10 @@ int main()
 	i1->makeSound();
 	meta1->makeSound();
 	std::cout << "----------------------------------" << std::endl;
+	std::cout << "----------------------------------" << std::endl;
+	const WrongCat  p = WrongCat();
+	p.makeSound();
+	std::cout << "----------------------------------" << std::endl;
 
 	return 0;
 }
