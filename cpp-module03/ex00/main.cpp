@@ -12,6 +12,8 @@ int main ()
 
 	a.getInfo();
 	b.getInfo();
+	
+	std::cout << "------------------------------------------------------------" << std::endl;
 
 	b.attack(a.getName());
 	a.takeDamage(b.getAttackDamage());

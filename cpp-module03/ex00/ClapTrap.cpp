@@ -16,7 +16,8 @@ void ClapTrap::attack(const std::string& target)
 	std::cout << "ClapTrap " << this->getName() << " attacks " << target << ", causing " << this->getAttackDamage() << " points of damage!" <<std::endl;
 }
 
-void ClapTrap::takeDamage(unsigned int amount){ 
+void ClapTrap::takeDamage(unsigned int amount)
+{ 
 	if( hit_points_ > amount ) 
 		hit_points_-= amount;
 	else 
@@ -24,7 +25,8 @@ void ClapTrap::takeDamage(unsigned int amount){
 	std::cout << "ClapTrap " << this->getName() << " loses " << amount << " hit points." << std::endl;
 }
 
-void ClapTrap::beRepaired(unsigned int amount){ 
+void ClapTrap::beRepaired(unsigned int amount)
+{ 
 	if(!checkPoints())
 		return;
 	consumeEnergyPoints();
@@ -32,11 +34,8 @@ void ClapTrap::beRepaired(unsigned int amount){
 	std::cout << "ClapTrap " << this->getName() << " repairs itself by " << amount << " points." << std::endl;
 }
 
-std::string ClapTrap::getName() const { return name_; }
-			
-long long ClapTrap::getAttackDamage() const { return attack_damage_; }
-
-bool ClapTrap::checkPoints( void ) const {
+bool ClapTrap::checkPoints( void ) const
+{
 	if( !hit_points_ )
 		std::cout << "No hit points for " <<  this->getName() << "."<< std::endl; 
 	else if ( !energy_points_ )
@@ -44,9 +43,8 @@ bool ClapTrap::checkPoints( void ) const {
 	return hit_points_ && energy_points_; 
 }
 
-void ClapTrap::consumeEnergyPoints( void ) { energy_points_--; }
-
-void ClapTrap::getInfo() const { 
+void ClapTrap::getInfo() const
+{ 
 	std::cout << name_ << " information " << std::endl;
 	std::cout << "{" << std::endl;
 	std::cout << "	hit_points: " << hit_points_ << std::endl;
@@ -54,3 +52,9 @@ void ClapTrap::getInfo() const {
 	std::cout << "	attack_damage_: " << attack_damage_ << std::endl;
 	std::cout << "}" << std::endl;
 }
+
+std::string ClapTrap::getName() const { return name_; }
+			
+long long ClapTrap::getAttackDamage() const { return attack_damage_; }
+
+void ClapTrap::consumeEnergyPoints( void ) { energy_points_--; }
