@@ -16,6 +16,8 @@ void ClapTrap::attack(const std::string& target)
 }
 
 void ClapTrap::takeDamage(unsigned int amount){ 
+	if(!checkPoints())
+		return;
 	if( hit_points_ > amount ) 
 		hit_points_-= amount;
 	else 
