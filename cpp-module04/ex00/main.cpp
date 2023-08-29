@@ -9,13 +9,13 @@ int main()
 	const Animal* j = new Dog();
 	const Animal* i = new Cat();
 	std::cout << "----------type-------------" << std::endl;
-	std::cout << meta->getType() << " " << std::endl;
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
+	std::cout << std::setw(5) << "Animal:" << meta->getType() << " " << std::endl;
+	std::cout << std::setw(5) << "Dog   :" << j->getType() << " " << std::endl;
+	std::cout << std::setw(5) << "Cat   :" << i->getType() << " " << std::endl;
 	std::cout << "--------sound--------------" << std::endl;
+	meta->makeSound();
 	i->makeSound(); 
 	j->makeSound();
-	meta->makeSound();
 	std::cout << "---------------------------" << std::endl;
 
 	const WrongAnimal* meta1 = new WrongAnimal();
