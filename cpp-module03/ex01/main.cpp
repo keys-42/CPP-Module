@@ -48,9 +48,13 @@ int main ()
 	c.getInfo();
 	d.getInfo();
 	std::cout << "Challenge." << std::endl;
-	b.attack(a.getName());
+	c.attack(d.getName());
 	std::cout << "Challenge end." << std::endl;
 	c.getInfo();
 	d.getInfo();
+	a.guardGate();
+	b.guardGate();
+	c.guardGate();
+	d.guardGate();
 	return 0;
 }

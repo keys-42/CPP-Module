@@ -21,5 +21,7 @@ void ScavTrap::attack(const std::string& target)
 
 void ScavTrap::guardGate()
 {
+	if(!checkPoints())
+		return;
     std::cout << "ScavTrap is now in Gate keeper mode." << std::endl;
 }
