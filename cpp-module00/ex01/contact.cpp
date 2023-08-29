@@ -46,9 +46,9 @@ bool Contact::getFlag()
 
 std::string Contact::changeContent(std::string s)
 {
-	if(s.length()  < 10)
+	if(s.length()  <= 10)
 		return s;
-	return s.substr(1,9) + ".";
+	return s.substr(0,9) + ".";
 }
 
 void Contact::getContants()
