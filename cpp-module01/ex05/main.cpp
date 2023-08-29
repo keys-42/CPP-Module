@@ -2,6 +2,7 @@
 #include <limits>
 #include "Harl.hpp"
 #include <sstream>
+#include <iomanip>
 
 int main()
 {
@@ -9,6 +10,14 @@ int main()
 	Harl h;
 
 	do{
+		std::cout << "-----------------------------------" << std::endl;
+		std::cout << "| " << \
+		std::setw(6) << "DEBUG " <<  "| " << \
+		std::setw(6) << " INFO " << "| " << \
+		std::setw(6) << "WARNING" << " | " << \
+		std::setw(6) << "ERROR " << "|" << \
+		std::endl;
+		std::cout << "-----------------------------------" << std::endl;
 		std::cout << "level: ";
 		if(!std::getline(std::cin, s))
 		{
@@ -24,6 +33,7 @@ int main()
 			}
 		}
 		h.complain(s);
+		std::cout << std::endl;
 	} while (s.compare("exit"));
 
 	return 0;
