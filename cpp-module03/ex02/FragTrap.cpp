@@ -21,5 +21,7 @@ void FragTrap::attack(const std::string& target)
 
 void FragTrap::highFivesGuys(void)
 {
+	if(!checkPoints())
+		return;
     std::cout << "Hey! Give me a positive high five!" << std::endl;
 }

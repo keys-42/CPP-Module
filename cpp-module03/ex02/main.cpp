@@ -31,9 +31,11 @@ int main ()
 	std::cout << "--------------------------------" << std::endl;
 	a.getInfo();
 	b.getInfo();
+	std::cout << "++++++++++" << std::endl;
 	std::cout << "Challenge." << std::endl;
 	b.attack(a.getName());
 	std::cout << "Challenge end." << std::endl;
+	std::cout << "++++++++++" << std::endl;
 	a.getInfo();
 	b.getInfo();
 	std::cout << "--------------------------------" << std::endl;
@@ -48,11 +50,17 @@ int main ()
 	}
 	c.getInfo();
 	d.getInfo();
+	std::cout << "++++++++++" << std::endl;
 	std::cout << "Challenge." << std::endl;
-	b.attack(a.getName());
+	c.attack(d.getName());
 	std::cout << "Challenge end." << std::endl;
+	std::cout << "++++++++++" << std::endl;
 	c.getInfo();
 	d.getInfo();
+	a.highFivesGuys();
+	b.highFivesGuys();
+	c.highFivesGuys();
+	d.highFivesGuys();
 	return 0;
 
 }
