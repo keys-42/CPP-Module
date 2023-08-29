@@ -16,7 +16,6 @@ class HumanB {
 	private:
 		std::string name_;
 		Weapon *w_;
-
 };
 
 

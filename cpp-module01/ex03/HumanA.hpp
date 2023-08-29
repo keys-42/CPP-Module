@@ -14,7 +14,6 @@ class HumanA {
 	private:
 		std::string name_;
 		Weapon *w_;
-
 };
 
 #endif
