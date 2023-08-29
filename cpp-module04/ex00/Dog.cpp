@@ -7,4 +7,5 @@ Dog::Dog( void ) : Animal() {
 
 Dog::~Dog( void ) { std::cout << "Dog Default destructor called" << std::endl; };
 
-void Dog::makeSound( void ) const { std::cout << "woof" << std::endl; }
+void Dog::makeSound( void ) const {
+    std::cout << std::setw(13) << "dog makeSound" << ":" << "woof" << std::endl; }
