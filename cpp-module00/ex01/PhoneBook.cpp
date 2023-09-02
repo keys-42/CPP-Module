@@ -44,7 +44,7 @@ int Phonebook::request_index()
 		return -1;
 	}
 	index--;
-	if(0 <= index && index <= 9)
+	if(0 <= index && index <= 8)
 	{
 		if(contact_[index].getFlag() == true)
 				return index;
