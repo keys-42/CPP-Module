@@ -10,10 +10,11 @@ class Cat: public Animal
         Cat();
         virtual ~Cat();
         void makeSound( void ) const;
+        Brain *getBrain() const;
+        Cat & operator = ( const Cat & r);
 
 	private:
 			Brain* brain;
-
 };
 
 #endif

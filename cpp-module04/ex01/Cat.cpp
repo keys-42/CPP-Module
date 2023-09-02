@@ -7,10 +7,19 @@ Cat::Cat(void): Animal() {
 }
 
 Cat::~Cat( void ) {
-	std::cout << "Cat Default destructor called" << std::endl;
 	delete brain;
+	std::cout << "Cat Default destructor called" << std::endl;
 }
 
 void Cat::makeSound( void ) const {}
 
+Brain *Cat::getBrain() const
+{
+	return brain;
+}
 
+Cat & Cat::operator = ( const Cat & r)
+{
+	this->brain = r.brain;
+	return *this;
+}

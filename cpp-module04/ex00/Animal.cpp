@@ -4,7 +4,7 @@ Animal::Animal() : type_(""){ std::cout << "Animal Default constructor called" <
 
 Animal::~Animal(){ std::cout << "Animal Default destructor called" << std::endl; }
 
-std::string Animal::getType( void ) const { return type_ ;};
+const std::string& Animal::getType( void ) const { return type_ ;};
 
 void Animal::makeSound( void ) const { 
     std::cout << std::setw(13) << "Animal makeSound" << ":" << "Animal" <<std::endl; }
