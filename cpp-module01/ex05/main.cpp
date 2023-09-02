@@ -28,7 +28,7 @@ int main()
 			else {
 				std::cin.clear();
 				if(std::cin.rdbuf()->in_avail())
-				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				s.clear();
 			}
 		}
