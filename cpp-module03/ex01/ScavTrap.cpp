@@ -23,5 +23,5 @@ void ScavTrap::guardGate()
 {
 	if(!checkPoints())
 		return;
-    std::cout << "ScavTrap is now in Gate keeper mode." << std::endl;
+    std::cout << "ScavTrap " << this->getName() << " is now in Gate keeper mode." << std::endl;
 }

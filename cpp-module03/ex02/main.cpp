@@ -27,13 +27,14 @@ int main ()
 		a.attack(b.getName());
 		b.takeDamage(a.getAttackDamage());
 	}
-
+	
 	std::cout << "--------------------------------" << std::endl;
 	a.getInfo();
 	b.getInfo();
 	std::cout << "++++++++++" << std::endl;
 	std::cout << "Challenge." << std::endl;
 	b.attack(a.getName());
+	b.beRepaired(777);
 	std::cout << "Challenge end." << std::endl;
 	std::cout << "++++++++++" << std::endl;
 	a.getInfo();
@@ -53,6 +54,7 @@ int main ()
 	std::cout << "++++++++++" << std::endl;
 	std::cout << "Challenge." << std::endl;
 	c.attack(d.getName());
+	c.beRepaired(7777);
 	std::cout << "Challenge end." << std::endl;
 	std::cout << "++++++++++" << std::endl;
 	c.getInfo();

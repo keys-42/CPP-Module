@@ -23,5 +23,5 @@ void FragTrap::highFivesGuys(void)
 {
 	if(!checkPoints())
 		return;
-    std::cout << "Hey! Give me a positive high five!" << std::endl;
+	std::cout << "FragTrap " << this->getName() << " asks for a high five." << std::endl;
 }
