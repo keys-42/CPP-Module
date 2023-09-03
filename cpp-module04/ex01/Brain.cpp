@@ -21,7 +21,3 @@ Brain & Brain::operator= ( const Brain & r)
 Brain::~Brain(){
     std::cout << "Brain Default destructor called" << std::endl;
 }
-
-void Brain::setIdea(int index, std::string idea) { this->ideas[index] = idea; }
-
-const std::string& Brain::getIdea(int index) const { return this->ideas[index]; }
