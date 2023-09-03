@@ -6,4 +6,7 @@ WrongAnimal::~WrongAnimal(){ std::cout << "WrongAnimal Default destructor called
 
 std::string WrongAnimal::getType( void ) const { return type_ ;};
 
-void WrongAnimal::makeSound( void ) const { std::cout << "WrongAnimal" <<std::endl; }
+void WrongAnimal::makeSound( void ) const 
+{
+    std::cout << "WrongAnimals cannot bark or meow." <<std::endl; 
+}

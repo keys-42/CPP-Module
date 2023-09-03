@@ -20,5 +20,5 @@ Dog & Dog::operator= ( const Dog & r)
 }
 
 void Dog::makeSound( void ) const {
-    std::cout << std::setw(13) << "dog makeSound" << ":" << "woof" << std::endl; 
+    std::cout << "The dog is barking. woof woof!!!" << std::endl; 
 }
