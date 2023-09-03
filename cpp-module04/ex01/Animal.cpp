@@ -18,5 +18,5 @@ const std::string& Animal::getType( void ) const { return type_ ;};
 
 void Animal::makeSound( void ) const 
 { 
-    std::cout << std::setw(13) << "Animal makeSound" << ":" << "Animal" <<std::endl; 
+    std::cout << "Animals cannot bark or meow." <<std::endl; 
 }

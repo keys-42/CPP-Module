@@ -7,4 +7,6 @@ WrongCat::WrongCat(void): WrongAnimal() {
 
 WrongCat::~WrongCat( void ) { std::cout << "WrongCat Default destructor called" << std::endl; }
 
-void WrongCat::makeSound( void ) const {}
+void WrongCat::makeSound( void ) const {
+    std::cout << "the WrongCat is meowing. meow meow!" << std::endl;
+}

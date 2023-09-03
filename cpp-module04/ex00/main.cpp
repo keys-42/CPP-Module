@@ -19,12 +19,6 @@ int main()
 	std::cout << "---------------------------" << std::endl;
 	const WrongAnimal* meta1 = new WrongAnimal();
 	const WrongAnimal* i1 = new WrongCat();
-	std::cout << "-----------type-------------------" << std::endl;
-	std::cout << std::setw(5) << "Animal:" << meta->getType() << " " << std::endl;
-	std::cout << std::setw(5) << "Cat   :" << i->getType() << " " << std::endl;
-	std::cout << "-----------sound-------------------" << std::endl;
-	meta->makeSound();
-	i->makeSound(); 
 	std::cout << "------------type------------------" << std::endl;
 	std::cout << "WrongAnimal :" <<  meta1->getType() << " " << std::endl;
 	std::cout << std::setw(5) << "WrongCat    :" <<  i1->getType() << " " << std::endl;
