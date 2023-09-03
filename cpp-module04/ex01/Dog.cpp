@@ -5,7 +5,7 @@ Dog::Dog( void ) : Animal("Dog") {
     this->brain = new Brain();
 }
 
-Dog::Dog(const Dog & d) { *this = d; }
+Dog::Dog(const Dog & d) : Animal(d) { *this = d; }
 
 Dog::~Dog( void ) { 
     delete this->brain;

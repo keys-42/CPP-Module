@@ -5,7 +5,7 @@ Cat::Cat(void): Animal("Cat") {
     this->brain = new Brain();
 }
 
-Cat::Cat(const Cat & c) { *this = c; }
+Cat::Cat(const Cat & c) : Animal(c) { *this = c; }
 
 Cat::~Cat( void ) { 
     delete this->brain;
