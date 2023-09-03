@@ -15,7 +15,7 @@ Cat::~Cat( void ) {
 Cat & Cat::operator=( const Cat & r)
 {
     this->type_ = r.getType();
-    this->brain = new Brain();
+    this->brain = new Brain(*r.brain);
     return *this;
 }
 

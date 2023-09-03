@@ -17,7 +17,6 @@ int main()
 	i->makeSound(); 
 	j->makeSound();
 	std::cout << "---------------------------" << std::endl;
-
 	const WrongAnimal* meta1 = new WrongAnimal();
 	const WrongAnimal* i1 = new WrongCat();
 	std::cout << "-----------type-------------------" << std::endl;
@@ -33,9 +32,18 @@ int main()
 	meta1->makeSound();
 	i1->makeSound();
 	std::cout << "-------------test-------------" << std::endl;
-	const WrongCat  p = WrongCat();
-	p.makeSound();
+	{
+		const WrongCat  p = WrongCat();
+		p.makeSound();
+	}
 	std::cout << "----------------------------------" << std::endl;
+
+	delete meta;
+	delete j;
+	delete i;
+	std::cout << "----------------------------------" << std::endl;
+	delete meta1;
+	delete i1;
 
 	return 0;
 }

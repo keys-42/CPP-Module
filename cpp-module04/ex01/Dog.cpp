@@ -15,7 +15,7 @@ Dog::~Dog( void ) {
 Dog & Dog::operator= ( const Dog & r)
 {
     this->type_ = r.getType();
-    this->brain = new Brain();
+    this->brain = new Brain(*r.brain);
     return *this;
 }
 
