@@ -2,7 +2,7 @@
 
 Dog::Dog( void ) : Animal("Dog") { std::cout << "Dog Default constructor called" << std::endl; }
 
-Dog::Dog(const Dog & d) { *this = d; }
+Dog::Dog(const Dog & d) : Animal(d) { *this = d; }
 
 Dog::~Dog( void ) { std::cout << "Dog Default destructor called" << std::endl; };
 
