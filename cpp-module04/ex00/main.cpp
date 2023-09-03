@@ -32,7 +32,6 @@ int main()
 	std::cout << "-----------sound-------------------" << std::endl;
 	meta1->makeSound();
 	i1->makeSound();
-	std::cout << "----------------------------------" << std::endl;
 	std::cout << "-------------test-------------" << std::endl;
 	const WrongCat  p = WrongCat();
 	p.makeSound();
