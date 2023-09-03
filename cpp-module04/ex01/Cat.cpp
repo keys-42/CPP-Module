@@ -1,25 +1,24 @@
 #include "Cat.hpp"
 
-Cat::Cat(void): Animal() { 
-	std::cout << "Cat Default constructor called" << std::endl;
-    type_ = "Cat";
-	brain = new Brain();
+Cat::Cat(void): Animal("Cat") {  
+    std::cout << "Cat Default constructor called" << std::endl; 
+    this->brain = new Brain();
 }
 
-Cat::~Cat( void ) {
-	delete brain;
-	std::cout << "Cat Default destructor called" << std::endl;
+Cat::Cat(const Cat & c) { *this = c; }
+
+Cat::~Cat( void ) { 
+    delete this->brain;
+    std::cout << "Cat Default destructor called" << std::endl; 
 }
 
-void Cat::makeSound( void ) const {}
-
-Brain *Cat::getBrain() const
+Cat & Cat::operator=( const Cat & r)
 {
-	return brain;
+    this->type_ = r.getType();
+    this->brain = new Brain();
+    return *this;
 }
 
-Cat & Cat::operator = ( const Cat & r)
-{
-	this->brain = r.brain;
-	return *this;
+void Cat::makeSound( void ) const {
+    std::cout << std::setw(13) << "cat makeSound" << ":" << std::endl;
 }

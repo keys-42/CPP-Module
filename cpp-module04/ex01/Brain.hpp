@@ -7,16 +7,16 @@
 
 class Brain
 {
-	public:
-		Brain();
-		~Brain();
-		void setIdeas(std::string newIdeas[N]);
-		void setIdea(int index, std::string idea);
-		const std::string& getIdea(int index) const;
-        Brain & operator = ( const Brain & r);
-
     private:
-		std::string ideas[N];
+        std::string ideas[N];
+
+    public:
+        Brain();
+        Brain(const Brain & b);
+        ~Brain();
+        Brain & operator= ( const Brain & r);
+        void setIdea(int index, std::string idea);
+        const std::string& getIdea(int index) const;
 };
 
 #endif

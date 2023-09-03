@@ -1,38 +1,24 @@
 #include "Dog.hpp"
 
-Dog::Dog( void ) : Animal() { 
-	std::cout << "Dog Default constructor called" << std::endl;
-    type_ = "Dog";
-	brain = new Brain();
-	
-	std::string arr[N];
-
-	for(int i = 0; i < N; i++){
-		arr[i] = "sample idea" + std::to_string(i);
-	}
-
-	brain->setIdeas(arr);
+Dog::Dog( void ) : Animal("Dog") { 
+    std::cout << "Dog Default constructor called" << std::endl; 
+    this->brain = new Brain();
 }
+
+Dog::Dog(const Dog & d) { *this = d; }
 
 Dog::~Dog( void ) { 
-	delete brain;
-	std::cout << "Dog Default destructor called" << std::endl; 
+    delete this->brain;
+    std::cout << "Dog Default destructor called" << std::endl; 
 };
 
-void Dog::setBrain(std::string ideas[100])
+Dog & Dog::operator= ( const Dog & r)
 {
-	brain->setIdeas(ideas);
+    this->type_ = r.getType();
+    this->brain = new Brain();
+    return *this;
 }
 
-Brain *Dog::getBrain() const 
-{
-	return brain;
-}
-
-void Dog::makeSound( void ) const { std::cout << "woof" << std::endl; }
-
-Dog & Dog::operator = ( const Dog & r)
-{
-	this->brain = r.brain;
-	return *this;
+void Dog::makeSound( void ) const {
+    std::cout << std::setw(13) << "dog makeSound" << ":" << "woof" << std::endl; 
 }
