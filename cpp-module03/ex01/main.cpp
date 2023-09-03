@@ -26,6 +26,8 @@ int main ()
 		a.attack(b.getName());
 		b.takeDamage(a.getAttackDamage());
 	}
+	b.attack(a.getName());
+	a.beRepaired(100);
 
 	std::cout << "--------------------------------" << std::endl;
 	a.getInfo();
@@ -49,6 +51,7 @@ int main ()
 	d.getInfo();
 	std::cout << "Challenge." << std::endl;
 	c.attack(d.getName());
+	c.beRepaired(10000);
 	std::cout << "Challenge end." << std::endl;
 	c.getInfo();
 	d.getInfo();
