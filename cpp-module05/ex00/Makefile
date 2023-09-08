@@ -14,9 +14,9 @@ $(NAME):$(OBJ)
 	$(CXX) $(CXXFALGS) $^ -o $@
 
 clean:
-		$(RM) $(OBJ)
+	$(RM) $(OBJ)
 
-fclean:
+fclean:clean
 	$(RM) $(NAME)
 
 re:fclean all
