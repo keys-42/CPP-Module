@@ -2,43 +2,112 @@
 
 int main()
 {
-	std::cout << "Any attempt to instantiate a Bureaucrat using an invalid grade must throw an ex-ception:" << std::endl;
 	{
-		Bureaucrat a("test", 1);
-		std::cout << a << std::endl;
+		try {
+			Bureaucrat a("test", 1);
+			std::cout << a << std::endl;
+			Bureaucrat b("test", 100);
+			std::cout << b << std::endl;
+			Bureaucrat c("test", 150);
+            std::cout << c << std::endl;
+		} catch (Bureaucrat::GradeTooHighException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		} catch (Bureaucrat::GradeTooLowException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		}
 	}
+	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
-		Bureaucrat a("test", 100);
-		std::cout << a << std::endl;
+		try {
+			Bureaucrat a("test", 0);
+			std::cout << a << std::endl;
+		} catch (Bureaucrat::GradeTooHighException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		} catch (Bureaucrat::GradeTooLowException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		}
 	}
+	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
-		Bureaucrat a("test", 150);
-		std::cout << a << std::endl;
+		try {
+			Bureaucrat a("test", -1);
+			std::cout << a << std::endl;
+		} catch (Bureaucrat::GradeTooHighException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		} catch (Bureaucrat::GradeTooLowException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		}
 	}
+	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
-		Bureaucrat a("test", -1);
-		std::cout << a << std::endl;
+		try {
+			Bureaucrat a("test", 151);
+			std::cout << a << std::endl;
+		} catch (Bureaucrat::GradeTooHighException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		} catch (Bureaucrat::GradeTooLowException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		}
 	}
+	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
-		Bureaucrat a("test", 0);
-		std::cout << a << std::endl;
+		try {
+			Bureaucrat a("test", 5);
+			std::cout << a << std::endl;
+			while(1)
+			{
+				a.upgrade(1);
+				std::cout << a << std::endl;
+			}
+		} catch (Bureaucrat::GradeTooHighException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		} catch (Bureaucrat::GradeTooLowException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		}
 	}
+	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
-		Bureaucrat a("test", 151);
-		std::cout << a << std::endl;
+		try {
+			Bureaucrat a("test", 145);
+			std::cout << a << std::endl;
+			while(1)
+			{
+				a.downgrade(1);
+				std::cout << a << std::endl;
+			}
+		} catch (Bureaucrat::GradeTooHighException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		} catch (Bureaucrat::GradeTooLowException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		}
 	}
-	std::cout << std::endl << "If the grade is out of range, both of them will throw the same exceptions as the constructor." << std::endl;
+	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
-		Bureaucrat a("test", 1);
-		std::cout << a << std::endl;
-		a.upgrade(1);
-		a.upgrade(1);
+		try {
+			Bureaucrat a("test", 75);
+			std::cout << a << std::endl;
+			Bureaucrat b(a);
+			std::cout << b << std::endl;
+		} catch (Bureaucrat::GradeTooHighException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		} catch (Bureaucrat::GradeTooLowException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		}
 	}
+	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
-		Bureaucrat a("test", 150);
-		std::cout << a << std::endl;
-		a.downgrade(1);
-		a.downgrade(1);
+		try {
+			Bureaucrat a("test", 75);
+			std::cout << a << std::endl;
+			Bureaucrat b ("123456",100);
+			std::cout << b << std::endl;
+			b = a;
+			std::cout << b << std::endl;
+		} catch (Bureaucrat::GradeTooHighException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		} catch (Bureaucrat::GradeTooLowException& e) {
+			std::cout << e.whatMessage() << std::endl;
+		}
 	}
 
 	return 0;

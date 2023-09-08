@@ -1,21 +1,14 @@
 #include "Bureaucrat.hpp"
 #include <sstream>
 
-
 Bureaucrat::Bureaucrat(std::string name, int grade): name_(name)
 {
     std::cout << "Bureaucrat Default constructor called" << std::endl;
-    try {
-        throwGradeConstructorError(grade);
-    } 
-    catch (GradeTooHighException& e) {
-        std::cout << e.whatMessage() << std::endl;
-    }
-    catch (GradeTooLowException& e) {
-        std::cout << e.whatMessage() << std::endl;
-    }
+    if( grade < 1 )
+        throw GradeTooHighException("Exception occurred: Grade value is too high.");
+    else if ( 150 < grade )
+        throw GradeTooLowException("Exception occurred: Grade value is too low.");
     grade_ = grade;
-
 }
 
 Bureaucrat::~Bureaucrat()
@@ -23,35 +16,15 @@ Bureaucrat::~Bureaucrat()
     std::cout << "Bureaucrat Default destructor called" << std::endl;
 }
 
-std::string Bureaucrat::getName() const { return this->name_; }
-int Bureaucrat::getGrade() const { return this->grade_; }
 void Bureaucrat::upgrade(int n) { 
-    try {
-        if(grade_ - n < 1)
-            throw GradeTooHighException("Exception occurred: Grade value is too high.");
-    } catch (GradeTooHighException& e) {
-        std::cout << e.whatMessage() << std::endl;
-        return ;
-    }
-    this->grade_ += n; 
+    if(grade_ - n < 1)
+        throw GradeTooHighException("Exception occurred: Grade value is too high.");
+    this->grade_ -= n;
 }
 void Bureaucrat::downgrade(int n) { 
-    try {
-        if(grade_ + n)
+    if(grade_ + n > 150)
         throw GradeTooLowException("Exception occurred: Grade value is too low.");
-    } catch (GradeTooLowException& e) {
-        std::cout << e.whatMessage() << std::endl;
-        return ;
-    }
-    this->grade_ -= n; 
-}
-
-void Bureaucrat::throwGradeConstructorError( int grade ) {
-    if( grade < 1 )
-        throw GradeTooHighException("Exception occurred: Grade value is too high.");
-    else if ( 150 < grade )
-        throw GradeTooLowException("Exception occurred: Grade value is too low.");
-    return;
+    this->grade_ += n;
 }
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& obj)
@@ -63,3 +36,19 @@ std::ostream& operator<<(std::ostream& os, const Bureaucrat& obj)
     return os;
 }
 
+const std::string Bureaucrat::getName() const { return name_; }
+
+int Bureaucrat::getGrade() const { return this->grade_; }
+
+
+Bureaucrat::Bureaucrat(const Bureaucrat & r): name_(r.getName()), grade_(r.getGrade()){
+    std::cout << "Bureaucrat copy constructor called" << std::endl;
+}
+
+Bureaucrat& Bureaucrat::operator=(const Bureaucrat& b) {
+    std::cout << "Bureaucrat copy assignment operator overload called" << std::endl;
+    if (this != &b) {
+        this->grade_ = b.grade_;
+    }
+    return *this;
+}

@@ -11,12 +11,13 @@ class Bureaucrat
     private:
         const std::string name_;
         int grade_;
-        void throwGradeConstructorError(int grade);
 
     public:
         Bureaucrat(std::string name, int grade);
+ 		Bureaucrat(const Bureaucrat & r);
         ~Bureaucrat();
-        std::string getName() const;
+		Bureaucrat & operator=(const Bureaucrat & b);
+        const std::string getName() const;
         int getGrade() const;
         void upgrade(int n);
         void downgrade(int n);
@@ -38,8 +39,6 @@ class Bureaucrat
                 explicit GradeTooLowException( const char *message ): message_(message) {}
                 const char* whatMessage() const { return message_; }
         };
-
-
 };
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& obj);
