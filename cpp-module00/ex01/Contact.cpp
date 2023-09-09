@@ -21,9 +21,9 @@ void Contact::set()
 	for (;;) {
 		phone_number_ = get_line("Please enter last phone number	 		:");
 		bool all_digits = true;
-
-		for (std::string::const_iterator it = phone_number_.begin(); it != phone_number_.end(); ++it) {
-			if (!std::isdigit(static_cast<unsigned char>(*it))) {
+		
+		for (std::size_t i = 0; i < phone_number_.size(); ++i) {
+			if (!std::isdigit(static_cast<unsigned char>(phone_number_[i]))) {
 				all_digits = false;
 				break;
 			}
