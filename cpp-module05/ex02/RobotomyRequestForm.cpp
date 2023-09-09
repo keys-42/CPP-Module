@@ -24,11 +24,10 @@ void RobotomyRequestForm::execute(Bureaucrat const &executor) const {
     if(executor.getGrade() > this->getExecutionGrade()) {
         throw AForm::GradeTooLowException("Grade too low to execute form");
     }
+    static int i = 0;
 
     std::cout << "The drill goes vrrrr!" << std::endl;
-    srand(static_cast<unsigned int>(time(0)));
-
-    if ((rand() % 2) == 1) {
+    if (i++ % 2 == 0) {
         std::cout << this->target_ << " has been robotomized successfully\n";
     }
 	else {

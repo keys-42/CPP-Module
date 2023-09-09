@@ -28,24 +28,42 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
     std::ofstream outfile(file.c_str());
     if (!outfile) {
         std::cerr << "file open error"<< std::endl;
-        exit(1);
+        return ;
     }
-    srand(static_cast<unsigned int>(time(0)));
-    int height = rand() % 100 + 1;
+    int height = 10;
+    int decorationFrequency = 3;
+    int trunkWidth;
+    int baseWidth;
+
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < height - i - 1; ++j) {
             outfile << " ";
         }
+
         for (int j = 0; j < 2 * i + 1; ++j) {
-            outfile << "*";
+            if (i % decorationFrequency == 0 && j % 2 == 1 && i > 2) {
+                outfile << "o";
+            } else {
+                outfile << "*";
+            }
+            if((i == height - 1) && (j == 2 * i + 1 - 1)) {
+                baseWidth = j + 1;
+            }
         }
         outfile << std::endl;
     }
+    std::cout << "baseWidth: " << baseWidth << std::endl;
+    trunkWidth = baseWidth / 3;
+
     for (int i = 0; i < height / 3; ++i) {
-        for (int j = 0; j < height - 1; ++j) {
+        for (int j = 0; j < ((baseWidth/2) - (trunkWidth/2)); ++j) {
             outfile << " ";
         }
-        outfile << "*" << std::endl;
+        for(int j = 0; j < trunkWidth; ++j){
+            outfile << "|";
+        }
+        outfile << std::endl;
     }
+
     outfile.close();
 }
