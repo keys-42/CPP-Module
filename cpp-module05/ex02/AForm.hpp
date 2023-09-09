@@ -1,31 +1,34 @@
-#ifndef BUREAUCRAT_HPP
-#define BUREAUCRAT_HPP
+#ifndef AFORM_HPP
+#define AFORM_HPP
 
-#include <iostream>
 #include <string>
-# include <exception>
-#include "Form.hpp"
+#include <iostream>
+#include <sstream>
+#include "Bureaucrat.hpp"
 
-class Form;
+class Bureaucrat;
 
-class Bureaucrat
+class AForm
 {
-
     private:
         const std::string name_;
-        int grade_;
+        bool isSigned_;
+        const int sigingGrade_;
+        const int executionGrade_;
 
     public:
-        Bureaucrat(std::string name, int grade);
-        Bureaucrat(const Bureaucrat & r);
-        ~Bureaucrat();
-		Bureaucrat & operator=(const Bureaucrat & b);
+        AForm( const std::string& name, int sigingGrade );
+        AForm( const std::string& name, int sigingGrade, int executionGrade );
+        AForm(const AForm & r);
+        virtual ~AForm();
+        AForm & operator=(const AForm & f);
         const std::string getName() const;
-        int getGrade() const;
-        void upgrade(int n);
-        void downgrade(int n);
-        void signForm(Form & f) const;
-        
+        bool getIsSigned() const;
+        int getSigingGrade() const;
+        int getExecutionGrade() const;
+        void beSigned(const Bureaucrat & b);
+        virtual void execute(Bureaucrat const & executor) const = 0;
+
         class GradeTooHighException : public std::exception
         {
             const char *message_;
@@ -45,6 +48,6 @@ class Bureaucrat
         };
 };
 
-std::ostream& operator<<(std::ostream& os, const Bureaucrat& obj);
+std::ostream& operator<<(std::ostream& os, const AForm& obj);
 
 #endif
