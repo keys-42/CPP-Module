@@ -52,7 +52,6 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
         }
         outfile << std::endl;
     }
-    std::cout << "baseWidth: " << baseWidth << std::endl;
     trunkWidth = baseWidth / 3;
 
     for (int i = 0; i < height / 3; ++i) {
