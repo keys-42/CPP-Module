@@ -28,7 +28,8 @@ class Bureaucrat
 
             public:
                 explicit GradeTooHighException( const char *message ): message_(message) {}
-                const char* whatMessage() const { return message_; }
+                // const char* whatMessage() const { return message_; }
+                virtual const char* what() const throw() { return message_; }
         };
 
         class GradeTooLowException : public std::exception
@@ -37,7 +38,8 @@ class Bureaucrat
 
             public:
                 explicit GradeTooLowException( const char *message ): message_(message) {}
-                const char* whatMessage() const { return message_; }
+                // const char* whatMessage() const { return message_; }
+                virtual const char* what() const throw() { return message_; }
         };
 };
 

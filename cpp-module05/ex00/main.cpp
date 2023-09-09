@@ -11,9 +11,9 @@ int main()
 			Bureaucrat c("test", 150);
             std::cout << c << std::endl;
 		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		} catch (Bureaucrat::GradeTooLowException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		}
 	}
 	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
@@ -22,9 +22,9 @@ int main()
 			Bureaucrat a("test", 0);
 			std::cout << a << std::endl;
 		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		} catch (Bureaucrat::GradeTooLowException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		}
 	}
 	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
@@ -33,9 +33,9 @@ int main()
 			Bureaucrat a("test", -1);
 			std::cout << a << std::endl;
 		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		} catch (Bureaucrat::GradeTooLowException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		}
 	}
 	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
@@ -44,9 +44,9 @@ int main()
 			Bureaucrat a("test", 151);
 			std::cout << a << std::endl;
 		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		} catch (Bureaucrat::GradeTooLowException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		}
 	}
 	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
@@ -60,9 +60,9 @@ int main()
 				std::cout << a << std::endl;
 			}
 		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		} catch (Bureaucrat::GradeTooLowException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		}
 	}
 	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
@@ -76,9 +76,9 @@ int main()
 				std::cout << a << std::endl;
 			}
 		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		} catch (Bureaucrat::GradeTooLowException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		}
 	}
 	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
@@ -89,9 +89,9 @@ int main()
 			Bureaucrat b(a);
 			std::cout << b << std::endl;
 		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		} catch (Bureaucrat::GradeTooLowException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		}
 	}
 	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
@@ -104,12 +104,11 @@ int main()
 			b = a;
 			std::cout << b << std::endl;
 		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		} catch (Bureaucrat::GradeTooLowException& e) {
-			std::cout << e.whatMessage() << std::endl;
+			std::cout << e.what() << std::endl;
 		}
 	}
 
 	return 0;
 }
-
