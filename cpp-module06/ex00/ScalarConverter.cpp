@@ -122,7 +122,7 @@ void ScalarConverter::convert_double(std::string const &str) {
         throw ScalarConverter::NegativeInfinityException();
     else if(str.compare("nan") == 0)
         throw ScalarConverter::NotANumberException();
-         
+
     double numd = toDouble(str);
     for(std::size_t i =0; i < str.length(); i++) {
         if(flag)
