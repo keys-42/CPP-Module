@@ -2,8 +2,8 @@
 #include "B.hpp"
 #include "C.hpp"
 #include <cstdlib>
-#include <ctime>
 #include <iostream>
+#include <exception>
 
 Base * generate(void) {
     
@@ -35,8 +35,8 @@ void identify(Base* p) {
             std::cout << "B" << std::endl;
         else if(dynamic_cast<C *>(p))
             std::cout << "C" << std::endl;
-    } catch(const std::bad_cast& e) {
-        std::cout << e.what() << std::endl;
+    } catch (const std::exception &e){
+        std::cout << "exception :" << e.what() << std::endl;
     }
 }
 
@@ -46,8 +46,8 @@ void identify(Base& p) {
         (void)a;
         std::cout << "A" << std::endl;
         return ;
-    } catch (std::bad_cast&){
-        std::cout << "Not Type A" << std::endl;
+    } catch (const std::exception &e){
+        std::cout << "exception :" << e.what() << std::endl;
     }
 
     try {
@@ -55,16 +55,16 @@ void identify(Base& p) {
         (void)b;
         std::cout << "B" << std::endl;
         return ;
-    } catch (std::bad_cast&){
-        std::cout << "Not Type B" << std::endl;
+    } catch (const std::exception &e){
+        std::cout << "exception :" << e.what() << std::endl;
     }
 
     try {
         C &c = dynamic_cast<C&>(p);
         (void)c;
         std::cout << "C" << std::endl;
-    } catch (std::bad_cast&){
-        std::cout << "Not Type C" << std::endl;
+    } catch (const std::exception &e){
+        std::cout << "exception :" << e.what() << std::endl;
     }
 }
 

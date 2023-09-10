@@ -53,7 +53,7 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& b) {
     return *this;
 }
 
-void Bureaucrat::signForm(Form & f) const
+void Bureaucrat::signForm(Form & f)
 {
     try {
         f.beSigned(*this);
