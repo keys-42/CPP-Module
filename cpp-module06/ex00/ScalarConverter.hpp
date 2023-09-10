@@ -6,6 +6,7 @@
 #include <exception>
 #include <sstream>
 #include <cstdlib>
+#include <iomanip> 
 
 class ScalarConverter
 {
@@ -14,6 +15,10 @@ class ScalarConverter
         static void convert_int(std::string const &str);
         static void convert_float(std::string const &str);
         static void convert_double(std::string const &str);
+        static char toChar(std::string const &str);
+        static int  toInt(std::string const &str);
+        static float toFloat(std::string const &str);
+        static double toDouble(std::string const &str);
         
     public:
         static void convert(std::string const &str);
@@ -34,6 +39,24 @@ class ScalarConverter
         {
             public:
                 virtual const char* what() const throw() { return ("Empty string"); }
+        };
+
+        class PositiveInfinityException : public std::exception
+        {
+            public:
+                virtual const char* what() const throw() { return ("+inf"); }
+        };
+        
+        class NegativeInfinityException : public std::exception
+        {
+            public:
+                virtual const char* what() const throw() { return ("-inf"); }
+        };
+
+        class NotANumberException : public std::exception
+        {
+            public:
+                virtual const char* what() const throw() { return ("nan"); }
         };
 };
 
