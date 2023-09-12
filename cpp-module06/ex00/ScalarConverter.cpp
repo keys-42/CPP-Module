@@ -143,6 +143,7 @@ double ScalarConverter::toDouble(std::string const &str) {
     int hasComma = 0;
     
     for (std::size_t i = 0; i < str.size(); ++i) {
+        if(i == 0 && (( str[i] == '-') || (str[i] == '+')))  continue;
         if(i == (str.size()- 1) && str[i] == 'f')
             break;
         if(str[i] == comma) {
