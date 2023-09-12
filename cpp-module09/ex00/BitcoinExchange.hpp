@@ -6,9 +6,10 @@
 #include <fstream>
 #include <map>
 #include <exception>
-#include <stdexcept>
 #include <climits>
 #include <iomanip>
+#include <cmath>
+#include <limits>
 
 # define DATABASE "data.csv"
 # define DATABASEFORMAT "date,exchange_rate"

@@ -1,5 +1,4 @@
 #include "BitcoinExchange.hpp"
-#include <stdlib.h>
 
 bool validateYear(int year) {
     if (year < MINYEAR || year > MAXYEAR) 
@@ -50,7 +49,6 @@ bool makeBitcoinExchange(BitcoinExchange* btc) {
     return true;
 }
 
-
 void output(char dash, int year, int month, int day, double value, double newValue) {
     std::cout  << \
     year << \
@@ -63,6 +61,18 @@ void output(char dash, int year, int month, int day, double value, double newVal
     " = " << \
     newValue \
     << std::endl;
+}
+
+bool doubleOverflow(double x, double y) {
+    if (x == 0.0 || y == 0.0) {
+        return false;
+    }
+
+    double maxVal = std::numeric_limits<double>::max();
+    if (std::abs(x) > maxVal / std::abs(y) || std::abs(y) > maxVal / std::abs(x)) {
+        return true;
+    }
+    return false;
 }
 
 void tryExchange(std::string line, BitcoinExchange* btc) {
@@ -88,6 +98,8 @@ void tryExchange(std::string line, BitcoinExchange* btc) {
         throw std::runtime_error(ss.str());
     }
     double rate = btc->getBitcoinExchangeRate(year,month,day);
+    if( doubleOverflow(rate, value) )
+        throw std::runtime_error("Error: rate * value overflows.");
     double newValue = rate * value;
     output(dash, year, month, day, value, newValue);
 }
@@ -122,7 +134,6 @@ bool convert(char *file,BitcoinExchange* btc) {
 
 }
 
-#include <unistd.h>
 int main( int argc, char **argv)
 {
     if( argc != 2) {
@@ -134,6 +145,11 @@ int main( int argc, char **argv)
         return 1;
     if( ! convert(argv[1], btc) )
         return 1;
+
+    std::cout << "===================================================" << std::endl;
+    std::cout << "====== " << __FILE__ << " in " << __LINE__  << " copy constructor test" << " ======" << std::endl;
+    std::cout << "===================================================" << std::endl;
+
     {
         BitcoinExchange btc2(*btc);
         btc->dumpDatabaseData(2017, 1, 1);
@@ -142,6 +158,9 @@ int main( int argc, char **argv)
         btc->dumpDatabaseData(2017, 1, 1);
         btc2.dumpDatabaseData(2017, 1, 1);
     }
+    std::cout << "===================================================" << std::endl;
+    std::cout << "== " << __FILE__ << " in " << __LINE__  << " copy assignment operator test" << " ==" << std::endl;
+    std::cout << "===================================================" << std::endl;
     {
         BitcoinExchange btc2 = *btc;
         btc->dumpDatabaseData(2017, 1, 1);
