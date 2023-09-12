@@ -107,7 +107,7 @@ void tryExchange(std::string line, BitcoinExchange* btc) {
 bool convert(char *file,BitcoinExchange* btc) {
     std::ifstream f(file);
     if (!f) {
-        std::cout << "Error: could not open file." << std::endl;
+        std::cerr << "Error: could not open file." << std::endl;
         return false;
     }
     try {
@@ -120,7 +120,7 @@ bool convert(char *file,BitcoinExchange* btc) {
             try {
                 tryExchange(line, btc);
             } catch (std::runtime_error &e) {
-                std::cout << e.what() << std::endl;
+                std::cerr << e.what() << std::endl;
             }
         }
         f.close();
