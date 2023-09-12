@@ -34,6 +34,7 @@ class BitcoinExchange
     typedef std::map<int, double> DayMap;
     typedef std::map<int, DayMap> MonthMap;
     typedef std::map<int, MonthMap> BitCoinMap;
+    
     private:
         BitCoinMap data_;
     
