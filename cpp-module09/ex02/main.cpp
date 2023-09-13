@@ -16,16 +16,16 @@ int main( int argc, char **argv )
 		p.initContainer(argv);
 		p.print();
 		std::cout << "PariwiseComparison" <<std::endl;
-		p.PairwiseComparison();
+		p.PairwiseComparisonToVec();
 		p.print();
-		std::cout << "Recursion" <<std::endl;
-		p.Recursion();
+		std::cout << "RecursionToVec" <<std::endl;
+		p.RecursionToVec();
 		p.print();
-		std::cout << "InsertAtTheStart" <<std::endl;
-		p.InsertAtTheStart();
+		std::cout << "InsertAtTheStartToVec" <<std::endl;
+		p.InsertAtTheStartToVec();
 		p.print();
-		std::cout << "Insertion" <<std::endl;
-		p.Insertion();
+		std::cout << "InsertionToVec" <<std::endl;
+		p.InsertionToVec();
 		p.print();
 		
 	} catch ( std::exception &e ) {

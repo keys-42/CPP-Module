@@ -40,7 +40,7 @@ void    PmergeMe::initContainer(char **argv) {
     }    
 }
 
-void    PmergeMe::PairwiseComparison() {
+void    PmergeMe::PairwiseComparisonToVec() {
     v_itr tmp;
 
     for(v_itr it = vec_.begin(); it != vec_.end(); ++it) {
@@ -52,7 +52,7 @@ void    PmergeMe::PairwiseComparison() {
     }
 }
 
-void PmergeMe::merge( std::vector<int> &vec, std::vector<int> &vec2, std::vector<int> &vec3) {
+void PmergeMe::mergeToVec( std::vector<int> &vec, std::vector<int> &vec2, std::vector<int> &vec3) {
 
     std::size_t s2 = vec2.size();
     std::size_t s3 = vec3.size();
@@ -71,41 +71,41 @@ void PmergeMe::merge( std::vector<int> &vec, std::vector<int> &vec2, std::vector
     while(p3 < s3) vec.push_back(vec3.at(p3++));
 }
 
-void PmergeMe::mergeSort(std::vector<int> &vec) {
+void PmergeMe::mergeSortToVec(std::vector<int> &vec) {
     if (vec.size() <= 2)
         return;
     v_itr  it = vec.begin() + vec.size() / 2;
     std::vector<int> vec2(vec.begin(), it);
     std::vector<int> vec3(it , vec.end());
 
-    mergeSort(vec2);
-    mergeSort(vec3);
+    mergeSortToVec(vec2);
+    mergeSortToVec(vec3);
 
     vec.clear();
-    merge(vec, vec2, vec3);
+    mergeToVec(vec, vec2, vec3);
 }
 
-void    PmergeMe::Recursion() {
+void    PmergeMe::RecursionToVec() {
 
     if ( (vec_.size() % 2) == 1 ){
         int last = vec_.back();
         vec_.pop_back();
-        mergeSort(vec_);
+        mergeSortToVec(vec_);
         vec_.push_back(last);
         return;
     }
-    mergeSort(vec_);
+    mergeSortToVec(vec_);
 }
 
-void    PmergeMe::InsertAtTheStart() {
+void    PmergeMe::InsertAtTheStartToVec() {
     std::iter_swap( vec_.begin() , vec_.begin() + 1 );
 }
 
-std::vector<int>::iterator PmergeMe::binarySearch( int key ) {
+std::vector<int>::iterator PmergeMe::binarySearchToVec( int key ) {
     return std::lower_bound(vec_.begin(), vec_.end(), key);
 }
 
-void    PmergeMe::Insertion() {
+void    PmergeMe::InsertionToVec() {
     std::vector<int> small;
 
     v_itr it = vec_.begin();
@@ -123,7 +123,7 @@ void    PmergeMe::Insertion() {
     }
 
     for (v_itr it = small.begin(); it != small.end(); ++it) {
-        v_itr result = binarySearch(*it);
+        v_itr result = binarySearchToVec(*it);
         vec_.insert(result,*it);
     }
 }    
