@@ -26,7 +26,6 @@ class PmergeMe
         void                        initContainer(char **argv);
         
         // Sorting related to list iterators
-        // void                        mergeSortToList(std::list<int> &vec);
         std::list<int>                        mergeSortToList(std::list<int>::iterator begin, std::list<int>::iterator end);
         void                        mergeToList( std::list<int> &vec, std::list<int> &vec2, std::list<int> &vec3);
         void                        PairwiseComparisonToList();
@@ -37,7 +36,6 @@ class PmergeMe
         void                        printToList();
 
         // Sorting related to vector iterators
-        // void                        mergeSortToVec(std::vector<int> &vec);
         std::vector<int>            mergeSortToVec(v_itr begin, v_itr end);
         void                        mergeToVec( std::vector<int> &vec, std::vector<int> &vec2, std::vector<int> &vec3);
         void                        PairwiseComparisonToVec();
