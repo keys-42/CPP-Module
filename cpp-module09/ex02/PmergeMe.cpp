@@ -97,38 +97,36 @@ void    PmergeMe::Recursion() {
     mergeSort(vec_);
 }
 
-void    PmergeMe::Insertion() {
-    vec_.insert( vec_.begin() , *(vec_.begin() + 1) );
-    vec_.erase( vec_.begin() + 2 );
-    if( vec_.size() < 4 )
-        return;
-    
-    v_itr it = vec_.begin() + 3;
-
-    std::cout << "test" << std::endl;
-    for ( ; it != vec_.end();) {
-        
-    }
-    // for( ; it != vec_.end(); it += 2 ) {
-    //     v_itr t = it - 1;
-    //     for ( ;; ) {
-    //         this->print();
-    //         std::cout << "t:" << *t << " it:" <<*it <<std::endl;
-    //         if ( *t < *it ) {
-    //             vec_.insert( t, *it );
-    //             vec_.erase(it + 1);
-    //             break;
-    //         }
-    //         if ( t == vec_.begin() ) {
-    //             vec_.insert( t, *it );
-    //             vec_.erase(it + 1);
-    //             break;
-    //         }
-    //         t -= 2;
-    //     }
-       
-    // }
+void    PmergeMe::InsertAtTheStart() {
+    std::iter_swap( vec_.begin() , vec_.begin() + 1 );
 }
+
+std::vector<int>::iterator PmergeMe::binarySearch( int key ) {
+    return std::lower_bound(vec_.begin(), vec_.end(), key);
+}
+
+void    PmergeMe::Insertion() {
+    std::vector<int> small;
+
+    v_itr it = vec_.begin();
+    ++it; ++it; ++it;
+    for( ; it != vec_.end(); ) {
+        small.push_back(*it);
+        vec_.erase(it);
+        if(it == vec_.end()) break;
+        else if( (it + 1) == vec_.end() ) {
+            small.push_back(*it);
+            vec_.erase(it);
+            break;
+        }
+        ++it;
+    }
+
+    for (v_itr it = small.begin(); it != small.end(); ++it) {
+        v_itr result = binarySearch(*it);
+        vec_.insert(result,*it);
+    }
+}    
 
 void PmergeMe::print() {
     for(v_itr it = vec_.begin(); it != vec_.end(); ++it) {

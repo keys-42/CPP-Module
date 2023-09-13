@@ -8,22 +8,29 @@ int main( int argc, char **argv )
         return 1;
     }
 
-	PmergeMe *p = new PmergeMe();
+	PmergeMe p;
+    // PmergeMe< std::list<int>, std::list<int>::iterator > listInstance;
+	// PmergeMe<std::vector<int> *p = new PmergeMe();
 	try {
-		p->inputValidation(++argv);
-		p->initContainer(argv);
-		p->print();
-		p->PairwiseComparison();
-		p->print();
-		p->Recursion();
-		p->print();
-		p->Insertion();
-		p->print();
+		p.inputValidation(++argv);
+		p.initContainer(argv);
+		p.print();
+		std::cout << "PariwiseComparison" <<std::endl;
+		p.PairwiseComparison();
+		p.print();
+		std::cout << "Recursion" <<std::endl;
+		p.Recursion();
+		p.print();
+		std::cout << "InsertAtTheStart" <<std::endl;
+		p.InsertAtTheStart();
+		p.print();
+		std::cout << "Insertion" <<std::endl;
+		p.Insertion();
+		p.print();
 		
 	} catch ( std::exception &e ) {
 		std::cerr << "exception: " << e.what() << std::endl;
 	}
-	delete p;
 
     return 0;
 }

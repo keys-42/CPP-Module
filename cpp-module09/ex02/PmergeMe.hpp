@@ -10,7 +10,6 @@
 
 class PmergeMe
 {
-
     typedef std::vector<int>::iterator v_itr;
     typedef std::list<int>::iterator l_itr;
     private:
@@ -26,11 +25,14 @@ class PmergeMe
         PmergeMe & operator= (const PmergeMe &other);
         void    inputValidation(char **argv);
         void    initContainer(char **argv);
+
         void    PairwiseComparison();
         void    Recursion();
+        void    InsertAtTheStart();
+        std::vector<int>::iterator binarySearch( int key );
         void    Insertion();
         void print();
+        
 };
 
 #endif
-// 5 9 1 8 2 7 3 6 4 5
