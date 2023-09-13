@@ -7,26 +7,50 @@ int main( int argc, char **argv )
         std::cout << "Usage: " << argv[0] << " use a positive integer sequence " << std::endl;
         return 1;
     }
+	++argv;
 
-	PmergeMe p;
-    // PmergeMe< std::list<int>, std::list<int>::iterator > listInstance;
-	// PmergeMe<std::vector<int> *p = new PmergeMe();
+	std::cout << std::endl << "list iterators" <<std::endl;
 	try {
-		p.inputValidation(++argv);
+		PmergeMe p;
+		// p.inputValidation(argv);
 		p.initContainer(argv);
-		p.print();
+		p.printToList();
+		std::cout << "PariwiseComparison" <<std::endl;
+		p.PairwiseComparisonToList();
+		p.printToList();
+		std::cout << "RecursionToList" <<std::endl;
+		p.RecursionToList();
+		p.printToList();
+		std::cout << "InsertAtTheStartToList" <<std::endl;
+		p.InsertAtTheStartToList();
+		p.printToList();
+		std::cout << "InsertionToList" <<std::endl;
+		p.InsertionToList();
+		p.printToList();
+		
+	} catch ( std::exception &e ) {
+		std::cerr << "exception: " << e.what() << std::endl;
+	}
+
+	std::cout << std::endl << "vector iterators" <<std::endl;
+
+	try {
+		PmergeMe p;
+		// p.inputValidation(argv);
+		p.initContainer(argv);
+		p.printToVec();
 		std::cout << "PariwiseComparison" <<std::endl;
 		p.PairwiseComparisonToVec();
-		p.print();
-		std::cout << "RecursionToVec" <<std::endl;
+		p.printToVec();
+		std::cout << "RecursionToVector" <<std::endl;
 		p.RecursionToVec();
-		p.print();
-		std::cout << "InsertAtTheStartToVec" <<std::endl;
+		p.printToVec();
+		std::cout << "InsertAtTheStartToVector" <<std::endl;
 		p.InsertAtTheStartToVec();
-		p.print();
-		std::cout << "InsertionToVec" <<std::endl;
+		p.printToVec();
+		std::cout << "InsertionToVector" <<std::endl;
 		p.InsertionToVec();
-		p.print();
+		p.printToVec();
 		
 	} catch ( std::exception &e ) {
 		std::cerr << "exception: " << e.what() << std::endl;
