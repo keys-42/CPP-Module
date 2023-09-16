@@ -18,9 +18,7 @@ int main()
 			bureaucrat.signForm(*form);
 			bureaucrat.executeForm(*form);
 			delete form;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -34,9 +32,7 @@ int main()
 			bureaucrat.signForm(*form);
 			bureaucrat.executeForm(*form);
 			delete form;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -50,9 +46,7 @@ int main()
 			bureaucrat.signForm(*form);
 			bureaucrat.executeForm(*form);
 			delete form;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -66,9 +60,7 @@ int main()
 			bureaucrat.signForm(*form);
 			bureaucrat.executeForm(*form);
 			delete form;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -84,9 +76,7 @@ int main()
 			bureaucrat.signForm(*form);
 			bureaucrat.executeForm(*form);
 			delete form;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -100,9 +90,7 @@ int main()
 			bureaucrat.signForm(*form);
 			bureaucrat.executeForm(*form);
 			delete form;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -116,9 +104,7 @@ int main()
 			bureaucrat.signForm(*form);
 			bureaucrat.executeForm(*form);
 			delete form;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -132,9 +118,7 @@ int main()
 			bureaucrat.signForm(*form);
 			bureaucrat.executeForm(*form);
 			delete form;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -150,9 +134,7 @@ int main()
 			bureaucrat.signForm(*form);
 			bureaucrat.executeForm(*form);
 			delete form;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -166,9 +148,7 @@ int main()
 			bureaucrat.signForm(*form);
 			bureaucrat.executeForm(*form);
 			delete form;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -182,9 +162,7 @@ int main()
 			bureaucrat.signForm(*form);
 			bureaucrat.executeForm(*form);
 			delete form;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -198,9 +176,7 @@ int main()
 			bureaucrat.signForm(*form);
 			bureaucrat.executeForm(*form);
 			delete form;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}

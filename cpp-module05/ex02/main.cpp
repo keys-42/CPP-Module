@@ -6,69 +6,64 @@
 
 int main()
 {
-	std::cout << "----------------ShrubberyCreationForm---------------- " << __FILE__ << " in " << __LINE__ << std::endl << std::endl;
+	std::cout << "--------ShrubberyCreationForm---------------- " << __FILE__ << " in " << __LINE__ << std::endl;
+	std::cout << "--------simple test-------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
 		try {
 			Bureaucrat bureaucrat("Jim", 1);
-			ShrubberyCreationForm shrubberyCreationForm("shrubberyCreationForm");
+			ShrubberyCreationForm shrubberyCreationForm("tree1");
 			std::cout << bureaucrat << std::endl;
 			std::cout << shrubberyCreationForm;
 			bureaucrat.signForm(shrubberyCreationForm);
 			bureaucrat.executeForm(shrubberyCreationForm);
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+			std::cout << shrubberyCreationForm;
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
-	std::cout << std::endl;
+	std::cout << std::endl << "--------simple test-------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
 		try {
 			Bureaucrat bureaucrat("Jim", 140);
-			ShrubberyCreationForm shrubberyCreationForm("shrubberyCreationForm");
+			ShrubberyCreationForm shrubberyCreationForm("tree2");
 			std::cout << bureaucrat << std::endl;
 			std::cout << shrubberyCreationForm;
 			bureaucrat.signForm(shrubberyCreationForm);
 			bureaucrat.executeForm(shrubberyCreationForm);
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
-	std::cout << std::endl;
+	std::cout << std::endl << "--------simple test-------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
 		try {
 			Bureaucrat bureaucrat("Jim", 145);
-			ShrubberyCreationForm shrubberyCreationForm("shrubberyCreationForm");
+			ShrubberyCreationForm shrubberyCreationForm("tree");
 			std::cout << bureaucrat << std::endl;
 			std::cout << shrubberyCreationForm;
 			bureaucrat.signForm(shrubberyCreationForm);
+			std::cout << shrubberyCreationForm;
 			bureaucrat.executeForm(shrubberyCreationForm);
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
-	std::cout << std::endl;
+	std::cout << std::endl << "--------simple test-------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
 		try {
 			Bureaucrat bureaucrat("Jim", 150);
-			ShrubberyCreationForm shrubberyCreationForm("shrubberyCreationForm");
+			ShrubberyCreationForm shrubberyCreationForm("tree");
 			std::cout << bureaucrat << std::endl;
 			std::cout << shrubberyCreationForm;
 			bureaucrat.signForm(shrubberyCreationForm);
 			bureaucrat.executeForm(shrubberyCreationForm);
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
-	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	
-	std::cout << "----------------RobotomyRequestForm---------------- " << __FILE__ << " in " << __LINE__ << std::endl << std::endl;
+	std::cout << "--------RobotomyRequestForm---------------- " << __FILE__ << " in " << __LINE__ << std::endl;
+	std::cout << "--------simple test-------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
 		try {
 			Bureaucrat bureaucrat("Jim", 1);
@@ -77,13 +72,16 @@ int main()
 			std::cout << robotomyRequestForm;
 			bureaucrat.signForm(robotomyRequestForm);
 			bureaucrat.executeForm(robotomyRequestForm);
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+			bureaucrat.executeForm(robotomyRequestForm);
+			bureaucrat.executeForm(robotomyRequestForm);
+			bureaucrat.executeForm(robotomyRequestForm);
+			bureaucrat.executeForm(robotomyRequestForm);
+			bureaucrat.executeForm(robotomyRequestForm);
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
-	std::cout << std::endl;
+	std::cout << std::endl << "--------simple test-------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
 		try {
 			Bureaucrat bureaucrat("Jim", 46);
@@ -92,13 +90,11 @@ int main()
 			std::cout << robotomyRequestForm;
 			bureaucrat.signForm(robotomyRequestForm);
 			bureaucrat.executeForm(robotomyRequestForm);
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
-	std::cout << std::endl;
+	std::cout << std::endl << "--------simple test-------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
 		try {
 			Bureaucrat bureaucrat("Jim", 72);
@@ -107,13 +103,11 @@ int main()
 			std::cout << robotomyRequestForm;
 			bureaucrat.signForm(robotomyRequestForm);
 			bureaucrat.executeForm(robotomyRequestForm);
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
-	std::cout << std::endl;
+	std::cout << std::endl << "--------simple test-------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
 		try {
 			Bureaucrat bureaucrat("Jim", 73);
@@ -122,15 +116,12 @@ int main()
 			std::cout << robotomyRequestForm;
 			bureaucrat.signForm(robotomyRequestForm);
 			bureaucrat.executeForm(robotomyRequestForm);
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
-	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
-
-	std::cout << "----------------PresidentialPardonForm---------------- " << __FILE__ << " in " << __LINE__ << std::endl << std::endl;
+	std::cout << "--------PresidentialPardonForm---------------- " << __FILE__ << " in " << __LINE__ << std::endl;
+	std::cout << "--------simple test-------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
 		try {
 			Bureaucrat bureaucrat("Jim", 1);
@@ -139,13 +130,11 @@ int main()
 			std::cout << presidentform;
 			bureaucrat.signForm(presidentform);
 			bureaucrat.executeForm(presidentform);
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
-	std::cout << std::endl;
+	std::cout << std::endl << "--------simple test-------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
 		try {
 			Bureaucrat bureaucrat("Jim", 10);
@@ -154,13 +143,11 @@ int main()
 			std::cout << presidentform;
 			bureaucrat.signForm(presidentform);
 			bureaucrat.executeForm(presidentform);
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
-	std::cout << std::endl;
+	std::cout << std::endl << "--------simple test-------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
 		try {
 			Bureaucrat bureaucrat("Jim", 25);
@@ -169,13 +156,11 @@ int main()
 			std::cout << presidentform;
 			bureaucrat.signForm(presidentform);
 			bureaucrat.executeForm(presidentform);
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
-	std::cout << std::endl;
+	std::cout << std::endl << "--------simple test-------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	{
 		try {
 			Bureaucrat bureaucrat("Jim", 100);
@@ -184,9 +169,7 @@ int main()
 			std::cout << presidentform;
 			bureaucrat.signForm(presidentform);
 			bureaucrat.executeForm(presidentform);
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}

@@ -2,7 +2,6 @@ NAME	= bureaucrat
 CXX		= c++
 
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
-CXXFLAGS	= -Wall -Wextra -Werror -std=c++98 -g -fsanitize=leak
 
 SRC =	ShrubberyCreationForm.cpp \
 		main.cpp \
@@ -23,6 +22,7 @@ clean:
 
 fclean:clean
 	$(RM) $(NAME)
+	$(RM) *_shrubbery
 
 re:fclean all
 

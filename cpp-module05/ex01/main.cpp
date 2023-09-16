@@ -11,9 +11,7 @@ int main()
 			a.signForm(f);
 			std::cout << a << std::endl;
 			std::cout << f << std::endl;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -25,9 +23,7 @@ int main()
 			a.signForm(f);
 			std::cout << a << std::endl;
 			std::cout << f << std::endl;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -39,9 +35,7 @@ int main()
 			a.signForm(f);
 			std::cout << a << std::endl;
 			std::cout << f << std::endl;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -53,9 +47,7 @@ int main()
 			a.signForm(f);
 			std::cout << a << std::endl;
 			std::cout << f << std::endl;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -67,9 +59,7 @@ int main()
 			a.signForm(f);
 			std::cout << a << std::endl;
 			std::cout << f << std::endl;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -81,9 +71,7 @@ int main()
 			a.signForm(f);
 			std::cout << a << std::endl;
 			std::cout << f << std::endl;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -95,9 +83,7 @@ int main()
 			a.signForm(f);
 			std::cout << a << std::endl;
 			std::cout << f << std::endl;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -109,9 +95,7 @@ int main()
 			a.signForm(f);
 			std::cout << a << std::endl;
 			std::cout << f << std::endl;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -123,9 +107,7 @@ int main()
 			a.signForm(f);
 			std::cout << a << std::endl;
 			std::cout << f << std::endl;
-		} catch (Bureaucrat::GradeTooHighException& e) {
-			std::cout << e.what() << std::endl;
-		} catch (Bureaucrat::GradeTooLowException& e) {
+		} catch (std::exception & e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
