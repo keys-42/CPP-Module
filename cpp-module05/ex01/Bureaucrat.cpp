@@ -3,7 +3,7 @@
 
 Bureaucrat::Bureaucrat(std::string name, int grade): name_(name)
 {
-    std::cout << "Bureaucrat Default constructor called" << std::endl;
+    std::cout << "Bureaucrat Default constructor called. grade is " << grade << "." <<  std::endl;
     if( grade < 1 )
         throw GradeTooHighException("Exception occurred: Grade value is too high.");
     else if ( 150 < grade )
@@ -17,13 +17,17 @@ Bureaucrat::~Bureaucrat()
 }
 
 void Bureaucrat::upgrade(int n) { 
-    if(grade_ - n < 1)
-        throw GradeTooHighException("Exception occurred: Grade value is too high.");
+    if ( n < 1 )  throw GradeTooHighException("Exception occurred: The grade value is a positive integer only.");
+    if( grade_ - n < 1) throw GradeTooHighException("Exception occurred: Grade value is too high.");
+    std::cout << this->getName() << " upgraded by "<< n <<"." << std::endl;
     this->grade_ -= n;
 }
+
 void Bureaucrat::downgrade(int n) { 
+    if ( n < 1 )  throw GradeTooHighException("Exception occurred: The grade value is a positive integer only.");
     if(grade_ + n > 150)
         throw GradeTooLowException("Exception occurred: Grade value is too low.");
+    std::cout << this->getName() << " downgraded by "<< n <<"." << std::endl;
     this->grade_ += n;
 }
 
