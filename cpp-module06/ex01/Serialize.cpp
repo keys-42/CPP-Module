@@ -7,7 +7,6 @@ uintptr_t Serialize::serialize(Data* ptr) {
     return ret;
 }
 
-
 Data* Serialize::deserialize(uintptr_t raw) {
     Data *ret;
 

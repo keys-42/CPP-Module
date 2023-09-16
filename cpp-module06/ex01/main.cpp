@@ -19,7 +19,6 @@ int main()
     l = Serialize::deserialize(u);
     std::cout << "l: [" << l << "]" << std::endl;
     std::cout << "u: [" << u << "]" << std::endl;
-
     std::cout << "{" << std::endl;
     std::cout << "    " << a.id_ << std::endl;
     std::cout << "    " << a.name_ << std::endl;
