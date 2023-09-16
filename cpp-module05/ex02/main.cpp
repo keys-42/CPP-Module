@@ -3,7 +3,6 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 
-
 int main()
 {
 	std::cout << "--------ShrubberyCreationForm---------------- " << __FILE__ << " in " << __LINE__ << std::endl;
@@ -191,3 +190,8 @@ int main()
 
 	return 0;
 }
+
+// __attribute__((destructor))
+// static void destructor() {
+//     system("leaks -q bureaucrat");
+// }

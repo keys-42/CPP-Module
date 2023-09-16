@@ -18,7 +18,7 @@ Intern::~Intern()
 Intern &Intern::operator=(Intern const &other)
 {
     std::cout << "Intern assignation operator called" << std::endl;
-    (void)other;
+    if( this != &other) { *this = other; }
     return (*this);
 }
 
@@ -36,6 +36,11 @@ AForm* Intern::makeForm(std::string formName, std::string target) {
                 continue;
 			}
             delete form[i];
-		}
+	}
+    if(ret) {
+        std::cout << "Intern creates " << formName << std::endl;
+    } else {
+        std::cout << formName << ": Form could not be created." << std::endl;
+    }
     return ret;
 }
