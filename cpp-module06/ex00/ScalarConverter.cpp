@@ -2,7 +2,7 @@
 
 void ScalarConverter::convert(std::string const &str) {
 
-    std::string arr[] = {"cahr: ", "int: ", "float: ", "double: " };
+    std::string arr[] = {"char: ", "int: ", "float: ", "double: " };
     typedef void (*FuncPtr)(const std::string &);
 
     FuncPtr fcPtr[] = { 
@@ -16,21 +16,15 @@ void ScalarConverter::convert(std::string const &str) {
         try {
             std::cout << arr[i];
             fcPtr[i](str);
-        } catch (ScalarConverter::EmptyStringException &e) {
-            std::cout << e.what();
-        } catch (ScalarConverter::NonDisplayableException &e) {
-            std::cout << e.what();
-        } catch (ScalarConverter::EncodingException &e) {
-            std::cout << e.what();
-        } catch ( ScalarConverter::PositiveInfinityException &e) {
+        } catch ( ScalarConverter::PositiveInfinityException &e ) {
             std::cout << e.what();
             if(arr[i].compare("float: ") == 0)
                 std::cout << 'f';
-        } catch ( ScalarConverter::NegativeInfinityException &e) {
+        } catch ( ScalarConverter::NegativeInfinityException &e ) {
             std::cout << e.what();
             if(arr[i].compare("float: ") == 0)
                 std::cout << 'f';
-        } catch ( ScalarConverter::NotANumberException &e) {
+        } catch ( std::exception &e ) {
             std::cout << e.what();
         }
         std::cout << std::endl;
@@ -54,6 +48,8 @@ char ScalarConverter::toChar(std::string const &str) {
         return str[0];
     }
     int num = toInt(str);
+    if(num < 0 || 127< num)
+        throw ScalarConverter::EncodingException();
     if(!isprint(num))
         throw ScalarConverter::NonDisplayableException();
 
@@ -71,6 +67,9 @@ void ScalarConverter::convert_int(std::string const &str) {
 
 int ScalarConverter::toInt(std::string const &str) {
     double numd = toDouble(str);
+    if(numd < static_cast<double>(std::numeric_limits<int>::min()) || \
+        static_cast<double>(std::numeric_limits<int>::max()) < numd)
+        throw ScalarConverter::EncodingException();
     int num = static_cast<int>(numd);
     return num;
 }
@@ -132,8 +131,8 @@ void ScalarConverter::convert_double(std::string const &str) {
     }
     if(precision && str[str.size() - 1] == 'f')
         --precision;
-    if(precision == 0)
-        precision = 1;
+    if(precision > 2)
+        precision =2;
     std::cout << std::fixed << std::setprecision(precision);
     std::cout << numd;
 }
@@ -154,6 +153,7 @@ double ScalarConverter::toDouble(std::string const &str) {
             throw ScalarConverter::EncodingException();
         }
     }
+    if(hasComma > 1) throw ScalarConverter::EncodingException();
     std::string s = str;
     if(str[str.size() -1 ] == 'f')
         s = str.substr(0,str.size() - 1);
