@@ -173,6 +173,20 @@ int main()
 			std::cout << e.what() << std::endl;
 		}
 	}
+	std::cout << std::endl << "--------simple test-------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
+	{
+		try {
+			Bureaucrat bureaucrat("Jim", 1);
+			PresidentialPardonForm presidentform("President");
+			std::cout << bureaucrat << std::endl;
+			std::cout << presidentform;
+			bureaucrat.executeForm(presidentform);
+			bureaucrat.signForm(presidentform);
+			bureaucrat.executeForm(presidentform);
+		} catch (std::exception & e) {
+			std::cout << e.what() << std::endl;
+		}
+	}
 	std::cout << "--------------------------------------------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 
 	return 0;
