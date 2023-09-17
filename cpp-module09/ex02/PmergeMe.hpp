@@ -57,6 +57,7 @@ class PmergeMe
 
         void insertionFromSubIntoMain(std::vector<int> & mainChain, std::vector<int> & subChain, int pairSize);
         int jacobsthalNumber(int n);
+        void testttest(std::vector<int>::const_iterator i, std::vector<int>::const_iterator end, int q );
 
 
     public:
@@ -75,6 +76,8 @@ class PmergeMe
         template <typename T>
         void printDebug(const T& mainChain, const T& subChain, int pairSize, const char* message) {
             typedef typename T::const_iterator Iterator;
+
+            // if(pairSize  < 4 ) return;
 
             std::cout << std::endl << message << " pairsize: " << pairSize << "   ( " << (pairSize*2) << " )" << std::endl;
             if(!mainChain.empty()) {

@@ -16,5 +16,11 @@ int main( )
     PmergeMe *p = new PmergeMe();
     p->FordJohnsonAlgorithm(30,arr);
     delete p;
+    
+    std::sort(arr, arr + 30);
+
+    for(int i = 0; i < 30; ++i) {
+        std::cout << arr[i] << " ";
+    }
     return 0;
 }

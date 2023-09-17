@@ -112,7 +112,6 @@ void PmergeMe::separateMainChainAndSubChain(std::vector<int> & v, std::vector<in
 
 void PmergeMe::insertAtTheStart(std::vector<int> & mainChain, std::vector<int> & subChain, int pairSize) {
     mainChain.insert(mainChain.begin(), subChain.begin(), subChain.begin() + pairSize);
-    subChain.erase(subChain.begin(), subChain.begin() + pairSize);
 }
 
 /**
@@ -148,50 +147,101 @@ v_itr PmergeMe::lower_bound(std::vector<v_itr>& iterators, vi_itr begin, vi_itr 
 v_itr   PmergeMe::binarySearch(std::vector<int> & v, int key, int pairSize, int keyPosition) {
     std::vector<v_itr> iterators;
 
+    // std::cout << key << "key" << std::endl;
     for (v_itr itr = v.begin(); itr != v.end(); itr += pairSize) {
         iterators.push_back(itr);
+        // std::cout << (*itr) << " ";
     }
-    vi_itr begin = iterators.begin();
-    vi_itr end = iterators.begin() + keyPosition;
-    return lower_bound(iterators,begin, end, key, iterators.size());
+    std::cout << std::endl;
+    return lower_bound(iterators, iterators.begin(), iterators.end(), key, iterators.size());
 }
 
 int PmergeMe::jacobsthalNumber(int n) {
 
-    if (n == 0) return 0;
+    if (n <= 0) return 0;
     if (n == 1) return 1;
 
     return jacobsthalNumber(n - 1) + (2 * (jacobsthalNumber(n - 2)));
 }
 
+void PmergeMe::testttest(std::vector<int>::const_iterator i, std::vector<int>::const_iterator end, int q ) {
+    std::cout << "testtesttesss" <<std::endl;
+    for( int k =0; k < q ;++k ) {
+        if(i == end)
+            break;
+        std::cout << *i << " ";
+        ++i;
+    }
+    std::cout << std::endl;
+}
+
+
 void PmergeMe::insertionFromSubIntoMain(std::vector<int> & mainChain, std::vector<int> & subChain, int pairSize) {
     
     #ifdef SORT
         std::cout << "==================================================================================================================================================================================================================================" <<pairSize << std::endl;
+        this->printDebug<std::vector<int> >(mainChain, subChain, pairSize, "sort");
     #endif
+    int prev;
+    int now;
+    int n = 3;
+    int insertSize = pairSize;
+    for ( ;; ) {
+       
+        prev = jacobsthalNumber(n-1);
+        if(prev > ( subChain.size()/pairSize) )
+            break;
+        now = jacobsthalNumber(n);
+        // now *=pairSize;
+        if( insertSize >= subChain.size() ) break;
+        if(now > (subChain.size()/pairSize) ) {
+        std::cout << "x     insertSize " << insertSize << std::endl;
+            now = (subChain.size()/pairSize) - 1;
 
-    for ( ; !subChain.empty(); ) {
-        #ifdef SORT
-            this->printDebug<std::vector<int> >(mainChain, subChain, pairSize, "sort");
-        #endif
-
-        v_itr it = binarySearch(mainChain, (*subChain.begin()), pairSize, 0);
-
-        v_itr s_begin = subChain.begin();
-        v_itr s_end = subChain.begin();
-        if(subChain.size() < pairSize * 2) {
-            s_end = subChain.end();
+            // std::cout <<"now "<< now << " " << (now*pairSize) << ":" << *(subChain.begin() + (now*pairSize)) << std::endl;
+            v_itr it = binarySearch(mainChain, *(subChain.begin()+ (now * pairSize)), pairSize, 0);
+            // insert(mainChain, it, subChain,(subChain.begin()+ (now * pairSize)) , (subChain.begin()+ (now * pairSize) + pairSize));
+            mainChain.insert(it, (subChain.begin()+ (now * pairSize)) , subChain.end());
+            testttest( (subChain.begin()+ (now * pairSize)) , subChain.end(), 100);
+            insertSize += std::distance(subChain.begin() + (now * pairSize) , subChain.end());
+            --now;
+            --prev;
+            // continue;
         } else {
-            for (int i=0; i < pairSize; ++i) {
-                ++s_end;
-                if(s_end == subChain.end()) {
-                    break;
-                }
-            }
+            --now;
+            --prev;
         }
+        std::cout <<std::endl;
+        for( ;; ) {
+        std::cout << "insertSize " << insertSize << "now " << now << "  prev "<< prev<< std::endl;
+            if( (now == prev) || (now < 0) || (insertSize >= subChain.size()) ) break;
 
-        insert(mainChain, it, subChain, s_begin, s_end);
+        // std::cout << "now "<< now << " " << ((now)*pairSize) << ":" << *(subChain.begin() + ((now)*pairSize)) << std::endl;
+        // std::cout << "kokofdayo "<<"now "<< now << " " << ((now-1)*pairSize) << ":" << *(subChain.begin() + ((now - 1)*pairSize)) << std::endl;
+        //     if(now == prev)
+        //         break;
+        //     v_itr tt =subChain.begin() + now - 1;
+        //     // std::cout << prev << " : " << now << "=" << *tt <<std::endl;
+        //     // v_itr pq = binarySearch(mainChain, *tt, pairSize, now);
+
+        //     // std::cout << "insertSize: " <<insertSize << " : " << *(mainChain.begin() + (insertSize*pairSize)+( n-1 ) ) << std::endl;
+        //     // ++insertSize;            
+
+        //     // mainChain.insert(pq, tt,tt+pairSize);
+            
+        //     testttest(tt, subChain.end(), pairSize);
+        //     --now;
+            v_itr it = binarySearch(mainChain, *(subChain.begin()+ (now * pairSize)), pairSize, 0);
+            mainChain.insert(it, (subChain.begin()+ (now * pairSize)) , (subChain.begin()+ (now * pairSize) + pairSize));
+            testttest( (subChain.begin()+ (now * pairSize)) , (subChain.begin()+ (now * pairSize) + pairSize), pairSize);
+            insertSize += pairSize;
+            --now;
+        }
+        // break;
+        ++n;
     }
+    
+    subChain.clear();
     #ifdef SORT
         this->printDebug<std::vector<int> >(mainChain, subChain, pairSize, "sort");
     #endif
@@ -233,8 +283,6 @@ void PmergeMe::mergeInsertionSort(std::vector<int> & mainChain,int pairSize) {
     #endif
 
     insertionFromSubIntoMain(mainChain, subChain, pairSize);
-    
-    subChain.clear();
 }
 
 
