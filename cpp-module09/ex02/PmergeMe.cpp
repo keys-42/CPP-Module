@@ -50,19 +50,13 @@ int PmergeMe::checkOverflow(int pairSize, std::vector<int> & v, int start) {
     return false;
 }
 
-void    PmergeMe::pairwiseComparison(int pairSize, std::vector<int> & v, std::vector<int> & tmp) {
+void    PmergeMe::pairwiseComparison(int pairSize, std::vector<int> & v, std::vector<int> & subChain) {
     for ( int i=0; i < v.size();) {
         if(checkOverflow(pairSize,v,i))
         {
-            tmp.insert(tmp.begin(), v.begin() + i,v.end() );
+            subChain.insert(subChain.begin(), v.begin() + i,v.end() );
             v.erase(v.begin() + i, v.end());
-            // std::cout << std::endl << "tmp tmp pairsize: ~" << (pairSize/2) << "~ line: " << __LINE__ << std::endl;
-            
-            // for ( v_itr it = tmp.begin(); it != tmp.end(); ++it ) {
-            //     std::cout << *it << " ";
-            // }
-            // std::cout << std::endl << "tmp end: ~" << (pairSize/2) << "~ line: " << __LINE__ << std::endl;
-                break;
+            break;
         }
         if(comparison(pairSize,v,i)) {
                 swap(pairSize,v,i);
@@ -79,7 +73,7 @@ void PmergeMe::separateMainChainAndSubChain(std::vector<int> & v, std::vector<in
     int end = v.size();
 
     int over;
-    int size= subChain.size();
+    int size = subChain.size();
     for ( int i=0; i < end;) {
         if(checkOverflow(pairSize,v,i))
         {
@@ -103,7 +97,6 @@ void PmergeMe::separateMainChainAndSubChain(std::vector<int> & v, std::vector<in
             break;
         ep++;
     }
-    v.erase(it,v.end());
 
     int beginPostion = pairSize;
     for ( ;; ) {
@@ -163,29 +156,25 @@ v_itr   PmergeMe::binarySearch(std::vector<int> & v, int key, int pairSize, int 
     return lower_bound(iterators,begin, end, key, iterators.size());
 }
 
+int PmergeMe::jacobsthalNumber(int n) {
+
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+
+    return jacobsthalNumber(n - 1) + (2 * (jacobsthalNumber(n - 2)));
+}
+
 void PmergeMe::insertionFromSubIntoMain(std::vector<int> & mainChain, std::vector<int> & subChain, int pairSize) {
+    
+    #ifdef SORT
+        std::cout << "==================================================================================================================================================================================================================================" <<pairSize << std::endl;
+    #endif
 
     for ( ; !subChain.empty(); ) {
-    #ifdef SORT
-        std::cout << std::endl;
-        std::cout << std::endl << "separateMainChain pairsize: ~" << (pairSize/2) << "~ line: " << __LINE__ << std::endl;
-        for(v_itr it=mainChain.begin(); it != mainChain.end(); ++it){
-            int index = std::distance(mainChain.begin(), it);
-            if(index % (pairSize) == 0) std::cout << " [" ;
-            std::cout << *it;
-            if(index % (pairSize) == 0) std::cout << "] " ;
-            std::cout << "  ";
-        }
-        std::cout << std::endl << "separateSubChain pairsize: ~" << (pairSize/2) << "~ line: " << __LINE__ << std::endl;
-        for(v_itr it=subChain.begin(); it != subChain.end(); ++it){
-            int index = std::distance(subChain.begin(), it);
-            if(index % (pairSize) == 0) std::cout << " [" ;
-            std::cout << *it;
-            if(index % (pairSize) == 0) std::cout << "] " ;
-            std::cout << "  ";
-        }
-        std::cout << std::endl;
-    #endif
+        #ifdef SORT
+            this->printDebug<std::vector<int> >(mainChain, subChain, pairSize, "sort");
+        #endif
+
         v_itr it = binarySearch(mainChain, (*subChain.begin()), pairSize, 0);
 
         v_itr s_begin = subChain.begin();
@@ -204,122 +193,47 @@ void PmergeMe::insertionFromSubIntoMain(std::vector<int> & mainChain, std::vecto
         insert(mainChain, it, subChain, s_begin, s_end);
     }
     #ifdef SORT
-        std::cout << std::endl;
-        std::cout << std::endl << "LastMainChain pairsize: ~" << (pairSize/2) << "~ line: " << __LINE__ << std::endl;
-        for(v_itr it=mainChain.begin(); it != mainChain.end(); ++it){
-            int index = std::distance(mainChain.begin(), it);
-            if(index % (pairSize) == 0) std::cout << " [" ;
-            std::cout << *it;
-            if(index % (pairSize) == 0) std::cout << "] " ;
-            std::cout << "  ";
-        }
-        std::cout << std::endl << "LastSubChain pairsize: ~" << (pairSize/2) << "~ line: " << __LINE__ << std::endl;
-        for(v_itr it=subChain.begin(); it != subChain.end(); ++it){
-            int index = std::distance(subChain.begin(), it);
-            if(index % (pairSize) == 0) std::cout << " [" ;
-            std::cout << *it;
-            if(index % (pairSize) == 0) std::cout << "] " ;
-            std::cout << "  ";
-        }
-        std::cout << std::endl;
+        this->printDebug<std::vector<int> >(mainChain, subChain, pairSize, "sort");
     #endif
 }
 
 void PmergeMe::mergeInsertionSort(std::vector<int> & mainChain,int pairSize) {
-    if(mainChain.size() / pairSize  <= 2) {
+    if( (mainChain.size() / pairSize)  <= 2 ) { 
         #ifdef PAIR
-            std::cout << std::endl;
-            for(v_itr it=mainChain.begin(); it != mainChain.end(); ++it) {
-                int index = std::distance(mainChain.begin(), it);
-                if(index % (pairSize) == 0) std::cout << " [" ;
-                std::cout << *it;
-                if(index % (pairSize) == 0) std::cout << "] " ;
-                std::cout << "  ";
-            }
-            std::cout << std::endl;
-        #endif
-        return ;
+            this->printDebug<std::vector<int> >(mainChain, std::vector<int>(), pairSize, "pair");
+        #endif    
+        return ; 
     } 
-    #ifdef PAIR
-        std::cout << std::endl;
-        std::cout << std::endl << "pairsize: ~" << (pairSize/2) << "~ line: " << __LINE__ << std::endl;
-        for(v_itr it=mainChain.begin(); it != mainChain.end(); ++it){
-            int index = std::distance(mainChain.begin(), it);
-            if(index % (pairSize) == 0) std::cout << " [" ;
-            std::cout << *it;
-            if(index % (pairSize) == 0) std::cout << "] " ;
-            std::cout << "  ";
-        }
-        std::cout << std::endl;
-    #endif
+    
     std::vector<int> subChain;
-    pairwiseComparison(pairSize, mainChain,subChain);
+    #ifdef PAIR
+        this->printDebug<std::vector<int> >( mainChain, subChain, pairSize, "Before pair");
+    #endif
+    pairwiseComparison(pairSize, mainChain, subChain);
+    #ifdef PAIR
+        this->printDebug<std::vector<int> >( mainChain, subChain, pairSize, "After pair");
+    #endif
+    
     mergeInsertionSort(mainChain, pairSize * 2);
 
+    #ifdef SEPARATE
+        this->printDebug<std::vector<int> >(mainChain, subChain, pairSize, "Before separating.");
+    #endif
     separateMainChainAndSubChain(mainChain, subChain, pairSize);
     #ifdef SEPARATE
-        std::cout << std::endl;
-        std::cout << std::endl << "separateMainChain pairsize: ~" << (pairSize/2) << "~ line: " << __LINE__ << std::endl;
-        for(v_itr it=mainChain.begin(); it != mainChain.end(); ++it){
-            int index = std::distance(mainChain.begin(), it);
-            if(index % (pairSize) == 0) std::cout << " [" ;
-            std::cout << *it;
-            if(index % (pairSize) == 0) std::cout << "] " ;
-            std::cout << "  ";
-        }
-        std::cout << std::endl << "separateSubChain pairsize: ~" << (pairSize/2) << "~ line: " << __LINE__ << std::endl;
-        for(v_itr it=subChain.begin(); it != subChain.end(); ++it){
-            int index = std::distance(subChain.begin(), it);
-            if(index % (pairSize) == 0) std::cout << " [" ;
-            std::cout << *it;
-            if(index % (pairSize) == 0) std::cout << "] " ;
-            std::cout << "  ";
-        }
-        std::cout << std::endl;
+        this->printDebug<std::vector<int> >(mainChain, subChain, pairSize, "After separating.");
+    #endif
 
+    #ifdef INSERTATTHESTART
+        this->printDebug<std::vector<int> >(mainChain, subChain, pairSize, "Before Insert the first value.");
     #endif
     insertAtTheStart(mainChain, subChain, pairSize);
     #ifdef INSERTATTHESTART
-        std::cout << std::endl;
-        std::cout << std::endl << "separateMainChain pairsize: ~" << (pairSize/2) << "~ line: " << __LINE__ << std::endl;
-        for(v_itr it=mainChain.begin(); it != mainChain.end(); ++it){
-            int index = std::distance(mainChain.begin(), it);
-            if(index % (pairSize) == 0) std::cout << " [" ;
-            std::cout << *it;
-            if(index % (pairSize) == 0) std::cout << "] " ;
-            std::cout << "  ";
-        }
-        std::cout << std::endl << "separateSubChain pairsize: ~" << (pairSize/2) << "~ line: " << __LINE__ << std::endl;
-        for(v_itr it=subChain.begin(); it != subChain.end(); ++it){
-            int index = std::distance(subChain.begin(), it);
-            if(index % (pairSize) == 0) std::cout << " [" ;
-            std::cout << *it;
-            if(index % (pairSize) == 0) std::cout << "] " ;
-            std::cout << "  ";
-        }
-        std::cout << std::endl;
+        this->printDebug<std::vector<int> >(mainChain, subChain, pairSize, "After Insert the first value.");
     #endif
+
     insertionFromSubIntoMain(mainChain, subChain, pairSize);
-    #ifdef SORT
-        std::cout << std::endl;
-        std::cout << std::endl << "separateMainChain pairsize: ~" << (pairSize/2) << "~ line: " << __LINE__ << std::endl;
-        for(v_itr it=mainChain.begin(); it != mainChain.end(); ++it){
-            int index = std::distance(mainChain.begin(), it);
-            if(index % (pairSize) == 0) std::cout << " [" ;
-            std::cout << *it;
-            if(index % (pairSize) == 0) std::cout << "] " ;
-            std::cout << "  ";
-        }
-        std::cout << std::endl << "separateSubChain pairsize: ~" << (pairSize/2) << "~ line: " << __LINE__ << std::endl;
-        for(v_itr it=subChain.begin(); it != subChain.end(); ++it){
-            int index = std::distance(subChain.begin(), it);
-            if(index % (pairSize) == 0) std::cout << " [" ;
-            std::cout << *it;
-            if(index % (pairSize) == 0) std::cout << "] " ;
-            std::cout << "  ";
-        }
-        std::cout << std::endl;
-    #endif
+    
     subChain.clear();
 }
 
@@ -335,5 +249,6 @@ void PmergeMe::FordJohnsonAlgorithm(int size, int numbers[]) {
     this->initContainer(size, numbers);
     mergeInsertionSort(this->v_mainChain_, 1);
 
+    std::cout << std::endl << std::endl;
     PmergeMe::print<std::vector<int>, v_itr>(this->v_mainChain_);
 }

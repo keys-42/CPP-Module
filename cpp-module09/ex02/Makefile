@@ -1,30 +1,28 @@
 NAME	= PmergeMe
 CXX		= c++
 
-# CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
-CXXFLAGS	= -std=c++98
+CXXFLAGS	= -Wall -Wextra -Werror -std=c++98 
+CXXFLAGS	= -std=c++98 -g -fsanitize=address
 
 SRC =	main.cpp \
 		PmergeMe.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
-all:$(NAME)
+all: $(NAME)
 
-$(NAME):$(OBJ)
-	$(CXX) $(CXXFALGS) $^ -o $@
+$(NAME): $(OBJ)
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
 clean:
 	$(RM) $(OBJ)
 
-fclean:clean
+fclean: clean
 	$(RM) $(NAME)
 
-re:fclean all
+re: fclean all
 
-.PHONY:
-	all clean fclean re
-
+.PHONY: all clean fclean re
 
 ifdef PAIR
 CXXFLAGS += -DPAIR
@@ -42,17 +40,25 @@ ifdef SORT
 CXXFLAGS += -DSORT
 endif
 
-debug:
+debug:fclean
 	make PAIR=1 SEPARATE=1 INSERTATTHESTART=1
 
-p:
+pair:fclean
 	make PAIR=1
-
-sep:
+ 
+separate:fclean
 	make SEPARATE=1
 
-first:
+first:fclean
 	make INSERTATTHESTART=1
 
-sort:
+sort:fclean
 	make SORT=1
+
+help:
+	@echo "make debug"
+	@echo "make pair"
+	@echo "make separate"
+	@echo "make first"
+	@echo "make sort"
+	

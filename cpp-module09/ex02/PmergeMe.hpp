@@ -56,6 +56,7 @@ class PmergeMe
         v_itr   binarySearch(std::vector<int> & v, int key, int pairSize, int keyPosition);
 
         void insertionFromSubIntoMain(std::vector<int> & mainChain, std::vector<int> & subChain, int pairSize);
+        int jacobsthalNumber(int n);
 
 
     public:
@@ -71,6 +72,38 @@ class PmergeMe
             }
             std::cout << std::endl;
         } 
+        template <typename T>
+        void printDebug(const T& mainChain, const T& subChain, int pairSize, const char* message) {
+            typedef typename T::const_iterator Iterator;
+
+            std::cout << std::endl << message << " pairsize: " << pairSize << "   ( " << (pairSize*2) << " )" << std::endl;
+            if(!mainChain.empty()) {
+                std::cout << "mainChain" << std::endl;
+                for(Iterator it = mainChain.begin(); it != mainChain.end(); ++it) {
+                    int index = std::distance(mainChain.begin(), it);
+
+                    if(index % (pairSize * 2) == 0) { std::cout << "[" ; }
+                    std::cout << *it;
+                    if(index % (pairSize * 2) == pairSize * 2 - 1 || it == std::prev(mainChain.end())) { std::cout << "]" ; }
+                    if ( (index % (pairSize * 2) == pairSize - 1) && (it != std::prev(mainChain.end())) ) { std::cout << " | "; }
+                    else { std::cout << "  "; }
+                }
+                std::cout << std::endl;
+            }
+
+            if(!subChain.empty()) {
+                std::cout << "subChain" << std::endl;
+                for(Iterator it = subChain.begin(); it != subChain.end(); ++it) {
+                    int index = std::distance(subChain.begin(), it);
+                    if( (index % (pairSize) == 0) && (it != subChain.begin()) ) { 
+                        std::cout << " | " << *it;
+                    } else {
+                        std::cout << " " << *it << " ";
+                    }
+                }
+                std::cout << std::endl;
+            }
+        }
 
 };
 
