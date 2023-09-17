@@ -48,7 +48,6 @@ class PmergeMe
         /**
          * insert
         */
-        void insert(std::vector<int> & v, v_itr position, std::vector<int> & s, v_itr begin, v_itr end);
 
         bool isKey(std::vector<v_itr> iterators, int index, int key);
 

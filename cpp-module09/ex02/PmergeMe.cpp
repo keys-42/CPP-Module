@@ -117,16 +117,6 @@ void PmergeMe::insertAtTheStart(std::vector<int> & mainChain, std::vector<int> &
 /**
  * insert
 */
-void PmergeMe::insert(std::vector<int> & v, v_itr position, std::vector<int> & s, v_itr begin, v_itr end) {
-    if(begin == end){
-        v.insert(position, *begin);
-        s.erase(begin);
-        return;
-    }
-    v.insert(position, begin, end);
-    s.erase(begin, end);
-}
-
 bool PmergeMe::isKey(std::vector<v_itr> iterators, int index, int key) {
     if (*(iterators[index]) >= key) return true;
     else return false;
@@ -144,6 +134,7 @@ v_itr PmergeMe::lower_bound(std::vector<v_itr>& iterators, vi_itr begin, vi_itr 
     return *(iterators.begin() + right);
 }
 
+//構造体作るしかなさそう
 v_itr   PmergeMe::binarySearch(std::vector<int> & v, int key, int pairSize, int keyPosition) {
     std::vector<v_itr> iterators;
 
@@ -256,6 +247,5 @@ void PmergeMe::FordJohnsonAlgorithm(int size, int numbers[]) {
     this->initContainer(size, numbers);
     mergeInsertionSort(this->v_mainChain_, 1);
 
-    std::cout << std::endl << std::endl;
     PmergeMe::print<std::vector<int>, v_itr>(this->v_mainChain_);
 }
