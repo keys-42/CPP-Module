@@ -146,6 +146,26 @@ class PmergeMe
                 std::cout << std::endl << "========================================================================================" << std::endl;
         }
 
+        bool isSorted(const std::list<int>& lst) {
+            if (lst.empty()) {
+                return true;
+            }
+
+            std::list<int>::const_iterator it = lst.begin();
+            std::list<int>::const_iterator next_it = it;
+            ++next_it;
+
+            while (next_it != lst.end()) {
+                if (*it > *next_it) {
+                    return false;
+                }
+                ++it;
+                ++next_it;
+            }
+
+            return true;
+        }
+
 };
 
 #endif
