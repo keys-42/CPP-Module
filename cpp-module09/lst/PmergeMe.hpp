@@ -56,7 +56,7 @@ class PmergeMe
     // insert
     void                        insertionFromSubIntoMain(std::list<int> & mainChain, std::list<int> & subChain, int pairSize, UnpairedData& unpair);
     int                         jacobsthalNumber(int n);
-    int                         binarySearch(std::list<int> & mainChain, int key,int pairSize, UnpairedData& unpair);
+    int                         binarySearch(std::list<int> & mainChain, int key,int pairSize, UnpairedData& unpair, int endpoint);
     bool                        isKey(std::list<int> & lst, int index, int key);
     int                         lower_bound(std::list<int> & lst, int key, int right);
     void                        insertSubChain(std::list<int> & mainChain, int insertPosition, ConstIntListIter begin, ConstIntListIter end);

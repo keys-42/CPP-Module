@@ -43,12 +43,13 @@ int main( int argc, char **argv )
   PmergeMe *p = new PmergeMe();
   p->FordJohnsonAlgorithm(n,arr);
   
-  std::cout << "std::sort  " << std::endl;
-  std::sort(arr, arr + n);
-  for(int i = 0; i < n; ++i) {
-      std::cout << arr[i] << " ";
-  }
-  std::cout << std::endl;
+  // std::cout << "std::sort  " << std::endl;
+  // std::sort(arr, arr + n);
+  // for(int i = 0; i < n; ++i) {
+  //     std::cout << arr[i] << " ";
+  // }
+  // std::cout << std::endl;
+
   delete p;
   delete[] arr;
   return 0;
