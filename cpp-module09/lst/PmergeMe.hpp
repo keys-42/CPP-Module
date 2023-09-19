@@ -166,6 +166,8 @@ class PmergeMe
             return true;
         }
 
+        void tset(std::list<int> & l, std::list<int> & s);
+
 };
 
 #endif

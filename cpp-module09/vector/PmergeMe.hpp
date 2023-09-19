@@ -3,8 +3,8 @@
 
 # include <iostream>
 # include <string>
-# include <list>
-# include <list>
+# include <vector>
+# include <vector>
 # include <exception>
 # include <algorithm>
 # include <sstream>
@@ -13,11 +13,11 @@
 
 class PmergeMe
 {
-    typedef std::list<int>::const_iterator ConstIntListIter;
-    typedef std::list<int>::iterator IntListIter;
+    typedef std::vector<int>::const_iterator ConstIntvectorIter;
+    typedef std::vector<int>::iterator IntvectorIter;
 
-    typedef std::list<std::list<int>::const_iterator> ConstIteratorList;
-    typedef std::list<std::list<int>::const_iterator>::const_iterator ConstIteratorListIterator;
+    typedef std::vector<std::vector<int>::const_iterator> ConstIteratorvector;
+    typedef std::vector<std::vector<int>::const_iterator>::const_iterator ConstIteratorvectorIterator;
 
     struct UnpairedData {
         size_t length;
@@ -26,7 +26,7 @@ class PmergeMe
     };
 
     private:
-        std::list<int>          mainChain_;
+        std::vector<int>          mainChain_;
     
     private:
         void    initContainer(int size, int numbers[]);
@@ -38,28 +38,41 @@ class PmergeMe
         PmergeMe & operator= (const PmergeMe &other);
  
     void FordJohnsonAlgorithm(int size, int numbers[]);
-    void mergeInsertionSort(std::list<int> & mainChain,int pairSize);
+    void mergeInsertionSort(std::vector<int> & mainChain,int pairSize);
+    // void spliceVector(std::vector<int>& dest, std::vector<int>& src, size_t start, size_t length);
+    template <typename T>
+    void vector_splice(
+        std::vector<T>& target, 
+        typename std::vector<T>::iterator position, 
+        std::vector<T>& source, 
+        typename std::vector<T>::iterator first, 
+        typename std::vector<T>::iterator last)
+    {
+        target.insert(position, first, last);
+        source.erase(first, last);
+    }
+
 
 
     //pair
-    bool    pairCompare( std::list<int> & lst, int pairSize, int start );
-    void    pairSwap( std::list<int> & lst, int pairSize, int start );
-    bool    hasPair(std::list<int> & lst, int pairSize, size_t start );
-    void    makePair( std::list<int> & lst, std::list<int> & subChain, int pairSize );
+    bool    pairCompare( std::vector<int> & vec, int pairSize, int start );
+    void    pairSwap( std::vector<int> & vec, int pairSize, int start );
+    bool    hasPair(std::vector<int> & vec, int pairSize, size_t start );
+    void    makePair( std::vector<int> & vec, std::vector<int> & subChain, int pairSize );
 
     //separate
-    void    separateMainChainAndSubChain(std::list<int> & mainChain, std::list<int> & subChain, int pairSize);
+    void    separateMainChainAndSubChain(std::vector<int> & mainChain, std::vector<int> & subChain, int pairSize);
     
     // first insert
-    void    insertAtTheStart(std::list<int> & mainChain, std::list<int> & subChain, int pairSize);
+    void    insertAtTheStart(std::vector<int> & mainChain, std::vector<int> & subChain, int pairSize);
 
     // insert
-    void                        insertionFromSubIntoMain(std::list<int> & mainChain, std::list<int> & subChain, int pairSize, UnpairedData& unpair);
+    void                        insertionFromSubIntoMain(std::vector<int> & mainChain, std::vector<int> & subChain, int pairSize, UnpairedData& unpair);
     int                         jacobsthalNumber(int n);
-    int                         binarySearch(std::list<int> & mainChain, int key,int pairSize, UnpairedData& unpair, int endpoint);
-    bool                        isKey(std::list<int> & lst, int index, int key);
-    int                         lower_bound(std::list<int> & lst, int key, int right);
-    void                        insertSubChain(std::list<int> & mainChain, int insertPosition, ConstIntListIter begin, ConstIntListIter end);
+    int                         binarySearch(std::vector<int> & mainChain, int key,int pairSize, UnpairedData& unpair, int endpoint);
+    bool                        isKey(std::vector<int> & vec, int index, int key);
+    int                         lower_bound(std::vector<int> & vec, int key, int right);
+    void                        insertSubChain(std::vector<int> & mainChain, int insertPosition, ConstIntvectorIter begin, ConstIntvectorIter end);
 
 
 
@@ -67,34 +80,34 @@ class PmergeMe
 
 
     template <typename T>
-    typename std::list<T>::iterator advanceTo(std::list<T>& lst, size_t index) {
-        if (index >= lst.size()) { return lst.end(); }
+    typename std::vector<T>::iterator advanceTo(std::vector<T>& vec, size_t index) {
+        if (index >= vec.size()) { return vec.end(); }
 
-        typename std::list<T>::iterator it = lst.begin();
+        typename std::vector<T>::iterator it = vec.begin();
         std::advance(it, index);
         return it;
     }
     template <typename T>
-    typename std::list<T>::const_iterator advanceIt(std::list<T>& lst, typename std::list<T>::const_iterator itr, size_t index) {
+    typename std::vector<T>::const_iterator advanceIt(std::vector<T>& vec, typename std::vector<T>::const_iterator itr, size_t index) {
 
         for (size_t i=0; i< index ; ++i) {
             ++itr;
-            if(itr == lst.end()) return lst.end();
+            if(itr == vec.end()) return vec.end();
         }
         return itr;
     }
 
     template <typename T>
-    T getElementAtIndex(const std::list<T>& lst, size_t index) {
-        typename std::list<T>::const_iterator it = lst.begin();
+    T getElementAtIndex(const std::vector<T>& vec, size_t index) {
+        typename std::vector<T>::const_iterator it = vec.begin();
         for (size_t i = 0; i < index; ++i) {
-            if (it == lst.end()) {
+            if (it == vec.end()) {
                 throw std::out_of_range("Index out of bounds");
             }
             ++it;
         }
 
-        if (it == lst.end()) {
+        if (it == vec.end()) {
             throw std::out_of_range("Index out of bounds");
         }
 
@@ -146,16 +159,16 @@ class PmergeMe
                 std::cout << std::endl << "========================================================================================" << std::endl;
         }
 
-        bool isSorted(const std::list<int>& lst) {
-            if (lst.empty()) {
+        bool isSorted(const std::vector<int>& vec) {
+            if (vec.empty()) {
                 return true;
             }
 
-            std::list<int>::const_iterator it = lst.begin();
-            std::list<int>::const_iterator next_it = it;
+            std::vector<int>::const_iterator it = vec.begin();
+            std::vector<int>::const_iterator next_it = it;
             ++next_it;
 
-            while (next_it != lst.end()) {
+            while (next_it != vec.end()) {
                 if (*it > *next_it) {
                     return false;
                 }
