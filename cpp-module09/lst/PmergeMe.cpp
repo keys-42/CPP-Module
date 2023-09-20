@@ -127,7 +127,7 @@ void PmergeMe::createComparisonListFromMainChain(std::list<int>& lst, std::list<
         for(ConstIntListIter it=mainChain.begin(); it != mainChain.end(); ){
             if(unpairedData.position == index) {
                 lst.push_back(*it);
-                std::advance(it, unpairedData.length);
+                it = advanceTo(mainChain, it, unpairedData.length);
                 ++index;
                 ++point;
                 continue;
