@@ -35,19 +35,32 @@ bool     PmergeMe::pairCompare( std::list<int> & lst, int pairSize, int start ) 
     return 0;
 }
 
-void    PmergeMe::pairSwap( std::list<int> & lst, int pairSize, int start) {
+void PmergeMe::pairSwap(std::list<int>& lst, int pairSize, int start) {
     std::list<int>::iterator left = advanceTo(lst, start);
     std::list<int>::iterator left_end = advanceTo(lst, start + pairSize);
-
     std::list<int>::iterator right = left_end;
     std::list<int>::iterator right_end = advanceTo(lst, start + 2 * pairSize);
 
     std::list<int> tmp;
-    tmp.splice(tmp.begin(), lst, right, right_end);
 
-    lst.splice(right, lst, left, left_end);
-    lst.splice(left, tmp, tmp.begin(), tmp.end());
+    tmp.splice(tmp.begin(), lst, left, left_end);
+    lst.splice(advanceTo(lst, start), lst, right, right_end);
+    lst.splice(advanceTo(lst, start + pairSize), tmp, tmp.begin(), tmp.end());
 }
+
+// void    PmergeMe::pairSwap( std::list<int> & lst, int pairSize, int start) {
+//     std::list<int>::iterator left = advanceTo(lst, start);
+//     std::list<int>::iterator left_end = advanceTo(lst, start + pairSize);
+
+//     std::list<int>::iterator right = left_end;
+//     std::list<int>::iterator right_end = advanceTo(lst, start + 2 * pairSize);
+
+//     std::list<int> tmp;
+//     tmp.splice(tmp.begin(), lst, right, right_end);
+
+//     lst.splice(right, lst, left, left_end);
+//     lst.splice(left, tmp, tmp.begin(), tmp.end());
+// }
 
 bool PmergeMe::hasPair(std::list<int> & lst, int pairSize, size_t start) {
     if(advanceTo(lst,start + pairSize + pairSize - 1) == lst.end())

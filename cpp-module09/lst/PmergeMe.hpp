@@ -9,6 +9,7 @@
 # include <algorithm>
 # include <sstream>
 # include <stdexcept>
+# include <cstring>
 
 
 class PmergeMe
@@ -121,11 +122,20 @@ class PmergeMe
                 for(Iterator it = mainChain.begin(); it != mainChain.end(); ++it) {
                     int index = std::distance(mainChain.begin(), it);
 
+                    typename std::list<T>::iterator prevIt = mainChain.end();
+                    --prevIt;
+
                     if(index % (pairSize * 2) == 0) { std::cout << "[" ; }
                     std::cout << *it;
-                    if(index % (pairSize * 2) == pairSize * 2 - 1 || it == std::prev(mainChain.end())) { std::cout << "]" ; }
-                    if ( (index % (pairSize * 2) == pairSize - 1) && (it != std::prev(mainChain.end())) ) { std::cout << " | "; }
+                    if(index % (pairSize * 2) == pairSize * 2 - 1 || it == prevIt) { std::cout << "]" ; }
+                    if ( (index % (pairSize * 2) == pairSize - 1) && (it != prevIt) ) { std::cout << " | "; }
                     else { std::cout << "  "; }
+
+                    // if(index % (pairSize * 2) == 0) { std::cout << "[" ; }
+                    // std::cout << *it;
+                    // if(index % (pairSize * 2) == pairSize * 2 - 1 || it == std::prev(mainChain.end())) { std::cout << "]" ; }
+                    // if ( (index % (pairSize * 2) == pairSize - 1) && (it != std::prev(mainChain.end())) ) { std::cout << " | "; }
+                    // else { std::cout << "  "; }
                 }
                 std::cout << std::endl;
             }
