@@ -35,18 +35,38 @@ bool     PmergeMe::pairCompare( std::list<int> & lst, int pairSize, int start ) 
     return 0;
 }
 
+// void PmergeMe::pairSwap(std::list<int>& lst, int pairSize, int start) {
+//     std::list<int>::iterator left = advanceTo(lst, start);
+//     std::list<int>::iterator left_end = advanceTo(lst, start + pairSize);
+//     std::list<int>::iterator right = left_end;
+//     std::list<int>::iterator right_end = advanceTo(lst, start + 2 * pairSize);
+
+//     std::list<int> tmp;
+
+//     tmp.splice(tmp.begin(), lst, left, left_end);
+//     lst.splice(advanceTo(lst, start), lst, right, right_end);
+//     lst.splice(advanceTo(lst, start + pairSize), tmp, tmp.begin(), tmp.end());
+// }
 void PmergeMe::pairSwap(std::list<int>& lst, int pairSize, int start) {
     std::list<int>::iterator left = advanceTo(lst, start);
     std::list<int>::iterator left_end = advanceTo(lst, start + pairSize);
     std::list<int>::iterator right = left_end;
     std::list<int>::iterator right_end = advanceTo(lst, start + 2 * pairSize);
 
-    std::list<int> tmp;
+    // 一時リストに要素をコピー
+    std::list<int> tmp_left(left, left_end);
+    std::list<int> tmp_right(right, right_end);
 
-    tmp.splice(tmp.begin(), lst, left, left_end);
-    lst.splice(advanceTo(lst, start), lst, right, right_end);
-    lst.splice(advanceTo(lst, start + pairSize), tmp, tmp.begin(), tmp.end());
+    // 元のリストから要素を削除
+    lst.erase(left, left_end);
+    lst.erase(right, right_end);
+
+    // 元のリストに要素を再挿入
+    lst.insert(advanceTo(lst, start), tmp_right.begin(), tmp_right.end());
+    lst.insert(advanceTo(lst, start + pairSize), tmp_left.begin(), tmp_left.end());
 }
+
+
 
 // void    PmergeMe::pairSwap( std::list<int> & lst, int pairSize, int start) {
 //     std::list<int>::iterator left = advanceTo(lst, start);
