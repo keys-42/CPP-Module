@@ -37,7 +37,7 @@ class PmergeMe
         PmergeMe(const PmergeMe & r);
         ~PmergeMe();
         PmergeMe & operator= (const PmergeMe &other);
- 
+
     void FordJohnsonAlgorithm(int size, int numbers[]);
     void mergeInsertionSort(std::list<int> & mainChain,int pairSize);
 
@@ -64,34 +64,37 @@ class PmergeMe
 
 
 
-
-
-
+    //utils
     template <typename T>
-    typename std::list<T>::iterator advanceTo(std::list<T>& lst, size_t index) {
+    typename std::list<T>::iterator getIteratorAt(std::list<T>& lst, size_t index) {
         if (index >= lst.size()) { return lst.end(); }
 
         typename std::list<T>::iterator it = lst.begin();
         std::advance(it, index);
         return it;
     }
-    template <typename T>
-    typename std::list<T>::const_iterator advanceIt(std::list<T>& lst, typename std::list<T>::const_iterator itr, size_t index) {
 
+    template <typename T>
+    typename std::list<T>::const_iterator getConstIteratorAt(const std::list<T>& lst, size_t index) {
+        if (index >= lst.size()) { return lst.end(); }
+
+        typename std::list<T>::const_iterator it = lst.begin();
+        std::advance(it, index);
+        return it;
+    }
+
+    template <typename T>
+    typename std::list<T>::const_iterator advanceTo(std::list<T>& lst, typename std::list<T>::const_iterator itr, size_t index) {
         for (size_t i=0; i< index ; ++i) {
             ++itr;
             if(itr == lst.end()) return lst.end();
         }
         return itr;
     }
-
     template <typename T>
     T getElementAtIndex(const std::list<T>& lst, size_t index) {
-        typename std::list<T>::const_iterator it = lst.begin();
-        for (size_t i = 0; i < index; ++i) {
-            if (it == lst.end()) {
-                throw std::out_of_range("Index out of bounds");
-            }
+    typename std::list<T>::const_iterator it = lst.begin();
+        for (size_t i = 0; i < index && it != lst.end(); ++i) {
             ++it;
         }
 

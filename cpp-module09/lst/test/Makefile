@@ -24,5 +24,5 @@ sort:
 re:
 	make re -C ..
 
-infinity:
+i:
 	bash infinity.sh
