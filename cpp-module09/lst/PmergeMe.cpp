@@ -13,13 +13,6 @@ PmergeMe & PmergeMe::operator= (const PmergeMe &other) {
     return *this;
 }
 
-typedef std::list<int>::const_iterator ConstIntListIter;
-typedef std::list<int>::iterator IntListIter;
-
-typedef std::list<std::list<int>::const_iterator> ConstIteratorList;
-typedef std::list<std::list<int>::const_iterator>::const_iterator ConstIteratorListIterator;
-
-
 /**
  * pair comparison
 */
@@ -159,6 +152,13 @@ void PmergeMe::insertSubChain(std::list<int> & mainChain,int  insertPosition, Co
     mainChain.insert(getIteratorAt(mainChain, insertPosition), begin, end);
 }
 
+void PmergeMe::insertSegmentToMainChain(std::list<int>& mainChain, std::list<int>& subChain, int segmentStart, int segmentEnd, int insertionPoint, int pairSize) {
+    std::list<int>::iterator startIter = getIteratorAt(subChain, segmentStart * pairSize);
+    std::list<int>::iterator endIter = (segmentEnd == -1) ? subChain.end() : getIteratorAt(subChain, segmentEnd * pairSize);
+    mainChain.insert(getIteratorAt(mainChain, pairSize * insertionPoint), startIter, endIter);
+}
+
+
 void PmergeMe::mergeSubIntoMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize, UnpairedElemenat& unpairedData) {
     int maxSegments = subChain.size() / pairSize;
     int insertSize = 0;
@@ -168,20 +168,21 @@ void PmergeMe::mergeSubIntoMain(std::list<int>& mainChain, std::list<int>& subCh
             if (i > maxSegments) {
                 i = maxSegments;
                 if (i == calculateJacobsthalNumber(n - 1)) break;
+            }
 
-                int insertionPoint = lower_bound(mainChain, getElementAtIndex(subChain, (i - 1) * pairSize), pairSize, unpairedData, insertSize + i - 1);
-                mainChain.insert(getIteratorAt(mainChain, pairSize * insertionPoint), getIteratorAt(subChain, (i - 1) * pairSize), subChain.end());
+            int key = getElementAtIndex(subChain, (i - 1) * pairSize);
+            int insertionPoint = lower_bound(mainChain, key, pairSize, unpairedData, insertSize + i - 1);
+
+            if (i == maxSegments) {
+                insertSegmentToMainChain(mainChain, subChain, i - 1, -1, insertionPoint, pairSize);
                 unpairedData.position = insertionPoint - 1;
-                insertSize++;
-                continue;
+            } else {
+                insertSegmentToMainChain(mainChain, subChain, i - 1, i, insertionPoint, pairSize);
+                if (unpairedData.position != -1 && unpairedData.value > key) {
+                    unpairedData.position++;
+                }
             }
 
-            int insertionPoint = lower_bound(mainChain, getElementAtIndex(subChain, (i - 1) * pairSize), pairSize, unpairedData, insertSize + i - 1);
-            mainChain.insert(getIteratorAt(mainChain, pairSize * insertionPoint), getIteratorAt(subChain, (i - 1) * pairSize), getIteratorAt(subChain, (i - 1) * pairSize + pairSize));
-            
-            if (unpairedData.position != -1 && unpairedData.value > getElementAtIndex(subChain, (i - 1) * pairSize)) {
-                unpairedData.position++;
-            }
             insertSize++;
         }
         if (calculateJacobsthalNumber(n) > maxSegments) break;
@@ -247,22 +248,6 @@ void PmergeMe::mergeInsertionSort(std::list<int> & mainChain,int pairSize) {
     #endif
 }
 
-void PmergeMe::tset(std::list<int> & l, std::list<int> & s) {
-
-        std::list<int>::const_iterator it = l.begin();
-        std::list<int>::const_iterator itr = s.begin();
-    for( ;itr != s.end() ;) {
-        if(*it != *itr)
-            std::cout << "\033[31m" << *it << "\033[0m" << std::endl;
-
-        ++itr;
-        ++it;
-    } 
-}
-
-
-
-
 void    PmergeMe::initContainer(int size, int numbers[]) {
     for (int i = 0; i < size; ++i) { mainChain_.push_back(numbers[i]);}
 }
@@ -291,8 +276,4 @@ void PmergeMe::FordJohnsonAlgorithm(int size, int numbers[]) {
     } else {
         std::cout << "\033[31m" << "Lists are not equal." << "\033[0m" << std::endl;
     }
-
-    tset(mainChain_, arr);
-
 }
-

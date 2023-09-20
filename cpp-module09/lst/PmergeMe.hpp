@@ -61,6 +61,7 @@ class PmergeMe
     bool                        elementExceedsKey(std::list<int>& lst, int index, int key);
     int                         find_lower_bound(std::list<int> & lst, int key);
     void                        insertSubChain(std::list<int> & mainChain, int insertPosition, ConstIntListIter begin, ConstIntListIter end);
+    void                        insertSegmentToMainChain(std::list<int>& mainChain, std::list<int>& subChain, int segmentStart, int segmentEnd, int insertionPoint, int pairSize);
 
 
 
@@ -133,12 +134,6 @@ class PmergeMe
                     if(index % (pairSize * 2) == pairSize * 2 - 1 || it == prevIt) { std::cout << "]" ; }
                     if ( (index % (pairSize * 2) == pairSize - 1) && (it != prevIt) ) { std::cout << " | "; }
                     else { std::cout << "  "; }
-
-                    // if(index % (pairSize * 2) == 0) { std::cout << "[" ; }
-                    // std::cout << *it;
-                    // if(index % (pairSize * 2) == pairSize * 2 - 1 || it == std::prev(mainChain.end())) { std::cout << "]" ; }
-                    // if ( (index % (pairSize * 2) == pairSize - 1) && (it != std::prev(mainChain.end())) ) { std::cout << " | "; }
-                    // else { std::cout << "  "; }
                 }
                 std::cout << std::endl;
             }
@@ -178,8 +173,6 @@ class PmergeMe
 
             return true;
         }
-
-        void tset(std::list<int> & l, std::list<int> & s);
 
 };
 
