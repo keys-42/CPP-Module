@@ -20,12 +20,11 @@ class PmergeMe
     typedef std::list<std::list<int>::const_iterator> ConstIteratorList;
     typedef std::list<std::list<int>::const_iterator>::const_iterator ConstIteratorListIterator;
 
-    struct UnpairedData {
+    struct UnpairedElemenat {
         size_t length;
         int value;
         int position;
     };
-
     private:
         std::list<int>          mainChain_;
     
@@ -46,20 +45,21 @@ class PmergeMe
     bool shouldSwapPairs(const std::list<int>& lst, int pairSize, int startIndex);
     void swapPairs(std::list<int>& lst, int pairSize, int startIndex);
     bool isPairPresent(const std::list<int>& lst, int pairSize, size_t startIndex);
-    void processPairs(std::list<int>& lst, std::list<int>& subChain, int pairSize);
+    void processPairs(std::list<int>& lst, std::list<int>& subChain, int pairSize, UnpairedElemenat & unpairedData);
 
     //separate
     void splitIntoMainAndSubChains(std::list<int>& mainChain, std::list<int>& subChain, int pairSize);
     
     // first insert
-    void    insertAtTheStart(std::list<int> & mainChain, std::list<int> & subChain, int pairSize);
+    void    prependSubchainToMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize);
 
     // insert
-    void                        insertionFromSubIntoMain(std::list<int> & mainChain, std::list<int> & subChain, int pairSize, UnpairedData& unpair);
-    int                         jacobsthalNumber(int n);
-    int                         binarySearch(std::list<int> & mainChain, int key,int pairSize, UnpairedData& unpair, int endpoint);
-    bool                        isKey(std::list<int> & lst, int index, int key);
-    int                         lower_bound(std::list<int> & lst, int key, int right);
+    void                        mergeSubIntoMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize, UnpairedElemenat& unpairedData);
+    int                         calculateJacobsthalNumber(int n);
+    int                         lower_bound(std::list<int> & mainChain, int key,int pairSize, UnpairedElemenat& unpairedData, int endpoint);
+    void                        createComparisonListFromMainChain(std::list<int>& lst, std::list<int>& mainChain, int pairSize, UnpairedElemenat& unpairedData, int endpoint);
+    bool                        elementExceedsKey(std::list<int>& lst, int index, int key);
+    int                         find_lower_bound(std::list<int> & lst, int key);
     void                        insertSubChain(std::list<int> & mainChain, int insertPosition, ConstIntListIter begin, ConstIntListIter end);
 
 

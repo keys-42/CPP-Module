@@ -41,7 +41,7 @@ bool PmergeMe::isPairPresent(const std::list<int>& lst, int pairSize, size_t sta
     return getConstIteratorAt(lst, startIndex + 2*pairSize - 1) != lst.end();
 }
 
-void PmergeMe::processPairs(std::list<int>& lst, std::list<int>& subChain, int pairSize) {
+void PmergeMe::processPairs(std::list<int>& lst, std::list<int>& subChain, int pairSize, UnpairedElemenat & unpairedData) {
     for (size_t i = 0; i < lst.size();) {
         if (!isPairPresent(lst, pairSize, i)) {
             std::list<int>::iterator iter = getIteratorAt(lst, i);
@@ -56,6 +56,10 @@ void PmergeMe::processPairs(std::list<int>& lst, std::list<int>& subChain, int p
 
         i += 2 * pairSize;
     }
+
+    unpairedData.length = subChain.size();
+    unpairedData.value = *(subChain.begin());
+    unpairedData.position = -1;
 }
 
 /**
@@ -81,47 +85,43 @@ void PmergeMe::splitIntoMainAndSubChains(std::list<int>& mainChain, std::list<in
     }
 }
 
-
 /**
  * insert first subPair
 */
-
-void PmergeMe::insertAtTheStart(std::list<int> & mainChain, std::list<int> & subChain, int pairSize) {
-    mainChain.insert(mainChain.begin(), subChain.begin(),  getIteratorAt(subChain, pairSize) );
+void PmergeMe::prependSubchainToMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize) {
+    std::list<int>::iterator subStart = subChain.begin();
+    std::list<int>::iterator subEnd = getIteratorAt(subChain, pairSize);
+    mainChain.insert(mainChain.begin(), subStart, subEnd);
 }
 
 /**
  * insert
 */
-int PmergeMe::jacobsthalNumber(int n) {
-
+int PmergeMe::calculateJacobsthalNumber(int n) {
     if (n <= 0) return 0;
     if (n == 1) return 1;
-
-    return jacobsthalNumber(n - 1) + (2 * (jacobsthalNumber(n - 2)));
+    return calculateJacobsthalNumber(n - 1) + (2 * calculateJacobsthalNumber(n - 2));
 }
 
-bool PmergeMe::isKey(std::list<int> & lst, int index, int key) {
-    if (getElementAtIndex(lst, index) >= key) return true;
-    else return false;
+bool PmergeMe::elementExceedsKey(std::list<int>& lst, int index, int key) {
+    return getElementAtIndex(lst, index) >= key;
 }
 
-int PmergeMe::lower_bound(std::list<int> & lst, int key, int right) {
+int PmergeMe::find_lower_bound(std::list<int> & lst, int key) {
     int left = -1;
+    int right = lst.size();
+
     while (right - left > 1) {
         int mid = left + (right - left) / 2;
-
-        if (isKey(lst, mid, key)) right = mid;
+        if (elementExceedsKey(lst, mid, key)) right = mid;
         else left = mid;
     }
-
     return right;
 }
 
-int  PmergeMe::binarySearch(std::list<int> & mainChain, int key, int pairSize, UnpairedData& unpair, int endpoint) { 
-    std::list<int> lst;
+void PmergeMe::createComparisonListFromMainChain(std::list<int>& lst, std::list<int>& mainChain, int pairSize, UnpairedElemenat& unpairedData, int endpoint) {
     int point=0;
-    if(unpair.position == -1 || unpair.length == 0 ) {
+    if(unpairedData.position == -1 || unpairedData.length == 0 ) {
         for(ConstIntListIter it=mainChain.begin(); it != mainChain.end(); ) {
             lst.push_back(*it);
             if(point == endpoint)
@@ -132,9 +132,9 @@ int  PmergeMe::binarySearch(std::list<int> & mainChain, int key, int pairSize, U
     } else {
         int index = 0;
         for(ConstIntListIter it=mainChain.begin(); it != mainChain.end(); ){
-            if(unpair.position == index) {
+            if(unpairedData.position == index) {
                 lst.push_back(*it);
-                std::advance(it, unpair.length);
+                std::advance(it, unpairedData.length);
                 ++index;
                 ++point;
                 continue;
@@ -147,48 +147,47 @@ int  PmergeMe::binarySearch(std::list<int> & mainChain, int key, int pairSize, U
             ++index;
         }
     }
-    return lower_bound(lst, key, lst.size());
+}
+
+int  PmergeMe::lower_bound(std::list<int> & mainChain, int key, int pairSize, UnpairedElemenat& unpairedData, int endpoint) { 
+    std::list<int> lst;
+    createComparisonListFromMainChain(lst, mainChain, pairSize, unpairedData, endpoint);
+    return find_lower_bound(lst, key);
 }
 
 void PmergeMe::insertSubChain(std::list<int> & mainChain,int  insertPosition, ConstIntListIter begin, ConstIntListIter end) {
     mainChain.insert(getIteratorAt(mainChain, insertPosition), begin, end);
 }
 
-void PmergeMe::insertionFromSubIntoMain(std::list<int> & mainChain, std::list<int> & subChain, int pairSize, UnpairedData& unpair) {
+void PmergeMe::mergeSubIntoMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize, UnpairedElemenat& unpairedData) {
+    int maxSegments = subChain.size() / pairSize;
+    int insertSize = 0;
 
-    
-    #ifdef SORT
-        this->printDebug<std::list<int> >(mainChain, subChain, pairSize, "Before sort");
-    #endif
+    for (int n = 3;; ++n) {
+        for (int i = calculateJacobsthalNumber(n); i > calculateJacobsthalNumber(n - 1); --i) {
+            if (i > maxSegments) {
+                i = maxSegments;
+                if (i == calculateJacobsthalNumber(n - 1)) break;
 
-    int maxSize = subChain.size()/pairSize;
-    int itr_index =0;
-    int insertSize=0;
-    for ( int n=3; ; ++n) {
-        for( int i=jacobsthalNumber(n); i > jacobsthalNumber(n-1); --i) {
-            if( i > maxSize ) {
-                i = maxSize;
-                if( i == jacobsthalNumber(n-1)) break;
-                itr_index = binarySearch(mainChain, getElementAtIndex(subChain, (i-1)*pairSize), pairSize, unpair, insertSize + i - 1);
-                insertSubChain(mainChain, pairSize*itr_index, getIteratorAt(subChain, (i-1)*pairSize), subChain.end());
-                unpair.position = itr_index -1 ;
-                ++insertSize;
+                int insertionPoint = lower_bound(mainChain, getElementAtIndex(subChain, (i - 1) * pairSize), pairSize, unpairedData, insertSize + i - 1);
+                mainChain.insert(getIteratorAt(mainChain, pairSize * insertionPoint), getIteratorAt(subChain, (i - 1) * pairSize), subChain.end());
+                unpairedData.position = insertionPoint - 1;
+                insertSize++;
                 continue;
             }
-            itr_index = binarySearch(mainChain, getElementAtIndex(subChain, (i-1)*pairSize), pairSize, unpair, insertSize + i - 1);
-            insertSubChain(mainChain, pairSize*itr_index, getIteratorAt(subChain, (i-1)*pairSize), getIteratorAt(subChain, (i-1)*pairSize + pairSize));
-            if(unpair.position != -1) {
-                if(unpair.value > getElementAtIndex(subChain, (i-1)*pairSize))
-                    ++unpair.position;
+
+            int insertionPoint = lower_bound(mainChain, getElementAtIndex(subChain, (i - 1) * pairSize), pairSize, unpairedData, insertSize + i - 1);
+            mainChain.insert(getIteratorAt(mainChain, pairSize * insertionPoint), getIteratorAt(subChain, (i - 1) * pairSize), getIteratorAt(subChain, (i - 1) * pairSize + pairSize));
+            
+            if (unpairedData.position != -1 && unpairedData.value > getElementAtIndex(subChain, (i - 1) * pairSize)) {
+                unpairedData.position++;
             }
-            ++insertSize;
+            insertSize++;
         }
-        if(jacobsthalNumber(n) > maxSize) break;
+        if (calculateJacobsthalNumber(n) > maxSegments) break;
     }
+
     subChain.clear();
-    #ifdef SORT
-        this->printDebug<std::list<int> >(mainChain, subChain, pairSize, "After sort");
-    #endif
 }
 
 void PmergeMe::mergeInsertionSort(std::list<int> & mainChain,int pairSize) {
@@ -211,17 +210,14 @@ void PmergeMe::mergeInsertionSort(std::list<int> & mainChain,int pairSize) {
     } 
     
     std::list<int> subChain;
+    UnpairedElemenat unpairedData;
     #ifdef PAIR
         this->printDebug<std::list<int> >( mainChain, subChain, pairSize, "Before pair");
     #endif
-    processPairs(mainChain, subChain, pairSize);
+    processPairs(mainChain, subChain, pairSize, unpairedData);
     #ifdef PAIR
         this->printDebug<std::list<int> >( mainChain, subChain, pairSize, "After pair");
     #endif
-    UnpairedData unpair;
-    unpair.length = subChain.size();
-    unpair.value = *(subChain.begin());
-    unpair.position = -1;
     
     mergeInsertionSort(mainChain, pairSize * 2);
 
@@ -236,30 +232,20 @@ void PmergeMe::mergeInsertionSort(std::list<int> & mainChain,int pairSize) {
     #ifdef INSERTATTHESTART
         this->printDebug<std::list<int> >(mainChain, subChain, pairSize, "Before Insert the first value.");
     #endif
-    insertAtTheStart(mainChain, subChain, pairSize);
+    prependSubchainToMain(mainChain, subChain, pairSize);
     #ifdef INSERTATTHESTART
     this->printDebug<std::list<int> >(mainChain, subChain, pairSize, "After Insert the first value.");
     #endif
 
-    insertionFromSubIntoMain(mainChain, subChain, pairSize, unpair);
+    
+    #ifdef SORT
+        this->printDebug<std::list<int> >(mainChain, subChain, pairSize, "Before sort");
+    #endif
+    mergeSubIntoMain(mainChain, subChain, pairSize, unpairedData);
+    #ifdef SORT
+        this->printDebug<std::list<int> >(mainChain, subChain, pairSize, "After sort");
+    #endif
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void PmergeMe::tset(std::list<int> & l, std::list<int> & s) {
 
