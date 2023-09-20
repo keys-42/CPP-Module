@@ -23,63 +23,64 @@ typedef std::list<std::list<int>::const_iterator>::const_iterator ConstIteratorL
 /**
  * pair comparison
 */
-bool     PmergeMe::pairCompare( std::list<int> & lst, int pairSize, int start ) {
-    if( getElementAtIndex(lst, start) < getElementAtIndex(lst,start + pairSize) )
-        return 1;
-    return 0;
+bool PmergeMe::shouldSwapPairs(const std::list<int>& lst, int pairSize, int startIndex) {
+    return getElementAtIndex(lst, startIndex) < getElementAtIndex(lst, startIndex + pairSize);
 }
 
-void PmergeMe::pairSwap(std::list<int>& lst, int pairSize, int start) {
-    std::list<int>::iterator left = getIteratorAt(lst, start);
-    std::list<int>::iterator left_end = getIteratorAt(lst, start + pairSize);
-    std::list<int>::iterator right = left_end;
-    std::list<int>::iterator right_end = getIteratorAt(lst, start + 2 * pairSize);
+void PmergeMe::swapPairs(std::list<int>& lst, int pairSize, int startIndex) {
+    std::list<int>::iterator leftStart = getIteratorAt(lst, startIndex);
+    std::list<int>::iterator leftEnd = getIteratorAt(lst, startIndex + pairSize);
+    std::list<int>::iterator rightStart = leftEnd;
+    std::list<int>::iterator rightEnd = getIteratorAt(lst, startIndex + 2 * pairSize);
 
-    lst.splice(left, lst, right, right_end);
-
-    lst.splice(right, lst, left, left_end);
+    lst.splice(leftStart, lst, rightStart, rightEnd);
+    lst.splice(rightStart, lst, leftStart, leftEnd);
 }
 
-bool PmergeMe::hasPair(std::list<int> & lst, int pairSize, size_t start) {
-    if(getIteratorAt(lst,start + pairSize + pairSize - 1) == lst.end())
-        return false;
-    return true;
+bool PmergeMe::isPairPresent(const std::list<int>& lst, int pairSize, size_t startIndex) {
+    return getConstIteratorAt(lst, startIndex + 2*pairSize - 1) != lst.end();
 }
 
-void    PmergeMe::makePair(std::list<int> & lst, std::list<int> & subChain, int pairSize) {
-
-    for ( size_t i=0; i < lst.size(); ) {
-
-        if( ! hasPair(lst, pairSize,i) )
-        {
-            if ( getIteratorAt(lst,i) != lst.end())
-                subChain.splice(subChain.begin(), lst, getIteratorAt(lst, i), lst.end() );
+void PmergeMe::processPairs(std::list<int>& lst, std::list<int>& subChain, int pairSize) {
+    for (size_t i = 0; i < lst.size();) {
+        if (!isPairPresent(lst, pairSize, i)) {
+            std::list<int>::iterator iter = getIteratorAt(lst, i);
+            if (iter != lst.end())
+                subChain.splice(subChain.begin(), lst, iter, lst.end());
             break;
         }
-        if(pairCompare(lst, pairSize, i)) {
-            pairSwap(lst, pairSize, i);
+
+        if (shouldSwapPairs(lst, pairSize, i)) {
+            swapPairs(lst, pairSize, i);
         }
 
-        i+=pairSize + pairSize;
+        i += 2 * pairSize;
     }
 }
 
 /**
  * separate mainChain SubChain
 */
+void PmergeMe::splitIntoMainAndSubChains(std::list<int>& mainChain, std::list<int>& subChain, int pairSize) {
 
-void PmergeMe::separateMainChainAndSubChain(std::list<int> & mainChain, std::list<int> & subChain, int pairSize) {
-    std::list<int>::iterator left;
-    std::list<int>::iterator left_end;
+    int segmentIndex = 1;
 
-    for ( int i=1; ; ++i ) {
-        left = getIteratorAt(mainChain,  i*pairSize );
-        if( left == mainChain.end() )
+    while (true) {
+        std::list<int>::iterator segmentStart = getIteratorAt(mainChain, segmentIndex * pairSize);
+        
+        if (segmentStart == mainChain.end()) {
             break;
-        left_end = getIteratorAt(mainChain, i*pairSize + pairSize);
-        subChain.splice(getIteratorAt(subChain, (i-1) * pairSize), mainChain, left, left_end);
-    } 
+        }
+
+        std::list<int>::iterator segmentEnd = getIteratorAt(mainChain, (segmentIndex + 1) * pairSize);
+        std::list<int>::iterator subChainInsertPosition = getIteratorAt(subChain, (segmentIndex - 1) * pairSize);
+        
+        subChain.splice(subChainInsertPosition, mainChain, segmentStart, segmentEnd);
+        
+        ++segmentIndex;
+    }
 }
+
 
 /**
  * insert first subPair
@@ -106,7 +107,6 @@ bool PmergeMe::isKey(std::list<int> & lst, int index, int key) {
 }
 
 int PmergeMe::lower_bound(std::list<int> & lst, int key, int right) {
-    // std::cout << right <<" right"<< std::endl;
     int left = -1;
     while (right - left > 1) {
         int mid = left + (right - left) / 2;
@@ -200,9 +200,7 @@ void PmergeMe::mergeInsertionSort(std::list<int> & mainChain,int pairSize) {
         this->printDebug<std::list<int> >( mainChain, std::list<int>(), pairSize, "Before pair");
         #endif
         if(mainChain.size()  <= static_cast<size_t>(pairSize)) return;
-        if(!pairCompare(mainChain, pairSize, 0)) {
-            pairSwap(mainChain, pairSize, 0);
-        }
+        if(!shouldSwapPairs(mainChain, pairSize, 0)) { swapPairs(mainChain, pairSize, 0);}
         #ifdef PAIR
             this->printDebug<std::list<int> >( mainChain, std::list<int>(), pairSize, "After pair");
         #endif
@@ -216,7 +214,7 @@ void PmergeMe::mergeInsertionSort(std::list<int> & mainChain,int pairSize) {
     #ifdef PAIR
         this->printDebug<std::list<int> >( mainChain, subChain, pairSize, "Before pair");
     #endif
-    makePair( mainChain, subChain, pairSize);
+    processPairs(mainChain, subChain, pairSize);
     #ifdef PAIR
         this->printDebug<std::list<int> >( mainChain, subChain, pairSize, "After pair");
     #endif
@@ -230,7 +228,7 @@ void PmergeMe::mergeInsertionSort(std::list<int> & mainChain,int pairSize) {
     #ifdef SEPARATE
     this->printDebug<std::list<int> >(mainChain, subChain, pairSize, "Before separating.");
     #endif
-    separateMainChainAndSubChain(mainChain, subChain, pairSize);
+    splitIntoMainAndSubChains(mainChain, subChain, pairSize);
     #ifdef SEPARATE
         this->printDebug<std::list<int> >(mainChain, subChain, pairSize, "After separating.");
     #endif

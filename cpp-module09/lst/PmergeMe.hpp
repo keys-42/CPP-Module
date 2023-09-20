@@ -43,13 +43,13 @@ class PmergeMe
 
 
     //pair
-    bool    pairCompare( std::list<int> & lst, int pairSize, int start );
-    void    pairSwap( std::list<int> & lst, int pairSize, int start );
-    bool    hasPair(std::list<int> & lst, int pairSize, size_t start );
-    void    makePair( std::list<int> & lst, std::list<int> & subChain, int pairSize );
+    bool shouldSwapPairs(const std::list<int>& lst, int pairSize, int startIndex);
+    void swapPairs(std::list<int>& lst, int pairSize, int startIndex);
+    bool isPairPresent(const std::list<int>& lst, int pairSize, size_t startIndex);
+    void processPairs(std::list<int>& lst, std::list<int>& subChain, int pairSize);
 
     //separate
-    void    separateMainChainAndSubChain(std::list<int> & mainChain, std::list<int> & subChain, int pairSize);
+    void splitIntoMainAndSubChains(std::list<int>& mainChain, std::list<int>& subChain, int pairSize);
     
     // first insert
     void    insertAtTheStart(std::list<int> & mainChain, std::list<int> & subChain, int pairSize);
