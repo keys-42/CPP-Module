@@ -2,14 +2,16 @@
 
 PmergeMe::PmergeMe() {};
 
-PmergeMe::PmergeMe(const PmergeMe & r): List_mainChain_(r.List_mainChain_), Vector_mainChain_(r.Vector_mainChain_) {};
+PmergeMe::PmergeMe(const PmergeMe & r): input_(r.input_), List_mainChain_(r.List_mainChain_), Vector_mainChain_(r.Vector_mainChain_), sorted_(r.sorted_) {};
 
 PmergeMe::~PmergeMe() {};
 
 PmergeMe & PmergeMe::operator= (const PmergeMe &other) {
     if( this != &other ) {
+        this->input_ = other.input_;
         this->List_mainChain_ = other.List_mainChain_;
         this->Vector_mainChain_ = other.Vector_mainChain_;
+        this->sorted_ = other.sorted_;
     }
     return *this;
 }
@@ -18,16 +20,16 @@ std::vector<int> PmergeMe::getVector() const { return this->Vector_mainChain_; }
 
 void PmergeMe::printClock(std::clock_t start, std::clock_t end, E_Type type) {
     std::string t;
-    if(type == LIST) t = "List";
-    else if(type == VECTOR) t = "Vector";
+    if(type == LIST) t = "  List  ";
+    else if(type == VECTOR) t = " Vector ";
     double elapsed_time = static_cast<double>(end - start) / CLOCKS_PER_SEC;
     double microseconds = elapsed_time * 1e6;
     std::cout << \
     "Time to process a range of " << \
     this->size_ << \
-    "elements with std::[" << \
+    " elements with std::[" << \
     t << \
-    "..] : " << \
+    "] : " << \
     std::fixed << std::setprecision(5) << microseconds << \
     " us" << \
     std::endl;
@@ -48,6 +50,8 @@ int PmergeMe::stoi(const std::string& str) {
 void    PmergeMe::initContainer(int size, int numbers[]) {
     for (int i = 0; i < size; ++i) { 
         if(numbers[i] < 0) throw std::invalid_argument("Received a negative number");
+        input_.push_back(numbers[i]);
+        sorted_.insert(numbers[i]);
         List_mainChain_.push_back(numbers[i]);
         Vector_mainChain_.push_back(numbers[i]);
     }
@@ -62,6 +66,8 @@ void    PmergeMe::initContainer(int size, char* numbers) {
         if (!number.empty()) {
             n = stoi(number);
             if(n < 0) throw std::invalid_argument("Received a negative number");
+                input_.push_back(n);
+                sorted_.insert(n);
                 List_mainChain_.push_back(n);
                 Vector_mainChain_.push_back(n);
         }
@@ -72,6 +78,8 @@ void    PmergeMe::initContainer(int size, char* numbers[]) {
     for (int i=0; i < size ; ++i) {
         n = stoi(numbers[i]);
         if(n < 0) throw std::invalid_argument("Received a negative number");
+        input_.push_back(n);
+        sorted_.insert(n);
         List_mainChain_.push_back(n);
         Vector_mainChain_.push_back(n);
     }
@@ -86,6 +94,8 @@ void    PmergeMe::initContainer(int size, std::string numbers) {
         if (!number.empty()) {
             n = stoi(number);
             if(n < 0) throw std::invalid_argument("Received a negative number");
+                input_.push_back(n);
+                sorted_.insert(n);
                 List_mainChain_.push_back(n);
                 Vector_mainChain_.push_back(n);
         }
@@ -96,6 +106,8 @@ void    PmergeMe::initContainer(int size, std::string numbers[]) {
     for (int i=0; i < size ; ++i) {
         n = stoi(numbers[i]);
         if(n < 0) throw std::invalid_argument("Received a negative number");
+        input_.push_back(n);
+        sorted_.insert(n);
         List_mainChain_.push_back(n);
         Vector_mainChain_.push_back(n);
     }

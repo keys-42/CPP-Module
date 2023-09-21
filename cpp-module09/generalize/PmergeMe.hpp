@@ -10,6 +10,8 @@
 # include <sstream>
 # include <ctime>
 # include <cstring>
+# include <forward_list>
+# include <set>
 
 
 class PmergeMe
@@ -31,8 +33,10 @@ class PmergeMe
     } E_Type;
     
     private:
+        std::list<int>              input_;
         std::list<int>              List_mainChain_;
         std::vector<int>            Vector_mainChain_;
+        std::set<int>               sorted_;
         int size_;
     
     public:
@@ -51,37 +55,46 @@ class PmergeMe
             try {
                 this->initContainer(size, numbers);
             } catch (std::exception &e) {
-                std::cerr << e.what() << std::endl;
+                std::cerr << e.what() << " " << __LINE__ << std::endl;
                 std::exit(1);
             }
 
 
-            PmergeMe::printContainer(List_mainChain_);
-            std::cout << std::endl;
-            std::clock_t start;
-            std::clock_t end;
-
+            std::clock_t list_start;
+            std::clock_t list_end;
             try {
-                start = std::clock();
+                list_start = std::clock();
                 mergeInsertionSort(this->List_mainChain_, 1);
-                end = std::clock();
-                printClock(start, end, LIST);
+                list_end = std::clock();
             } catch (std::exception &e) {
-                std::cerr << e.what() << std::endl;
+                std::cerr << e.what() << " " << __LINE__ << std::endl;
                 std::exit(1);
             }
+            
+            std::clock_t vector_start ;
+            std::clock_t vector_end ;
             try {
-                start = std::clock();
+                vector_start = std::clock();
                 mergeInsertionSort(this->Vector_mainChain_, 1);
-                end = std::clock();
-                printClock(start, end, VECTOR);
-
+                vector_end = std::clock();
             } catch (std::exception &e) {
-                std::cerr << e.what() << std::endl;
+                std::cerr << e.what() << " " << __LINE__ << std::endl;
                 std::exit(1);
             }
-            std::cout << "after: "; 
-            PmergeMe::printContainer(List_mainChain_);
+
+            try {
+                if(!isSorted()) {
+                    std::cout << "Before:  ";
+                    PmergeMe::printContainer(input_);
+                    std::cout << "After:   ";
+                    PmergeMe::printContainer(List_mainChain_);
+                    printClock(list_start, list_end, LIST);
+                    printClock(vector_start, vector_end, VECTOR);
+                }
+            } catch ( std::exception &e ) {
+                std::cerr << e.what() << " " << __LINE__ << std::endl;
+                std::exit(1);
+            } 
         }
     
     private:
@@ -240,9 +253,13 @@ class PmergeMe
         public:
         template <typename T>
         static void printContainer(const T& container) {
-            for (typename T::const_iterator it = container.begin(); it != container.end(); ++it) {
-                std::cout << *it << " ";
+            for (typename T::const_iterator it = container.begin(); it != container.end(); ) {
+                std::cout << *it;
+                ++it;
+                if(it != container.end())
+                    std::cout << " ";
             }
+            std::cout << std::endl;
         }
 
 
@@ -295,27 +312,31 @@ class PmergeMe
                 std::cout << std::endl << "========================================================================================" << std::endl;
         }
 
-        bool isSorted(const std::list<int>& lst) {
-            if (lst.empty()) {
-                return true;
+        bool isSorted() {
+            ConstIntListIterator list_it = List_mainChain_.begin();
+
+            IntVecIterator vector_it = Vector_mainChain_.begin();
+
+            std::set<int>::iterator set_it = sorted_.begin();
+
+            while (set_it != sorted_.end()) {
+                if( *set_it != *list_it) throw std::logic_error("The sequence is not sorted.");
+                if( list_it == List_mainChain_.end() ) throw std::logic_error("The sequence is not sorted.");
+                ++list_it;
+                ++set_it;
             }
+            if( list_it != List_mainChain_.end() ) throw std::logic_error("The sequence is not sorted.");
 
-            std::list<int>::const_iterator it = lst.begin();
-            std::list<int>::const_iterator next_it = it;
-            ++next_it;
-
-            while (next_it != lst.end()) {
-                if (*it > *next_it) {
-                    return false;
-                }
-                ++it;
-                ++next_it;
+            set_it = sorted_.begin();
+            while (set_it != sorted_.end()) {
+                if( *set_it != *vector_it) throw std::logic_error("The sequence is not sorted.");
+                if( vector_it == Vector_mainChain_.end() ) throw std::logic_error("The sequence is not sorted.");
+                ++vector_it;
+                ++set_it;
             }
-
-            return true;
+            if( vector_it != Vector_mainChain_.end() ) throw std::logic_error("The sequence is not sorted.");
+            return false;
         }
-
-
 };
 
 #endif

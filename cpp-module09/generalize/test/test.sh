@@ -1,5 +1,6 @@
 #!/bin/bash
 
+rm -rf log
 mkdir -p log
 
 make -C ..
@@ -11,6 +12,16 @@ chmod +x PmergeMe
 count=1
 length=2147483647
 number=10
+
+FILE_COUNT=11
+
+LOGDIR=./log
+LOG=$LOGDIR/sorted.log
+TEST_LOG=$LOGDIR/sorted_test.log
+TEST_LOG2=$LOGDIR/sorted_test2.log
+ERRORLOG=$LOGDIR/error.log
+
+mkdir -p $LOGDIR
 
 while getopts "l:c:n:" opt; do
     case $opt in
@@ -30,22 +41,34 @@ while getopts "l:c:n:" opt; do
     esac
 done
 
+if [ "$number" -gt 14053 ]; then
+    number=14053
+fi
+
+
+
 for ((i=1; i<=count; i++)); do
     numbers=$(python3 -c "import random; print(' '.join(str(random.randint(1, $length)) for _ in range($number)))")
-    ./PmergeMe $numbers | grep after >sorted.log
+    ./PmergeMe $numbers >> $LOG 2>$ERRORLOG
     sorted_numbers=$(echo "$numbers" | tr ' ' '\n' | sort -n | tr '\n' ' ')
-    echo "after:" $sorted_numbers"" > sorted_test.log
-    diff sorted_test.log sorted.log > /dev/null
+    cat $LOG | grep After > $TEST_LOG 
+    echo "After:   "$sorted_numbers >> $TEST_LOG2
+    diff $TEST_LOG $TEST_LOG2 > /dev/null
     if [ $? -eq 0 ]; then
-        echo $numbers
-        echo -e "\e[32mOK\e[0m"
+    RANDOM_FILE_NUM=$(( RANDOM % FILE_COUNT + 1 ))
+
+    RANDOM_FILE_PATH="./art/${RANDOM_FILE_NUM}.art"
+    echo -e "\033[32m"
+    cat "$RANDOM_FILE_PATH"
+    echo -e "\033[0m"  
     else
-        echo -e "\e[31mNO\e[0m"
+    RANDOM_FILE_NUM=$(( RANDOM % FILE_COUNT + 1 ))
+
+    RANDOM_FILE_PATH="./art/${RANDOM_FILE_NUM}.art"
+    echo -e "\033[31m"
+    cat "$RANDOM_FILE_PATH"
+    echo -e "\033[0m"  
+        echo "error: " $numbers >> $ERRORLOG
         break
     fi
 done
-
-
-echo "-------------------------------------------------------------------------------------------------------------------------------"
-echo 
-make clean

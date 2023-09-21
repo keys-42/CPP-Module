@@ -1,5 +1,5 @@
 all:
-	bash test.sh
+	bash test.sh -n 3
 
 clean:
 	rm -f PmergeMe
