@@ -50,6 +50,7 @@ int PmergeMe::stoi(const std::string& str) {
 void    PmergeMe::initContainer(int size, int numbers[]) {
     for (int i = 0; i < size; ++i) { 
         if(numbers[i] < 0) throw std::invalid_argument("Received a negative number");
+        if(sorted_.find(numbers[i]) != sorted_.end()) throw std::runtime_error("The number already exists in the sorted container.");
         input_.push_back(numbers[i]);
         sorted_.insert(numbers[i]);
         List_mainChain_.push_back(numbers[i]);
@@ -66,6 +67,7 @@ void    PmergeMe::initContainer(int size, char* numbers) {
         if (!number.empty()) {
             n = stoi(number);
             if(n < 0) throw std::invalid_argument("Received a negative number");
+            if(sorted_.find(n) != sorted_.end()) throw std::runtime_error("The number already exists in the sorted container.");
                 input_.push_back(n);
                 sorted_.insert(n);
                 List_mainChain_.push_back(n);
@@ -78,6 +80,7 @@ void    PmergeMe::initContainer(int size, char* numbers[]) {
     for (int i=0; i < size ; ++i) {
         n = stoi(numbers[i]);
         if(n < 0) throw std::invalid_argument("Received a negative number");
+        if(sorted_.find(n) != sorted_.end()) throw std::runtime_error("The number already exists in the sorted container.");
         input_.push_back(n);
         sorted_.insert(n);
         List_mainChain_.push_back(n);
@@ -94,6 +97,7 @@ void    PmergeMe::initContainer(int size, std::string numbers) {
         if (!number.empty()) {
             n = stoi(number);
             if(n < 0) throw std::invalid_argument("Received a negative number");
+            if(sorted_.find(n) != sorted_.end()) throw std::runtime_error("The number already exists in the sorted container.");
                 input_.push_back(n);
                 sorted_.insert(n);
                 List_mainChain_.push_back(n);
@@ -106,6 +110,7 @@ void    PmergeMe::initContainer(int size, std::string numbers[]) {
     for (int i=0; i < size ; ++i) {
         n = stoi(numbers[i]);
         if(n < 0) throw std::invalid_argument("Received a negative number");
+        if(sorted_.find(n) != sorted_.end()) throw std::runtime_error("The number already exists in the sorted container.");
         input_.push_back(n);
         sorted_.insert(n);
         List_mainChain_.push_back(n);

@@ -43,5 +43,18 @@ int main()
         std::cout << "exception: " << e.what() << std::endl;
 	}
 
+	std::vector<int> bbigumber(2);
+	bbigumber[0] = -2147483648;
+	bbigumber[1] = 2147483647;
+    try 
+	{
+		Span b(2);
+        b.containerInsert<std::vector<int> >(bbigumber);
+		std::cout << "shortest span: " << b.shortestSpan() << std::endl;
+		std::cout << "longest span : " << b.longestSpan() << std::endl;
+	}  catch (std::exception& e) {
+        std::cout << "exception: " << e.what() << std::endl;
+	}
+
     return 0;
 }

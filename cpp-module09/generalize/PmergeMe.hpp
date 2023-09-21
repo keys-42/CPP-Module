@@ -55,7 +55,7 @@ class PmergeMe
             try {
                 this->initContainer(size, numbers);
             } catch (std::exception &e) {
-                std::cerr << e.what() << " " << __LINE__ << std::endl;
+                std::cerr << e.what() << " " << "line: " << __LINE__ << std::endl;
                 std::exit(1);
             }
 
@@ -67,7 +67,7 @@ class PmergeMe
                 mergeInsertionSort(this->List_mainChain_, 1);
                 list_end = std::clock();
             } catch (std::exception &e) {
-                std::cerr << e.what() << " " << __LINE__ << std::endl;
+                std::cerr << e.what() << " " << "line: " << __LINE__ << std::endl;
                 std::exit(1);
             }
             
@@ -78,7 +78,7 @@ class PmergeMe
                 mergeInsertionSort(this->Vector_mainChain_, 1);
                 vector_end = std::clock();
             } catch (std::exception &e) {
-                std::cerr << e.what() << " " << __LINE__ << std::endl;
+                std::cerr << e.what() << " " << "line: " << __LINE__ << std::endl;
                 std::exit(1);
             }
 
@@ -92,9 +92,10 @@ class PmergeMe
                     printClock(vector_start, vector_end, VECTOR);
                 }
             } catch ( std::exception &e ) {
-                std::cerr << e.what() << " " << __LINE__ << std::endl;
+                std::cerr << e.what() << " " << "line: " << __LINE__ << std::endl;
                 std::exit(1);
             } 
+
         }
     
     private:

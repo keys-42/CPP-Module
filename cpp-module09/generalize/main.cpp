@@ -13,6 +13,5 @@ int main( int argc, char **argv )
   p->FordJohnsonAlgorithm(argc - 1,++argv);
   
   delete p;
-//   delete[] arr;
   return 0;
 }
