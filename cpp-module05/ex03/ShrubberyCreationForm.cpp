@@ -1,10 +1,10 @@
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm( const std::string& target ): AForm("ShrubberyCreationForm", 145, 137), target_(target) {
+ShrubberyCreationForm::ShrubberyCreationForm( const std::string& target ): Form("ShrubberyCreationForm", 145, 137), target_(target) {
     std::cout << "ShrubberyCreationForm constructor called" << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &r): AForm(r), target_(r.target_) {
+ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &r): Form(r), target_(r.target_) {
     std::cout << "ShrubberyCreationForm copy constructor called" << std::endl;
 }
 
@@ -22,7 +22,7 @@ ShrubberyCreationForm & ShrubberyCreationForm::operator=(ShrubberyCreationForm c
 
 void ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
     if(executor.getGrade() > this->getExecutionGrade()) {
-        throw AForm::GradeTooLowException("Grade too low to execute form");
+        throw Form::GradeTooLowException("Grade too low to execute form");
     }
     std::string file = this->target_ + "_shrubbery";
     std::ofstream outfile(file.c_str());

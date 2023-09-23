@@ -57,7 +57,7 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& b) {
     return *this;
 }
 
-void Bureaucrat::signForm(AForm & f) const
+void Bureaucrat::signForm(Form & f) const
 {
     try {
         f.beSigned(*this);
@@ -68,11 +68,11 @@ void Bureaucrat::signForm(AForm & f) const
     }
 }
 
-void Bureaucrat::executeForm(AForm const & form) const
+void Bureaucrat::executeForm(Form const & form) const
 {
     try {
         if(form.getIsSigned() == false)
-            throw AForm::GradeTooLowException("the form is not signed");
+            throw Form::GradeTooLowException("the form is not signed");
         form.execute(*this);
         std::cout << this->getName() << " executed " << form.getName() << std::endl;
     } catch ( std::exception & e ) {

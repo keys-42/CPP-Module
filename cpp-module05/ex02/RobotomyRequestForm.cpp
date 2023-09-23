@@ -1,10 +1,10 @@
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm( const std::string& target ): AForm("RobotomyRequestForm", 72, 45), target_(target) {
+RobotomyRequestForm::RobotomyRequestForm( const std::string& target ): Form("RobotomyRequestForm", 72, 45), target_(target) {
     std::cout << "RobotomyRequestForm constructor called" << std::endl;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const &r): AForm(r), target_(r.target_) {
+RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const &r): Form(r), target_(r.target_) {
     std::cout << "RobotomyRequestForm copy constructor called" << std::endl;
 }
 
@@ -22,7 +22,7 @@ RobotomyRequestForm & RobotomyRequestForm::operator=(RobotomyRequestForm const &
 
 void RobotomyRequestForm::execute(Bureaucrat const &executor) const {
     if(executor.getGrade() > this->getExecutionGrade()) {
-        throw AForm::GradeTooLowException("Grade too low to execute form");
+        throw Form::GradeTooLowException("Grade too low to execute form");
     }
     static int i = 0;
 
