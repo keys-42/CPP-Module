@@ -1,12 +1,13 @@
 #ifndef EASYFIND_HPP
 # define EASYFIND_HPP
 
-#include <iostream>
-#include <string>
-#include <iomanip>
-#include <vector>
-#include <list>
-#include <exception>
+# include <iostream>
+# include <string>
+# include <iomanip>
+# include <vector>
+# include <list>
+# include <exception>
+# include <algorithm>
 
 
 class NotFoundException : public std::exception {
@@ -17,20 +18,12 @@ class NotFoundException : public std::exception {
 template <typename T>
 void easyfind(T container, int n)
 {
-    typename T::iterator itr;
-    bool found = false;
-    
-    for ( itr = container.begin();itr != container.end(); ++itr) {
-        if(*itr == n) {
-            found = true;
-            break;
-        }
-    }
-    if(found)
-        std::cout << "Number was found" << std::endl;
-    else
+    typename T::iterator result = std::find(container.begin(), container.end(), n);
+    if (result == container.end()) {
         throw NotFoundException();
-        
+    } else {
+        std::cout << "found" << std::endl;
+    }
 }
 
 #endif
