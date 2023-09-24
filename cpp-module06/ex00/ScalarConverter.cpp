@@ -102,6 +102,8 @@ void ScalarConverter::int_literal(std::string const &str) {
 
     if (str_float.find('e') == std::string::npos && str_float.find('E') == std::string::npos) {
         str_float += ".0f";
+    } else {
+        str_float += "f";
     }
 
     if (str_double.find('e') == std::string::npos && str_double.find('E') == std::string::npos) {
