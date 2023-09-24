@@ -20,7 +20,6 @@ void func(const T &p)
     std::cout << std::setw(10) << p << std::endl;
 }
 
-
 template <typename T>
 void multiplyByPi(const T &value) {
     double result = value * M_PI;
