@@ -20,6 +20,7 @@ enum LiteralType {
 class ScalarConverter
 {
     private:
+        ScalarConverter() {};
         static LiteralType getLiteralType(std::string const &str);
         static void char_literal(std::string const &str);
         static void int_literal(std::string const &str);

@@ -25,5 +25,8 @@ int main()
     std::cout << "    time  :" << after->timestamp_ << std::endl;
     std::cout << "}" << std::endl;
 
+    // Serialize *p = new Serialize();
+    // delete p;
+
     return (0);
 }
