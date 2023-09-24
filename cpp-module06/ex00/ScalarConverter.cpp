@@ -84,12 +84,12 @@ void ScalarConverter::int_literal(std::string const &str) {
         throw ScalarConverter::InvalidException();
     }
     
-    if(std::isprint(number))
-        std::cout << "char   : " << "'" << static_cast<char>(number) << "'" << std::endl;
-    else if(0 <= number && number <= 127)
-        std::cout << "char   : " << "Non displayable" << std::endl;
-    else
+    if ( number < 0 || 127 < number )
         std::cout << "char   : " << "impossible" << std::endl;
+    else if(std::isprint(number))
+        std::cout << "char   : " << "'" << static_cast<char>(number) << "'" << std::endl;
+    else
+        std::cout << "char   : " << "Non displayable" << std::endl;
     
     std::cout << "int    : " << number << std::endl;
 
@@ -120,13 +120,12 @@ void ScalarConverter::float_literal(std::string const &str) {
         throw ScalarConverter::InvalidException();
     }
 
-
-    if(std::isprint(number))
-        std::cout << "char   : " << "'" << static_cast<char>(number) << "'" << std::endl;
-    else if(0 <= number && number <= 127)
-        std::cout << "char   : " << "Non displayable" << std::endl;
-    else
+    if ( number < 0 || 127 < number )
         std::cout << "char   : " << "impossible" << std::endl;
+    else if(std::isprint(number))
+        std::cout << "char   : " << "'" << static_cast<char>(number) << "'" << std::endl;
+    else
+        std::cout << "char   : " << "Non displayable" << std::endl;
 
     std::cout << "int    : " << static_cast<int>(number) << std::endl;
     if (number == static_cast<int>(number)) {
@@ -146,12 +145,13 @@ void ScalarConverter::double_literal(std::string const &str) {
         throw ScalarConverter::InvalidException();
     }
 
-    if(std::isprint(number))
-        std::cout << "char   : " << "'" << static_cast<char>(number) << "'" << std::endl;
-    else if(0 <= number && number <= 127)
-        std::cout << "char   : " << "Non displayable" << std::endl;
-    else
+
+    if ( number < 0 || 127 < number )
         std::cout << "char   : " << "impossible" << std::endl;
+    else if(std::isprint(number))
+        std::cout << "char   : " << "'" << static_cast<char>(number) << "'" << std::endl;
+    else
+        std::cout << "char   : " << "Non displayable" << std::endl;
 
     std::cout << "int    : " << static_cast<int>(number) << std::endl;
 
