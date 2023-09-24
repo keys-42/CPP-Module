@@ -1,14 +1,12 @@
 #ifndef SPAN_HPP
 # define SPAN_HPP
 
-#include <iostream>
-#include <string>
-#include <iomanip>
-#include <vector>
-#include <list>
-#include <exception>
-#include <algorithm>
-#include <climits>
+# include <iostream>
+# include <vector>
+# include <exception>
+# include <algorithm>
+# include <cstdlib>
+# include <ctime>
 
 class Span
 {

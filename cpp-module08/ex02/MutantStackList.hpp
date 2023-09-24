@@ -13,7 +13,7 @@ class MutantStackList : public std::stack<T, std::list<T> >
     public:
         MutantStackList() : std::stack<T, std::list<T> >() {}
         MutantStackList(MutantStackList const &other) : std::stack<T, std::list<T> >(other) {}
-        virtual ~MutantStackList() {}
+        ~MutantStackList() {}
         MutantStackList &operator=(MutantStackList const &other) {
             if (this != &other)
                 std::stack<T, std::list<T> >::operator=(other);

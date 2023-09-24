@@ -25,18 +25,14 @@ void Span::printContainer() {
 
 unsigned int Span::shortestSpan() {
     if(v_.size() <= 1) throw SpanException();
-    std::vector<int> c(v_);
-    std::sort(c.begin(), c.end());
-    std::vector<int>::iterator itr;
-    unsigned int span = UINT_MAX;
-    unsigned int p = 0;
-    unsigned int n = 0;
 
-    for (itr = c.begin(); itr < c.end(); itr++) {
-        p = n;
-        n = *itr;        
-        if(span > (n - p))
-            span = (n - p);
+    std::vector<int> sorted(v_);
+    std::sort(sorted.begin(), sorted.end());
+
+    unsigned int span = std::numeric_limits<int>::max() - std::numeric_limits<int>::min();
+    for (std::size_t i=1; i < sorted.size(); ++i) {
+        unsigned int diff = sorted[i] - sorted[i - 1];
+        if( diff < span ) span = diff;
     }
     return span;
 }

@@ -7,7 +7,7 @@
 
 int main()
 {
-	AForm *form;
+	Form *form;
 	Intern *intern = new Intern();
 	std::cout << "--------ShrubberyCreationForm---------------- " << __FILE__ << " in " << __LINE__ << std::endl;
 	std::cout << "--------simple test-------------------- " << __FILE__ << " in " << __LINE__ << std::endl;

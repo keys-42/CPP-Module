@@ -12,7 +12,7 @@ class MutantStack : public std::stack<T>
     public:
         MutantStack() : std::stack<T>() {}
         MutantStack(MutantStack const &other) : std::stack<T>(other) {}
-        virtual ~MutantStack() {}
+        ~MutantStack() {}
         MutantStack &operator=(MutantStack const &other) {
             if (this != &other)
                 std::stack<T>::operator=(other);
@@ -26,7 +26,8 @@ class MutantStack : public std::stack<T>
         const_iterator end() const { return this->c.end(); }
         void print() {
             for (iterator it = this->c.begin(); it != this->c.end(); ++it)
-                std::cout << *it << std::endl;
+                std::cout << *it << " ";
+            std::cout << std::endl;
         }
 };
 

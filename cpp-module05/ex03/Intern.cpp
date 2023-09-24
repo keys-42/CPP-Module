@@ -22,14 +22,14 @@ Intern &Intern::operator=(Intern const &other)
     return (*this);
 }
 
-AForm* Intern::makeForm(std::string formName, std::string target) {
+Form* Intern::makeForm(std::string formName, std::string target) {
 	std::string requestName[3] = { "ShrubberyCreationForm", "RobotomyRequestForm", "PresidentialPardonForm"};
-	AForm *form[] = {
+	Form *form[] = {
         new ShrubberyCreationForm(target),
         new RobotomyRequestForm(target),
         new PresidentialPardonForm(target)
     };
-    AForm *ret = NULL;
+    Form *ret = NULL;
 	for (std::size_t i = 0; i < 3; ++i) {
 			if (requestName[i] == formName) {
 				ret = form[i];

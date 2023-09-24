@@ -20,12 +20,11 @@ class PmergeMe
     typedef std::list<std::list<int>::const_iterator> ConstIteratorList;
     typedef std::list<std::list<int>::const_iterator>::const_iterator ConstIteratorListIterator;
 
-    struct UnpairedData {
+    struct UnpairedElemenat {
         size_t length;
         int value;
         int position;
     };
-
     private:
         std::list<int>          mainChain_;
     
@@ -37,61 +36,66 @@ class PmergeMe
         PmergeMe(const PmergeMe & r);
         ~PmergeMe();
         PmergeMe & operator= (const PmergeMe &other);
- 
+
     void FordJohnsonAlgorithm(int size, int numbers[]);
     void mergeInsertionSort(std::list<int> & mainChain,int pairSize);
 
 
     //pair
-    bool    pairCompare( std::list<int> & lst, int pairSize, int start );
-    void    pairSwap( std::list<int> & lst, int pairSize, int start );
-    bool    hasPair(std::list<int> & lst, int pairSize, size_t start );
-    void    makePair( std::list<int> & lst, std::list<int> & subChain, int pairSize );
+    bool shouldSwapPairs(const std::list<int>& lst, int pairSize, int startIndex);
+    void swapPairs(std::list<int>& lst, int pairSize, int startIndex);
+    bool isPairPresent(const std::list<int>& lst, int pairSize, size_t startIndex);
+    void processPairs(std::list<int>& lst, std::list<int>& subChain, int pairSize, UnpairedElemenat & unpairedData);
 
     //separate
-    void    separateMainChainAndSubChain(std::list<int> & mainChain, std::list<int> & subChain, int pairSize);
+    void splitIntoMainAndSubChains(std::list<int>& mainChain, std::list<int>& subChain, int pairSize);
     
     // first insert
-    void    insertAtTheStart(std::list<int> & mainChain, std::list<int> & subChain, int pairSize);
+    void    prependSubchainToMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize);
 
     // insert
-    void                        insertionFromSubIntoMain(std::list<int> & mainChain, std::list<int> & subChain, int pairSize, UnpairedData& unpair);
-    int                         jacobsthalNumber(int n);
-    int                         binarySearch(std::list<int> & mainChain, int key,int pairSize, UnpairedData& unpair, int endpoint);
-    bool                        isKey(std::list<int> & lst, int index, int key);
-    int                         lower_bound(std::list<int> & lst, int key, int right);
+    void                        mergeSubIntoMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize, UnpairedElemenat& unpairedData);
+    int                         calculateJacobsthalNumber(int n);
+    int                         lower_bound(std::list<int> & mainChain, int key,int pairSize, UnpairedElemenat& unpairedData, int endpoint);
+    void                        createComparisonListFromMainChain(std::list<int>& lst, std::list<int>& mainChain, int pairSize, UnpairedElemenat& unpairedData, int endpoint);
+    bool                        elementExceedsKey(std::list<int>& lst, int index, int key);
+    int                         find_lower_bound(std::list<int> & lst, int key);
     void                        insertSubChain(std::list<int> & mainChain, int insertPosition, ConstIntListIter begin, ConstIntListIter end);
+    void                        insertSegmentToMainChain(std::list<int>& mainChain, std::list<int>& subChain, int segmentStart, int segmentEnd, int insertionPoint, int pairSize);
 
 
 
-
-
-
+    //utils
     template <typename T>
-    typename std::list<T>::iterator advanceTo(std::list<T>& lst, size_t index) {
+    typename std::list<T>::iterator getIteratorAt(std::list<T>& lst, size_t index) {
         if (index >= lst.size()) { return lst.end(); }
 
         typename std::list<T>::iterator it = lst.begin();
         std::advance(it, index);
         return it;
     }
-    template <typename T>
-    typename std::list<T>::const_iterator advanceIt(std::list<T>& lst, typename std::list<T>::const_iterator itr, size_t index) {
 
+    template <typename T>
+    typename std::list<T>::const_iterator getConstIteratorAt(const std::list<T>& lst, size_t index) {
+        if (index >= lst.size()) { return lst.end(); }
+
+        typename std::list<T>::const_iterator it = lst.begin();
+        std::advance(it, index);
+        return it;
+    }
+
+    template <typename T>
+    typename std::list<T>::const_iterator advanceTo(std::list<T>& lst, typename std::list<T>::const_iterator itr, size_t index) {
         for (size_t i=0; i< index ; ++i) {
             ++itr;
             if(itr == lst.end()) return lst.end();
         }
         return itr;
     }
-
     template <typename T>
     T getElementAtIndex(const std::list<T>& lst, size_t index) {
-        typename std::list<T>::const_iterator it = lst.begin();
-        for (size_t i = 0; i < index; ++i) {
-            if (it == lst.end()) {
-                throw std::out_of_range("Index out of bounds");
-            }
+    typename std::list<T>::const_iterator it = lst.begin();
+        for (size_t i = 0; i < index && it != lst.end(); ++i) {
             ++it;
         }
 
@@ -130,12 +134,6 @@ class PmergeMe
                     if(index % (pairSize * 2) == pairSize * 2 - 1 || it == prevIt) { std::cout << "]" ; }
                     if ( (index % (pairSize * 2) == pairSize - 1) && (it != prevIt) ) { std::cout << " | "; }
                     else { std::cout << "  "; }
-
-                    // if(index % (pairSize * 2) == 0) { std::cout << "[" ; }
-                    // std::cout << *it;
-                    // if(index % (pairSize * 2) == pairSize * 2 - 1 || it == std::prev(mainChain.end())) { std::cout << "]" ; }
-                    // if ( (index % (pairSize * 2) == pairSize - 1) && (it != std::prev(mainChain.end())) ) { std::cout << " | "; }
-                    // else { std::cout << "  "; }
                 }
                 std::cout << std::endl;
             }
@@ -175,8 +173,6 @@ class PmergeMe
 
             return true;
         }
-
-        void tset(std::list<int> & l, std::list<int> & s);
 
 };
 

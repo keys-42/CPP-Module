@@ -44,7 +44,7 @@ debug:fclean
 
 pair:fclean
 	make PAIR=1
- 
+
 separate:fclean
 	make SEPARATE=1
 

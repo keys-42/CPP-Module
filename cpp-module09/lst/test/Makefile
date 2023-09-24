@@ -23,3 +23,6 @@ sort:
 
 re:
 	make re -C ..
+
+i:
+	bash infinity.sh
