@@ -2,27 +2,27 @@
 
 int main()
 {
-    Data a;
-    uintptr_t u;
-    Data *l;
+    Data before;
+    uintptr_t uintptr;
+    Data *after;
 
-    a.id_ = 1;
-    a.name_ = "Jun";
-    a.timestamp_ = std::time(0);
-    std::cout << "a: [" << &a << "]" << std::endl;
+    before.id_ = 1;
+    before.name_ = "Jun";
+    before.timestamp_ = std::time(0);
+    std::cout << "before: [" << &before << "]" << std::endl;
     std::cout << "{" << std::endl;
-    std::cout << "    " << a.id_ << std::endl;
-    std::cout << "    " << a.name_ << std::endl;
-    std::cout << "    " << a.timestamp_ << std::endl;
+    std::cout << "    id    :" << before.id_ << std::endl;
+    std::cout << "    name  :" << before.name_ << std::endl;
+    std::cout << "    time  :" << before.timestamp_ << std::endl;
     std::cout << "}" << std::endl << std::endl;
-    u = Serialize::serialize(&a);
-    std::cout << "u: [" << u << "]" << std::endl;
-    l = Serialize::deserialize(u);
-    std::cout << "l: [" << l << "]" << std::endl << std::endl;
+    uintptr = Serialize::serialize(&before);
+    std::cout << "uintptr: [" << uintptr << "]" << std::endl;
+    after = Serialize::deserialize(uintptr);
+    std::cout << "after: [" << after << "]" << std::endl << std::endl;
     std::cout << "{" << std::endl;
-    std::cout << "    " << l->id_ << std::endl;
-    std::cout << "    " << l->name_ << std::endl;
-    std::cout << "    " << l->timestamp_ << std::endl;
+    std::cout << "    id    :" << after->id_ << std::endl;
+    std::cout << "    name  :" << after->name_ << std::endl;
+    std::cout << "    time  :" << after->timestamp_ << std::endl;
     std::cout << "}" << std::endl;
 
     return (0);

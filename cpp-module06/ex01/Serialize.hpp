@@ -9,7 +9,6 @@
 // typedef unsigned long uintptr_t;
 // #endif
 
-
 class Serialize
 {
     public:
