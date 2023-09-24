@@ -1,16 +1,5 @@
 #include "iter.hpp"
 
-void printLength(const std::string &s)
-{
-    std::cout << std::setw(10) << s.length() << std::endl;
-}
-
-void printLength(std::string &s)
-{
-    std::cout << std::setw(10) << s.length() << std::endl;
-}
-
-
 int main( void ) 
 {
     std::string arr[] = {
@@ -25,6 +14,10 @@ int main( void )
         "8",
         "9",
     };
+    int size = sizeof(arr) / sizeof(arr[0]);
+    std::cout << "{" << std::endl;
+    iter(arr,size,&func);
+    std::cout << "}" << std::endl;
 
     const std::string constArr[] = {
         "0",
@@ -39,17 +32,11 @@ int main( void )
         "9",
     };
 
-    int size = sizeof(arr) / sizeof(arr[0]);
-
     std::cout << "{" << std::endl;
     iter(constArr,size,&func);
     std::cout << "}" << std::endl;
-    std::cout <<"+++++++++++++++++" <<std::endl;
-    std::cout << "{" << std::endl;
-    iter(arr,size,&func);
-    std::cout << "}" << std::endl;
 
-    int i[] = {
+    int _int[] = {
         0,
         1,
         2,
@@ -63,9 +50,25 @@ int main( void )
     };
 
     std::cout << "}" << std::endl;
-    iter(i,10,&multiplyByPi);
+    iter(_int,10,&multiplyByPi);
     std::cout << "{" << std::endl;
 
+    int constInt[] = {
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+    };
+
+    std::cout << "}" << std::endl;
+    iter(constInt,10,&multiplyByPi);
+    std::cout << "{" << std::endl;
 
     return 0;
 }
