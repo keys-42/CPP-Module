@@ -14,11 +14,11 @@ SRC =	main.cpp \
 
 OBJ = $(SRC:.cpp=.o)
 
+all:$(NAME)
+
 debug: fclean
 debug: CXXFLAGS += -g -fsanitize=address
 debug: all
-
-all:$(NAME)
 
 $(NAME):$(OBJ)
 	$(CXX) $(CXXFLAGS) $^ -o $@
