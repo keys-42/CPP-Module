@@ -3,7 +3,7 @@ CXX		= c++
 
 UNAME := $(shell uname)
 
-CXXFLAGS	= -Wall -Wextra -Werror -std=c++98 
+CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 
 ifneq ($(UNAME), Darwin)
 CXXFLAGS = -Wall -Wextra -Werror -std=c++11
@@ -14,10 +14,14 @@ SRC =	main.cpp \
 
 OBJ = $(SRC:.cpp=.o)
 
+debug: fclean
+debug: CXXFLAGS += -g -fsanitize=address
+debug: all
+
 all:$(NAME)
 
 $(NAME):$(OBJ)
-	$(CXX) $(CXXFALGS) $^ -o $@
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
 clean:
 	$(RM) $(OBJ)
@@ -28,4 +32,4 @@ fclean:clean
 re:fclean all
 
 .PHONY:
-	all clean fclean re
+	all clean fclean re debug
