@@ -7,6 +7,7 @@
 # include <iomanip>
 # include <stdexcept>
 # include <exception>
+# include <sstream>
 
 enum LiteralType {
     CHAR,

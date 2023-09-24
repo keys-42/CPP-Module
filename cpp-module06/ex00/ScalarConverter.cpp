@@ -77,7 +77,12 @@ void ScalarConverter::char_literal(std::string const &str) {
 }
 
 void ScalarConverter::int_literal(std::string const &str) {
-    int number = std::stoi(str);
+    int number = 0;
+    try {
+        number = std::stoi(str);
+    } catch ( std::exception & e) {
+        throw ScalarConverter::InvalidException();
+    }
     
     if(std::isprint(number))
         std::cout << "char   : " << "'" << static_cast<char>(number) << "'" << std::endl;
@@ -85,14 +90,35 @@ void ScalarConverter::int_literal(std::string const &str) {
         std::cout << "char   : " << "Non displayable" << std::endl;
     else
         std::cout << "char   : " << "impossible" << std::endl;
-
+    
     std::cout << "int    : " << number << std::endl;
-    std::cout << "flaot  : " << static_cast<float>(number) << ".0f" << std::endl;
-    std::cout << "double : " << static_cast<double>(number) << ".0" << std::endl;
+
+    std::ostringstream sfloat, sdouble;
+    sfloat << static_cast<float>(number);
+    sdouble<< static_cast<double>(number);
+
+    std::string str_float = sfloat.str();
+    std::string str_double = sdouble.str();
+
+    if (str_float.find('e') == std::string::npos && str_float.find('E') == std::string::npos) {
+        str_float += ".0f";
+    }
+
+    if (str_double.find('e') == std::string::npos && str_double.find('E') == std::string::npos) {
+        str_double += ".0";
+    }
+
+    std::cout << "flaot  : " << str_float << std::endl;
+    std::cout << "double : " << str_double << std::endl;
 }
 
 void ScalarConverter::float_literal(std::string const &str) {
-    float number = std::stof(str);
+    float number = 0.0f;
+    try {
+        number = std::stof(str);
+    } catch ( std::exception & e) {
+        throw ScalarConverter::InvalidException();
+    }
 
 
     if(std::isprint(number))
@@ -113,7 +139,12 @@ void ScalarConverter::float_literal(std::string const &str) {
 }
 
 void ScalarConverter::double_literal(std::string const &str) {
-    double number = std::stod(str);
+    double number = 0.0;
+    try {
+        number = std::stod(str);
+    } catch ( std::exception & e) {
+        throw ScalarConverter::InvalidException();
+    }
 
     if(std::isprint(number))
         std::cout << "char   : " << "'" << static_cast<char>(number) << "'" << std::endl;
