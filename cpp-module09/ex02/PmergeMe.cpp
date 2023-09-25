@@ -459,6 +459,14 @@ void PmergeMe::mergeSubIntoMain(std::vector<int>& mainChain, std::vector<int>& s
 
             int key = getElementAtIndex(subChain, (i - 1) * pairSize);
             int insertionPoint = lower_bound(mainChain, key, pairSize, unpairedData, insertSize + i - 1);
+            #ifdef INSERT
+                #ifdef LISTDEBUG
+                    testInsertDebug(mainChain, subChain, pairSize, "Insert", key, i);
+                #endif
+                #ifdef VECTORDEBUG
+                    testInsertDebug(mainChain, subChain, pairSize, "Insert", key, i);
+                #endif
+            #endif
 
             if (i == maxSegments) {
                 insertSegmentToMainChain(mainChain, subChain, i - 1, -1, insertionPoint, pairSize);
@@ -474,6 +482,9 @@ void PmergeMe::mergeSubIntoMain(std::vector<int>& mainChain, std::vector<int>& s
         }
         if (calculateJacobsthalNumber(n) > maxSegments) break;
     }
+    #ifdef INSERT
+        std::cout << std::endl << std::endl;
+    #endif
 
     subChain.clear();
 }

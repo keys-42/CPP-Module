@@ -16,7 +16,9 @@ int main( int argc, char **argv )
   return 0;
 }
 
+#ifdef LEAK
 __attribute__((destructor))
 static void destructor() {
     system("leaks -q Pmerge");
 }
+#endif

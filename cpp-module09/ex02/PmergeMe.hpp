@@ -13,6 +13,15 @@
 # include <forward_list>
 # include <set>
 
+# define BLACK "\033[30m"
+# define RED "\033[31m"
+# define GREEN "\033[32m"
+# define YELLOW "\033[33m"
+# define BLUE "\033[34m"
+# define MAGENTA "\033[35m"
+# define CYAN "\033[36m"
+# define WHITE "\033[37m"
+# define RESET "\033[m" 
 
 class PmergeMe
 {
@@ -159,21 +168,104 @@ class PmergeMe
         void mergeInsertionSort(T & mainChain,int pairSize) {
             if (mainChain.size() <= 2 * static_cast<size_t>(pairSize)) {
                 if(mainChain.size()  <= static_cast<size_t>(pairSize)) return;
+
+                #ifdef PAIR
+                #ifdef LISTDEBUG
+                    testPairDebug(mainChain, pairSize, "Before process pairs.");
+                #endif
+                #ifdef VECTORDEBUG
+                    testPairDebug(mainChain, pairSize, "Before process pairs.");
+                #endif
+                #endif
                 if(!shouldSwapPairs(mainChain, pairSize, 0)) { swapPairs(mainChain, pairSize, 0);}
+                #ifdef PAIR
+                #ifdef LISTDEBUG
+                    testPairDebug(mainChain, pairSize, "After process pairs.");
+                #endif
+                #ifdef VECTORDEBUG
+                    testPairDebug(mainChain, pairSize, "After process pairs.");
+                #endif
+                #endif
                 return ; 
             } 
             
             T subChain;
             UnpairedElemenat unpairedData;
+
+            #ifdef PAIR
+                #ifdef LISTDEBUG
+                    testPairDebug(mainChain, pairSize, "Before process pairs.");
+                #endif
+                #ifdef VECTORDEBUG
+                    testPairDebug(mainChain, pairSize, "Before process pairs.");
+                #endif
+            #endif
             processPairs(mainChain, subChain, pairSize, unpairedData);
+            #ifdef PAIR
+                #ifdef LISTDEBUG
+                    testPairDebug(mainChain, pairSize, "After process pairs.");
+                #endif
+                #ifdef VECTORDEBUG
+                    testPairDebug(mainChain, pairSize, "After process pairs.");
+                #endif
+            #endif
             
             mergeInsertionSort(mainChain, pairSize * 2);
 
+            #ifdef SEPARATE
+                #ifdef LISTDEBUG
+                    testSeparateDebug(mainChain, subChain, pairSize, "Before split into main and sub-chains.");
+                #endif
+                #ifdef VECTORDEBUG
+                    testSeparateDebug(mainChain, subChain, pairSize, "Before split into main and sub-chains.");
+                #endif
+            #endif
             splitIntoMainAndSubChains(mainChain, subChain, pairSize);
+            #ifdef SEPARATE
+                #ifdef LISTDEBUG
+                    testSeparateDebug(mainChain, subChain, pairSize, "After split into main and sub-chains.");
+                #endif
+                #ifdef VECTORDEBUG
+                    testSeparateDebug(mainChain, subChain, pairSize, "After split into main and sub-chains.");
+                #endif
+            #endif
 
+            #ifdef FIRST
+                #ifdef LISTDEBUG
+                    testFirstInsertDebug(mainChain, subChain, pairSize, "Before prepend sub-chain to main.");
+                #endif
+                #ifdef VECTORDEBUG
+                    testFirstInsertDebug(mainChain, subChain, pairSize, "Before prepend sub-chain to main.");
+                #endif
+            #endif
             prependSubchainToMain(mainChain, subChain, pairSize);
-
+            #ifdef FIRST
+                #ifdef LISTDEBUG
+                    testFirstInsertDebug(mainChain, subChain, pairSize, "After prepend sub-chain to main.");
+                #endif
+                #ifdef VECTORDEBUG
+                    testFirstInsertDebug(mainChain, subChain, pairSize, "After prepend sub-chain to main.");
+                #endif
+            #endif
+            
+            #ifdef INSERT
+                #ifdef LISTDEBUG
+                    testInsertDebug(mainChain, subChain, pairSize, "Before merge insert", 0, 0);
+                #endif
+                #ifdef VECTORDEBUG
+                    testInsertDebug(mainChain, subChain, pairSize, "Before merge insert", 0, 0);
+                #endif
+            #endif
             mergeSubIntoMain(mainChain, subChain, pairSize, unpairedData);
+            #ifdef INSERT
+                #ifdef LISTDEBUG
+                    testInsertDebug(mainChain, subChain, pairSize, "After merge Insert",0 ,0);
+                #endif
+                #ifdef VECTORDEBUG
+                    testInsertDebug(mainChain, subChain, pairSize, "After merge Insert",0 ,0);
+                #endif
+                std::cout << std::endl << std::endl;
+            #endif
         }
     
     
@@ -263,56 +355,6 @@ class PmergeMe
             std::cout << std::endl;
         }
 
-
-
-    //debug
-    public:
-        template <typename T, typename Iter>
-        static void print(T t) {
-            for(Iter it=t.begin(); it != t.end(); ++it) {
-                std::cout << *it << " ";
-            }
-            std::cout << std::endl;
-        }
-                template <typename T>
-        void printDebug(const T& mainChain, const T& subChain, int pairSize, const char* message) {
-            typedef typename T::const_iterator Iterator;
-            if(strncmp(message,"B",1) == 0)
-                std::cout << std::endl << "========================================================================================" << std::endl;
-            std::cout << std::endl << message << " pairsize: " << pairSize << "   ( " << (pairSize*2) << " )" << std::endl;
-            if(!mainChain.empty()) {
-                std::cout << "mainChain" << std::endl;
-                for(Iterator it = mainChain.begin(); it != mainChain.end(); ++it) {
-                    int index = std::distance(mainChain.begin(), it);
-
-                    typename std::list<T>::iterator prevIt = mainChain.end();
-                    --prevIt;
-
-                    if(index % (pairSize * 2) == 0) { std::cout << "[" ; }
-                    std::cout << *it;
-                    if(index % (pairSize * 2) == pairSize * 2 - 1 || it == prevIt) { std::cout << "]" ; }
-                    if ( (index % (pairSize * 2) == pairSize - 1) && (it != prevIt) ) { std::cout << " | "; }
-                    else { std::cout << "  "; }
-                }
-                std::cout << std::endl;
-            }
-
-            if(!subChain.empty()) {
-                std::cout << "subChain" << std::endl;
-                for(Iterator it = subChain.begin(); it != subChain.end(); ++it) {
-                    int index = std::distance(subChain.begin(), it);
-                    if( (index % (pairSize) == 0) && (it != subChain.begin()) ) { 
-                        std::cout << " | " << *it;
-                    } else {
-                        std::cout << " " << *it << " ";
-                    }
-                }
-                std::cout << std::endl;
-            }
-            if(strncmp(message,"A",1) == 0)
-                std::cout << std::endl << "========================================================================================" << std::endl;
-        }
-
         bool isSorted() {
             ConstIntListIterator list_it = List_mainChain_.begin();
 
@@ -337,6 +379,217 @@ class PmergeMe
             }
             if( vector_it != Vector_mainChain_.end() ) throw std::logic_error("The sequence is not sorted.");
             return false;
+        }
+
+
+
+    //debug
+    public:
+        template <typename T>
+        void testPairDebug(T main, int pairSize, std::string s) {
+            typedef typename T::iterator Iter;
+            int i = 0;
+            if(s.compare(0,6,"Before", 0, 6) == 0) {
+                std::cout << CYAN << "---------------------------------------------------------------------------------------------------------------------" << RESET << std::endl << std::endl;
+                std::cout << GREEN;
+                std::cout << s << " pairSize: " << pairSize << std::endl;
+                std::cout << RESET;
+            } else {
+                std::cout << YELLOW;
+                std::cout << s << " pairSize: " << pairSize << std::endl;
+                std::cout << RESET;
+            }
+            for(Iter it=main.begin(); it != main.end(); ++it) {
+                if(i == 0) std::cout << " [ ";
+                std::cout << *it ;
+                ++i;
+                if(i == pairSize) { std::cout << " | "; }
+                else { std::cout << " " ;} 
+                if(i == pairSize * 2) {
+                 std::cout << "] ";
+                 i = 0;
+                }
+            }
+            std::cout << std::endl << std::endl;;
+        }
+
+        template <typename T>
+        void testSeparateDebug(T main, T sub,int pairSize, std::string s) {
+            typedef typename T::iterator Iter;
+            int i = 0;
+            if(s.compare(0,6,"Before", 0, 6) == 0) {
+                std::cout << CYAN << "---------------------------------------------------------------------------------------------------------------------" << RESET << std::endl << std::endl;
+                std::cout << GREEN;
+                std::cout << s << " pairSize: " << pairSize << std::endl;
+                std::cout << RESET;
+                for(Iter it=main.begin(); it != main.end(); ++it) {
+                    if(i == 0) std::cout << " [ ";
+                    std::cout << *it ;
+                    ++i;
+                    if(i == pairSize) { std::cout << " | "; }
+                    else { std::cout << " " ;} 
+                    if(i == pairSize * 2) {
+                    std::cout << "] ";
+                    i = 0;
+                    }
+                }
+                std::cout << std::endl << std::endl;;
+            } else {
+                std::cout << YELLOW;
+                std::cout << s << " pairSize: " << pairSize << std::endl;
+                std::cout << RESET;
+                std::cout << BLUE;
+                std::cout << "main-chain" << std::endl;
+                std::cout << RESET;
+                for(Iter it=main.begin(); it != main.end(); ++it) {
+                    if(i == 0) std::cout << " [ ";
+                    std::cout << *it ;
+                    ++i;
+                    if(i == pairSize) { 
+                        std::cout << " ] ";
+                        i = 0;
+                    }
+                    else { std::cout << " " ;} 
+                }
+                std::cout << std::endl;
+                i=0;
+                std::cout << BLUE;
+                std::cout << "sub-chain" << std::endl;
+                std::cout << RESET;
+                for(Iter it=sub.begin(); it != sub.end(); ++it) {
+                    if(i == 0) std::cout << " [ ";
+                    std::cout << *it ;
+                    ++i;
+                    if(i == pairSize) { 
+                        std::cout << " ] ";
+                        i=0;
+                    }
+                    else { std::cout << " " ;} 
+                }
+                std::cout << std::endl << std::endl;;
+            }
+        }
+
+        template <typename T>
+        void testFirstInsertDebug(T main, T sub,int pairSize, std::string s) {
+            typedef typename T::iterator Iter;
+            int i = 0;
+            if(s.compare(0,6,"Before", 0, 6) == 0) {
+                std::cout << CYAN << "---------------------------------------------------------------------------------------------------------------------" << RESET << std::endl << std::endl;
+                std::cout << GREEN;
+                std::cout << s << " pairSize: " << pairSize << std::endl;
+                std::cout << RESET;
+            } else {
+                std::cout << YELLOW;
+                std::cout << s << " pairSize: " << pairSize << std::endl;
+                std::cout << RESET;
+                std::cout << BLUE;
+                std::cout << "main-chain" << std::endl;
+                std::cout << RESET;
+            }
+            for(Iter it=main.begin(); it != main.end(); ++it) {
+                if(i == 0) std::cout << " [ ";
+                std::cout << *it ;
+                ++i;
+                if(i == pairSize) { 
+                    std::cout << " ] ";
+                    i = 0;
+                }
+                else { std::cout << " " ;} 
+            }
+            std::cout << std::endl;
+            i=0;
+            std::cout << BLUE;
+            std::cout << "sub-chain" << std::endl;
+            std::cout << RESET;
+            for(Iter it=sub.begin(); it != sub.end(); ++it) {
+                if(i == 0) std::cout << " [ ";
+                std::cout << *it ;
+                ++i;
+                if(i == pairSize) { 
+                    std::cout << " ] ";
+                    i=0;
+                }
+                else { std::cout << " " ;} 
+            }
+            std::cout << std::endl << std::endl;;
+        }
+
+        template <typename T>
+        void testInsertDebug(T main, T sub,int pairSize, std::string s, int key, int jacoNum) {
+            typedef typename T::iterator Iter;
+            int i = 0;
+            if(s.compare(0,6,"Before", 0, 6) == 0) {
+                std::cout << CYAN << "---------------------------------------------------------------------------------------------------------------------" << RESET << std::endl << std::endl;
+                std::cout << GREEN;
+                std::cout << s << " pairSize: " << pairSize << std::endl;
+                std::cout << RESET;
+                for(Iter it=main.begin(); it != main.end(); ++it) {
+                    if(i == 0) std::cout << " [ ";
+                    std::cout << *it ;
+                    ++i;
+                    if(i == pairSize) { 
+                        std::cout << " ] ";
+                        i = 0;
+                    }
+                    else { std::cout << " " ;} 
+                }
+                std::cout << std::endl;
+                i=0;
+                std::cout << BLUE;
+                std::cout << "sub-chain" << std::endl;
+                std::cout << RESET;
+                for(Iter it=sub.begin(); it != sub.end(); ++it) {
+                    if(i == 0) std::cout << " [ ";
+                    std::cout << *it ;
+                    ++i;
+                    if(i == pairSize) { 
+                        std::cout << " ] ";
+                        i=0;
+                    }
+                    else { std::cout << " " ;} 
+                }
+                std::cout << std::endl << std::endl;;
+            } else if(s.compare(0,5,"After", 0, 5) == 0) {
+                std::cout << YELLOW;
+                std::cout << s << " pairSize: " << pairSize << std::endl;
+                std::cout << RESET;
+                std::cout << BLUE;
+                std::cout << "main-chain" << std::endl;
+                std::cout << RESET;
+                i =0;
+                for(Iter it=main.begin(); it != main.end(); ++it) {
+                    if(i == 0) std::cout << " [ ";
+                    std::cout << *it ;
+                    ++i;
+                    if(i == pairSize) { 
+                        std::cout << " ] ";
+                        i = 0;
+                    }
+                    else { std::cout << " " ;} 
+                }
+                std::cout << std::endl;
+                std::cout << BLUE;
+                std::cout << "sub-chain" << std::endl;
+                std::cout << RESET;
+                for(Iter it=sub.begin(); it != sub.end(); ++it) {
+                    std::cout << *it ;
+                    std::cout << " " ;
+                }
+                std::cout << std::endl << std::endl;;
+            } else {                
+                std::cout << \
+                BLUE << \
+                "[" << \
+                RESET << \
+                "n: " << \
+                jacoNum << \
+                " key: " << \
+                key << \
+                BLUE << \
+                "]" << \
+                RESET;
+            }
         }
 };
 
