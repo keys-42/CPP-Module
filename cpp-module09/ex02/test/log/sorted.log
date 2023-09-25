@@ -1,0 +1,8 @@
+Before:  50 1 20 68 95 51 17 9 35 23 33 15 3 43 89 94 55 32 6 2 61 65 26 28 30 83 64 49 16 71
+After:   1 2 3 6 9 15 16 17 20 23 26 28 30 32 33 35 43 49 50 51 55 61 64 65 68 71 83 89 94 95
+Time to process a range of 30 elements with std::[  List  ] : 164.00000 us
+Time to process a range of 30 elements with std::[ Vector ] : 97.00000 us
+leaks Report Version: 4.0
+Process 39141: 165 nodes malloced for 18 KB
+Process 39141: 0 leaks for 0 total leaked bytes.
+
