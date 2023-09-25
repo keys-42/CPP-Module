@@ -79,20 +79,23 @@ void tryExchange(std::string line, BitcoinExchange* btc) {
     std::istringstream ss(line);
     int year, month, day;
     long double value;
-    char dash, pipe;
+    char dash, dash2, pipe;
 
-    ss >> year >> dash >> month >> dash >> day >> std::ws >> pipe >> std::ws >> value;
+    ss >> year >> dash >> month >> dash2 >> day >> std::ws >> pipe >> std::ws >> value;
 
-    if (ss.fail() || dash != '-' || dash != '-' || pipe != '|' || !ss.eof()) {
+    if (ss.fail()) {
+        throw std::runtime_error("Error: invalid number format or out of range => " + line);
+    }
+    if (dash != '-' || dash2 != '-' || pipe != '|' || !ss.eof()) {
         throw std::runtime_error("Error: bad input => " + line);
     }
-    if(value > INT_MAX) {
+    if(value > 1000.0) {
         throw std::runtime_error("Error: too large a number.");
     }
-    if(value < 0) {
+    if(value < 0.0) {
         throw std::runtime_error("Error: not a positive number.");
     }
-    if( ! validateYear(year) || ! validateMonth(month) || ! validateDay(day)) {
+    if( ! validateYear(year) || ! validateMonth(month) || ! validateDay(day) ) {
         std::stringstream ss;
         ss << "Error: year, month or day out of range." << year << "-" << month << "-" << day;
         throw std::runtime_error(ss.str());
@@ -152,22 +155,54 @@ int main( int argc, char **argv)
 
     {
         BitcoinExchange btc2(*btc);
-        btc->dumpDatabaseData(2017, 1, 1);
-        btc2.dumpDatabaseData(2017, 1, 1);
+        try {
+            btc->findOrFail(2017, 1, 1);
+        } catch (std::exception &e) {
+            std::cout << e.what() << std::endl;
+        }
+        try {
+            btc2.findOrFail(2017, 1, 1);
+        } catch (std::exception &e) {
+            std::cout << e.what() << std::endl;
+        }
         btc2.addData(2017, 1, 1, 2017.0101);
-        btc->dumpDatabaseData(2017, 1, 1);
-        btc2.dumpDatabaseData(2017, 1, 1);
+        try {
+            btc->findOrFail(2017, 1, 1);
+        } catch (std::exception &e) {
+            std::cout << e.what() << std::endl;
+        }
+        try {
+            btc2.findOrFail(2017, 1, 1);
+        } catch (std::exception &e) {
+            std::cout << e.what() << std::endl;
+        }
     }
     std::cout << "===================================================" << std::endl;
     std::cout << "== " << __FILE__ << " in " << __LINE__  << " copy assignment operator test" << " ==" << std::endl;
     std::cout << "===================================================" << std::endl;
     {
         BitcoinExchange btc2 = *btc;
-        btc->dumpDatabaseData(2017, 1, 1);
-        btc2.dumpDatabaseData(2017, 1, 1);
-        btc2.addData(2017, 1, 1, 2017.0101);
-        btc->dumpDatabaseData(2017, 1, 1);
-        btc2.dumpDatabaseData(2017, 1, 1);
+        try {
+            btc->findOrFail(2017, 1, 1);
+        } catch (std::exception &e) {
+            std::cout << e.what() << std::endl;
+        }
+        try {
+            btc2.findOrFail(2017, 1, 1);
+        } catch (std::exception &e) {
+            std::cout << e.what() << std::endl;
+        }
+        btc2.addData(2017, 1, 1, 2017.01);
+        try {
+            btc->findOrFail(2017, 1, 1);
+        } catch (std::exception &e) {
+            std::cout << e.what() << std::endl;
+        }
+        try {
+            btc2.findOrFail(2017, 1, 1);
+        } catch (std::exception &e) {
+            std::cout << e.what() << std::endl;
+        }
     }
     
     delete btc;
