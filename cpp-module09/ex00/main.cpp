@@ -208,3 +208,8 @@ int main( int argc, char **argv)
     delete btc;
     return 0;
 }
+
+// __attribute__((destructor))
+// static void destructor() {
+//     system("leaks -q btc");
+// }

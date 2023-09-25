@@ -27,9 +27,14 @@ int Rpn::differenceNumber(int x, int y) const  { return y - x; }
 int Rpn::productNumber(int x, int y) const  { return y * x; }
 int Rpn::quotientNumber(int x, int y) const  { return y / x; }
 
-int Rpn::stackTop() const { return this->stack_.top(); }
+int  Rpn::stackTop() const { return this->stack_.top(); }
 void Rpn::stackPop() { this->stack_.pop(); }
 void Rpn::stackPush(int n) { this->stack_.push(n); }
+bool Rpn::isStackEmpty() {
+    if(this->stack_.empty())
+        return true;
+    return false;
+}
 
 void Rpn::calc(char c) {
     char arr[4] = { '+', '-', '*', '/' };
@@ -38,8 +43,10 @@ void Rpn::calc(char c) {
 
     for( int i =0; i < 4; ++i ) {
         if(arr[i] == c) {
+            if(this->isStackEmpty()) throw std::logic_error("logic error: The provided expression is not in RPN.");
             x = this->stackTop();
             this->stackPop();
+            if(this->isStackEmpty()) throw std::logic_error("logic error: The provided expression is not in RPN.");
             y = this->stackTop();
             this->stackPop();
             this->stackPush((this->*calcPtr[i])(x,y));
@@ -55,16 +62,18 @@ void checkInput( const std::string &line ) {
             if( (isdigit( line[i] ) == true) || (s.find(line[i]) != std::string::npos)) {
                 continue;
             } else {
-                throw std::runtime_error("Invalid char: The provided expression is not in RPN.");
+                throw std::invalid_argument("Invalid argument: The provided expression is not in RPN.");
             }
         } else {
             if(isspace(line[i]) == true) {
                 continue;
             } else {
-                throw std::runtime_error("Invalid char: The provided expression is not in RPN.");
+                throw std::invalid_argument("Invalid argument: The provided expression is not in RPN.");
             }
         }
     }
+    if(isspace( line[ line.size() -1 ] ) == true) 
+        throw std::invalid_argument("Invalid argument: The provided expression is not in RPN.");
 }
 
 void Rpn::rpn(const std::string &line) {
@@ -75,20 +84,25 @@ void Rpn::rpn(const std::string &line) {
         return ;
     }
 
-	for(std::size_t i = 0; i < line.size(); ++i) {
-		if(isdigit( line[i] ) == true) {
-			this->stackPush( line[i] - '0' );
-		} else if(isspace(line[i])) {
-			continue;
-		} else {
-            this->calc(line[i]);
-		}
-	}
-
+    try {
+        for(std::size_t i = 0; i < line.size(); ++i) {
+            if(isdigit( line[i] ) == true) {
+                this->stackPush( line[i] - '0' );
+            } else if(isspace(line[i])) {
+                continue;
+            } else {
+                this->calc(line[i]);
+            }
+        }
+    } catch (std::exception &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;   
+        return ;
+    }
+    
     try {
         int result = this->stackTop();
         this->stackPop();
-        if(!this->stack_.empty()) {
+        if(!this->isStackEmpty()) {
             throw std::runtime_error("Invalid input: The provided expression is not in RPN.");
         }
         std::cout << result << std::endl;

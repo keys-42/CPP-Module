@@ -23,24 +23,15 @@ class Rpn
         virtual ~Rpn();
         Rpn & operator= (const Rpn &other);
         CalcPtr calcPtr[4];
-        int stackTop() const;
+        int  stackTop() const;
         void stackPop();
         void stackPush(int n);
+        bool isStackEmpty();
         void calc(char c);
 
         void rpn(const std::string &line);
 
         void print();
-        // typedef typename std::stack<T>::containe_type::iterator iterator;
-        // typedef typename std::stack<T>::container_type::const_iterator const_iterator;
-        // iterator begin() { return this->c.begin(); }
-        // const_iterator begin() const { return this->c.begin(); }
-        // iterator end() { return this->c.end(); }
-        // const_iterator end() const { return this->c.end(); }
-        // void print() {
-        //     for (iterator it = this->c.begin(); it != this->c.end(); ++it)
-        //         std::cout << *it << std::endl;
-        // }
 };
 
 #endif
