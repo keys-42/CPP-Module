@@ -1,6 +1,9 @@
 all:
 	bash test.sh -n 30 -c 1 -l 100
 
+simple:
+	@bash simple_test.sh
+
 clean:
 	rm -f PmergeMe
 

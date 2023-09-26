@@ -10,7 +10,6 @@
 # include <sstream>
 # include <ctime>
 # include <cstring>
-# include <forward_list>
 # include <set>
 
 # define BLACK "\033[30m"
@@ -406,8 +405,8 @@ class PmergeMe
                 if(i == pairSize) { std::cout << " | "; }
                 else { std::cout << " " ;} 
                 if(i == pairSize * 2) {
-                 std::cout << "] ";
-                 i = 0;
+                std::cout << "] ";
+                i = 0;
                 }
             }
             std::cout << std::endl << std::endl;;
