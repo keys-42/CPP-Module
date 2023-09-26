@@ -15,7 +15,7 @@ OBJ = $(SRC:.cpp=.o)
 all:$(NAME)
 
 $(NAME):$(OBJ)
-	$(CXX) $(CXXFALGS) $^ -o $@
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
 clean:
 		$(RM) $(OBJ)

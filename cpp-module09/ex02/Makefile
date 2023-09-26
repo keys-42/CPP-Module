@@ -1,8 +1,9 @@
+.PHONY: all clean fclean re leak address pair separate first insert
+
 NAME	= PmergeMe
 CXX		= c++
 
-CXXFLAGS	= -Wall -Wextra -Werror -std=c++98 
-CXXFLAGS	= -std=c++98 -g -fsanitize=address
+CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 
 SRC =	main.cpp \
 		PmergeMe.cpp
@@ -22,43 +23,40 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
 
-ifdef PAIR
-CXXFLAGS += -DPAIR
-endif
 
-ifdef SEPARATE
-CXXFLAGS += -DSEPARATE 
-endif
+# debug address leak pair separate first insert
+# CXXFLAGS+= -DLISTDEBUG
+# CXXFLAGS+= -DVECTORDEBUG
+address:fclean
+address:CXXFLAGS+= -g -fsanitize=address
+address:all
 
-ifdef INSERTATTHESTART
-CXXFLAGS += -DINSERTATTHESTART
-endif
-
-ifdef SORT
-CXXFLAGS += -DSORT
-endif
-
-debug:fclean
-	make PAIR=1 SEPARATE=1 INSERTATTHESTART=1
+leak:fclean
+leak:CXXFLAGS+= -DLEAK
+leak:all
 
 pair:fclean
-	make PAIR=1
- 
+pair:CXXFLAGS+= -DPAIR
+pair:all
+
 separate:fclean
-	make SEPARATE=1
+separate:CXXFLAGS+= -DSEPARATE
+separate:all
 
 first:fclean
-	make INSERTATTHESTART=1
+first:CXXFLAGS+= -DFIRST
+first:all
 
-sort:fclean
-	make SORT=1
+insert:fclean
+insert:CXXFLAGS+= -DINSERT
+insert:all
 
 help:
-	@echo "make debug"
+	@echo "make address"
+	@echo "make leak"
 	@echo "make pair"
 	@echo "make separate"
 	@echo "make first"
-	@echo "make sort"
+	@echo "make insert"
 	

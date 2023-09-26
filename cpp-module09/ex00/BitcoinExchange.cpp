@@ -95,19 +95,29 @@ void  BitcoinExchange::addData(int year, int month, int day, double value) {
     data_[year][month][day] = value;
 }
 
-void    BitcoinExchange::dumpDatabaseData(int year, int month, int day) {
+void    BitcoinExchange::findOrFail(int year, int month, int day) {
     BitCoinMap::iterator yearIt = data_.find(year);
     if (yearIt != data_.end()) {
         MonthMap::iterator monthIt = yearIt->second.find(month);
         if (monthIt != yearIt->second.end()) {
             DayMap::iterator dayIt = monthIt->second.find(day);
             if (dayIt != monthIt->second.end()) {
-                std::cout << dayIt->second << std::endl;
+                std::cout << \
+                year << "-" << \
+                std::setw(2) << std::setfill('0') << month << "-" << \
+                std::setw(2) << std::setfill('0') << day << \
+                " = [ "  << \
+                getBitcoinExchangeRate(year, month, day) << " ]" << std::endl;
                 return;
             }
         }
     }
-    std::cerr << "Error: Data not found for the given date." << std::endl;
+    std::stringstream ss;
+    ss << year << '-'
+       << std::setw(2) << std::setfill('0') << month << '-'
+       << std::setw(2) << std::setfill('0') << day;
+    std::string message = ss.str();
+    throw FindOrFailException(message.c_str());
 }
 
 void BitcoinExchange::printDatabase() {

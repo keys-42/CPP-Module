@@ -45,14 +45,29 @@ class BitcoinExchange
         BitcoinExchange(const BitcoinExchange &r);
         ~BitcoinExchange();
         BitcoinExchange & operator= (const BitcoinExchange &other);
-        void    initDatabase(std::string file);
-        void    insertData(int year, int month, int day, double value);
-        void    insertFromString(const std::string& input);
-        double  getBitcoinExchangeRate(int year, int month, int day);
-        double  findDataCloseTo(int year, int month, int day);
-        void    addData(int year, int month, int day, double value);
-        void dumpDatabaseData(int year, int month, int day);
-        void printDatabase();
+        void        initDatabase(std::string file);
+        void        insertData(int year, int month, int day, double value);
+        void        insertFromString(const std::string& input);
+        double      getBitcoinExchangeRate(int year, int month, int day);
+        double      findDataCloseTo(int year, int month, int day);
+        void        addData(int year, int month, int day, double value);
+        void        findOrFail(int year, int month, int day);
+        void        printDatabase();
+
+        class FindOrFailException : public std::exception {
+            std::string message_;
+            std::string fullMessage_;
+
+            public:
+                explicit FindOrFailException(const char *message)
+                    : message_(message), fullMessage_("Trying to get property " + message_ + " of non-object.") {}
+
+                virtual ~FindOrFailException() throw() {}
+
+                virtual const char* what() const throw() {
+                    return fullMessage_.c_str();
+                }
+        };
 };
 
 #endif
