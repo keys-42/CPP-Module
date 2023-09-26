@@ -22,7 +22,7 @@ int main()
             }
         } catch (std::exception &e) {
             std::cerr << e.what() << std::endl;
-            std::exit(1);
+            exit(EXIT_FAILURE);
         }
     }
     {
@@ -46,7 +46,7 @@ int main()
             }
         } catch (std::exception &e) {
             std::cerr << e.what() << std::endl;
-            std::exit(1);
+            exit(EXIT_FAILURE);
         }
     }
     {
@@ -70,7 +70,7 @@ int main()
             }
         } catch (std::exception &e) {
             std::cerr << e.what() << std::endl;
-            std::exit(1);
+            exit(EXIT_FAILURE);
         }
     }
     {
@@ -94,7 +94,7 @@ int main()
             }
         } catch (std::exception &e) {
             std::cerr << e.what() << std::endl;
-            std::exit(1);
+            exit(EXIT_FAILURE);
         }
     }
     std::cout << std::endl;
@@ -147,7 +147,7 @@ int main()
             }
         } catch (std::exception &e) {
             std::cerr << e.what() << std::endl;
-            std::exit(1);
+            exit(EXIT_FAILURE);
         }
     }
     return 0;
