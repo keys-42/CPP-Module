@@ -20,7 +20,7 @@ class Array
             for (unsigned int i=0; i < n; ++i) {
                 array_[i] = T();
             }
-         };
+        };
         Array(Array &r) :array_(new T[r.size()]) {
             this->size_ = r.size();
             for ( unsigned int i = 0; i < this->size_; i++) {
