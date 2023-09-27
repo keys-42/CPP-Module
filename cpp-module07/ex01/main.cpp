@@ -16,8 +16,8 @@ int main( void )
     };
 
     std::cout << "{" << std::endl;
-    iter(_int,10,&multiplyByPi);
-    print(_int, 10);
+    iter(_int,10,multiplyByPi<int>);
+    std::cout << std::endl;
     std::cout << "}" << std::endl;
 
     const int constInt[] = {
@@ -34,7 +34,7 @@ int main( void )
     };
 
     std::cout << "{" << std::endl;
-    iter(constInt,10,&multiplyByPi);
+    iter(constInt,10,&multiplyByPi<const int>);
     std::cout << std::endl;
     std::cout << "}" << std::endl;
 
