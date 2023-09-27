@@ -56,6 +56,7 @@ insert:fclean
 insert:CXXFLAGS+= -DINSERT
 insert:all
 
+# less -R pair.log
 debug:
 	$(MKDIR) -p $(LOGDIR)
 	$(MAKE) pair
