@@ -46,8 +46,22 @@ int main( void )
     }
 
     try {
-        char * p = NULL;
+        char * p = NULL; 
         iter(p, 100,&multiplyByPi);
+    } catch ( std::exception &e) {
+        std::cerr << "exception: " << e.what() << std::endl;
+    }
+
+    try {
+        iter(_int, 10, &assignment<int>);
+        iter(_int, 10, &print<int>);
+    } catch ( std::exception &e) {
+        std::cerr << "exception: " << e.what() << std::endl;
+    }
+    std::cout << std::endl;
+    try {
+        // iter(constInt, 10, &assignment<const int>);
+        iter(constInt, 10, &print<const int>);
     } catch ( std::exception &e) {
         std::cerr << "exception: " << e.what() << std::endl;
     }
