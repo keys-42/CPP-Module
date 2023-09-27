@@ -19,7 +19,7 @@ int main()
             std::cout << i << ": " << std::setw(20);
             easyfind<std::vector<int> >(v, i);
         }
-    } catch (NotFoundException &e) {
+    } catch (std::exception &e) {
         std::cout << std::setw(14) << "exception: " << e.what() << std::endl;
     }
 
@@ -29,7 +29,7 @@ int main()
             std::cout << i << ": " << std::setw(20);
             easyfind<std::list<int> >(l, i);
         }
-    } catch (NotFoundException &e) {
+    } catch (std::exception &e) {
         std::cout << std::setw(14) << "exception: " << e.what() << std::endl;
     }
 }

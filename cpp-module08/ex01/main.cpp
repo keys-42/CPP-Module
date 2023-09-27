@@ -16,7 +16,7 @@ int main()
         std::cout << RESET;
         try {
             std::cout << sp.shortestSpan() << std::endl;
-        } catch (SpanException &e) {
+        } catch (std::exception &e) {
             std::cout << "exception: " << e.what() << std::endl;
         }
 
@@ -26,7 +26,7 @@ int main()
         try {
             sp.addNumber(6);
             std::cout << sp.longestSpan() << std::endl;
-        } catch (SpanException &e) {
+        } catch (std::exception &e) {
             std::cout << "exception: " << e.what() << std::endl;
         }
 
@@ -40,7 +40,7 @@ int main()
             sp.printContainer();
             std::cout << RESET;
             sp.addNumber(11);
-        } catch (SizeOverFlowException &e) {
+        } catch (std::exception &e) {
             std::cout << "exception: " << e.what() << std::endl;
         }
         
@@ -50,7 +50,7 @@ int main()
             std::cout << RESET;
             std::cout << sp.shortestSpan() << std::endl;
             std::cout << sp.longestSpan() << std::endl;
-        } catch (SizeOverFlowException &e) {
+        } catch (std::exception &e) {
             std::cout << "exception: " << e.what() << std::endl;
         }
     }
