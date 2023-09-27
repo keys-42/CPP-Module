@@ -11,7 +11,10 @@ void iter(T *ptr, std::size_t len, void (*f)(T &))
 {
     if ( !ptr ) throw std::invalid_argument("Received null as argument"); 
     for(std::size_t i = 0; i < len; i++) {
-        f(ptr[i]);
+        if(ptr[i])
+            f(ptr[i]);
+        else
+            throw std::out_of_range("Index out of range for the array.");
     }
 }
 
@@ -20,7 +23,10 @@ void iter(T const *ptr, std::size_t len, void (*f)(T const &))
 {
     if ( !ptr ) throw std::invalid_argument("Received null as argument"); 
     for(std::size_t i = 0; i < len; i++) {
-        f(ptr[i]);
+        if(ptr[i])
+            f(ptr[i]);
+        else
+            throw std::out_of_range("Index out of range for the array.");
     }
 }
 

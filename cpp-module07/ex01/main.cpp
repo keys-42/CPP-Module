@@ -15,10 +15,14 @@ int main( void )
         9,
     };
 
-    std::cout << "{" << std::endl;
-    iter(_int,10,multiplyByPi<int>);
-    std::cout << std::endl;
-    std::cout << "}" << std::endl;
+    try {
+        std::cout << "{" << std::endl;
+        iter(_int,10,multiplyByPi<int>);
+        std::cout << std::endl;
+        std::cout << "}" << std::endl;
+    } catch (std::exception &e) {
+        std::cout << e.what() << std::endl;
+    }
 
     const int constInt[] = {
         0,
@@ -32,11 +36,14 @@ int main( void )
         8,
         9,
     };
-
-    std::cout << "{" << std::endl;
-    iter(constInt,10,&multiplyByPi<const int>);
-    std::cout << std::endl;
-    std::cout << "}" << std::endl;
+    try {
+        std::cout << "{" << std::endl;
+        iter(constInt,10,&multiplyByPi<const int>);
+        std::cout << std::endl;
+        std::cout << "}" << std::endl;
+    } catch (std::exception &e) {
+        std::cout << e.what() << std::endl;
+    }
 
     try {
         char * p = NULL;
