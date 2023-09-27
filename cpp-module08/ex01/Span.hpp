@@ -13,6 +13,7 @@ class Span
 {
 private:
     std::vector<int> v_;
+    Span();
 
 public:
     Span(unsigned int n);

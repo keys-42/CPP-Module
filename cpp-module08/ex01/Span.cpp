@@ -1,5 +1,7 @@
 #include "Span.hpp"
 
+Span::Span() {};
+
 Span::Span(unsigned int n) { v_.reserve(n); }
 
 Span::Span(const Span & r) : v_(r.v_) {}
