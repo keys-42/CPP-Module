@@ -1,5 +1,20 @@
 #include "iter.hpp"
 
+template <typename T>
+void multiplyByPi(T &value) {
+    std::cout << std::setw(6) << static_cast<int>(M_PI) * value << std::endl;
+}
+
+template <typename T>
+void assignment(T &value) {
+    value = 0;
+}
+
+template <typename T>
+void print(T &value) {
+    std::cout << value;
+}
+
 int main( void ) 
 {
     int _int[] = {
