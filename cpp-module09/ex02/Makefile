@@ -10,6 +10,10 @@ SRC =	main.cpp \
 
 OBJ = $(SRC:.cpp=.o)
 
+NUMBER =4 18 100 67 71 35 94 89 8 46 78 32 24 1 59 22 13 86 14 80 41 75 44 10 90 88 61 76 34 40
+LOGDIR = ./log
+MKDIR = mkdir
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
@@ -27,7 +31,7 @@ re: fclean all
 
 # debug address leak pair separate first insert
 # CXXFLAGS+= -DLISTDEBUG
-# CXXFLAGS+= -DVECTORDEBUG
+CXXFLAGS+= -DVECTORDEBUG
 address:fclean
 address:CXXFLAGS+= -g -fsanitize=address
 address:all
@@ -52,6 +56,18 @@ insert:fclean
 insert:CXXFLAGS+= -DINSERT
 insert:all
 
+debug:
+	$(MKDIR) -p $(LOGDIR)
+	$(MAKE) pair
+	./$(NAME) $(NUMBER) > $(LOGDIR)/pair.log
+	$(MAKE) separate
+	./$(NAME) $(NUMBER) > $(LOGDIR)/separate.log
+	$(MAKE) first
+	./$(NAME) $(NUMBER) > $(LOGDIR)/first.log
+	$(MAKE) insert
+	./$(NAME) $(NUMBER) > $(LOGDIR)/insert.log
+
+
 help:
 	@echo "make address"
 	@echo "make leak"
@@ -59,4 +75,5 @@ help:
 	@echo "make separate"
 	@echo "make first"
 	@echo "make insert"
-	
+	@echo "make debug"
+
