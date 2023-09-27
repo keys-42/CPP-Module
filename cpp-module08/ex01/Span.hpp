@@ -16,7 +16,10 @@ private:
 
 public:
     Span(unsigned int n);
+    Span(const Span & r);
     ~Span();
+    Span & operator=(const Span & other);
+
     void checkMaxSize(unsigned int len);
     void addNumber(int number);
     unsigned int shortestSpan();

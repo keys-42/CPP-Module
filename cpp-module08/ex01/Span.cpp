@@ -2,7 +2,16 @@
 
 Span::Span(unsigned int n) { v_.reserve(n); }
 
+Span::Span(const Span & r) : v_(r.v_) {}
+
 Span::~Span() {}
+
+Span & Span::operator=(const Span & other) {
+    if (this != &other) {
+        this->v_ = other.v_;
+    }
+    return *this;
+}
 
 void Span::checkMaxSize(unsigned int len) {
     if((v_.capacity() < len) ||(v_.size()  > v_.capacity() - len))
