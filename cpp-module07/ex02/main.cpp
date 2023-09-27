@@ -17,7 +17,7 @@ int main()
             std::cout << "try operator[] index" << std::endl;
             try {
                 std::cout << a[0] << std::endl;
-            } catch (Array<int>::OutOfBoundsException &e) {
+            } catch (std::exception &e) {
                 std::cout << e.what() <<std::endl;
             }
         } catch (std::exception &e) {
