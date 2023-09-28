@@ -21,4 +21,4 @@ done
 echo finally
 echo "count [1] length[2147483647] number[777777]"
 sleep 1
-bash test.sh -c 1 -l 2147483647 -n 777777
+bash test.sh -c 1 -l 2147483647 -n 7777777
