@@ -21,5 +21,9 @@ fclean:clean
 
 re:fclean all
 
+debug:fclean
+debug:CXXFLAGS+= -g -fsanitize=address
+debug:all
+
 .PHONY:
 	all clean fclean re
