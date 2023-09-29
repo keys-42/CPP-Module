@@ -29,7 +29,7 @@ void BitcoinExchange::initDatabase(std::string file) {
 }
 
 void BitcoinExchange::insertData( int year, int month, int day, double value) {
-    (((data_[year])[month])[day]) = value;
+    data_[year][month][day] = value;
 }
 
 void BitcoinExchange::insertFromString(const std::string& input) {
@@ -52,71 +52,39 @@ void BitcoinExchange::insertFromString(const std::string& input) {
 }
 
 double  BitcoinExchange::getBitcoinExchangeRate(int year, int month, int day) {
-    
-    std::map<int, MonthMap>::iterator y_it = data_.lower_bound(year);
-    std::map<int, DayMap>::iterator m_it;
-    std::map<int, double>::iterator d_it;
-    if (y_it != data_.end()) {
-    m_it = y_it->second.lower_bound(month);
-        if (m_it != y_it->second.end()) {
-            d_it = m_it->second.lower_bound(day);
-            if (d_it != m_it->second.end()) {
-                if( day != d_it->first ) {
-                    --d_it;
-                }
-                // std::cout << "[" << y_it->first << "] "  << "[" << m_it->first << "] " << "[" << d_it->first << "] "  <<"[" << d_it->second << "] "   << std::endl; // ... には適切な印刷方法を提供
-            }
-        }
-        // return data_[year][month][day];
+    if (data_[year][month].find(day) == data_[year][month].end()) {
+        return findDataCloseTo(year, month, day);
     }
-    if (d_it == m_it->second.begin()) {
-        if(m_it == y_it->second.begin()) {
-            if(y_it == data_.begin()) {
-                throw std::runtime_error("out of bound");
-            } else {
-                --y_it;
-                m_it = y_it->second.end();
-                d_it = m_it->second.end();
-                --d_it;    
-            }
-        } else {
-            --m_it;
-            d_it = m_it->second.end();
-            --d_it;
-        }
-
-
-    }
-    return d_it->second;
+    return data_[year][month][day];
 }
 
-// double  BitcoinExchange::findDataCloseTo(int year, int month, int day) {
-//     int findYear = year;
-//     int findMonth = month;
-//     int findDay = day;
+double  BitcoinExchange::findDataCloseTo(int year, int month, int day) {
+    int findYear = year;
+    int findMonth = month;
+    int findDay = day;
 
-//     for (; findYear >= MINYEAR; --findYear) {
-//         BitCoinMap::iterator yearIt = data_.find(findYear);
-//         if (yearIt != data_.end()) {
-//             for (; findMonth >= MINMONTH; --findMonth) {
-//                 MonthMap::iterator monthIt = yearIt->second.find(findMonth);
-//                 if (monthIt != yearIt->second.end()) {
-//                     for (; findDay >= MINDAY; --findDay) {
-//                         DayMap::iterator dayIt = monthIt->second.find(findDay);
-//                         if (dayIt != monthIt->second.end()) {
-//                             return dayIt->second;
-//                         }
-//                     }
-//                     findDay = MAXDAY;
-//                 }
-//             }
-//             findMonth = MAXMONTH;
-//         }
-//     }
+    for (; findYear >= MINYEAR; --findYear) {
+        BitCoinMap::iterator yearIt = data_.find(findYear);
+        if (yearIt != data_.end()) {
+            for (; findMonth >= MINMONTH; --findMonth) {
+                MonthMap::iterator monthIt = yearIt->second.find(findMonth);
+                if (monthIt != yearIt->second.end()) {
+                    for (; findDay >= MINDAY; --findDay) {
+                        DayMap::iterator dayIt = monthIt->second.find(findDay);
+                        if (dayIt != monthIt->second.end()) {
+                            return dayIt->second;
+                        }
+                    }
+                    findDay = MAXDAY;
+                }
+            }
+            findMonth = MAXMONTH;
+        }
+    }
 
-//     throw std::runtime_error("Insufficient data. Please add more data.");
-//     return 0;
-// }
+    throw std::runtime_error("Insufficient data. Please add more data.");
+    return 0;
+}
 
 void  BitcoinExchange::addData(int year, int month, int day, double value) {
     if( ! validateYear(year) || ! validateMonth(month) || ! validateDay(day)) {
@@ -124,7 +92,7 @@ void  BitcoinExchange::addData(int year, int month, int day, double value) {
         ss << "Error: year, month or day out of range." << year << "-" << month << "-" << day;
         throw std::runtime_error(ss.str());
     }
-   ((( data_[year])[month])[day]) = value;
+    data_[year][month][day] = value;
 }
 
 void    BitcoinExchange::findOrFail(int year, int month, int day) {
