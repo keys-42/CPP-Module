@@ -6,7 +6,7 @@ BitcoinExchange::BitcoinExchange(std::string file) {
     initDatabase(file);
 }
 
-BitcoinExchange::BitcoinExchange(BitCoinMap data) : data_(data) {};
+BitcoinExchange::BitcoinExchange(std::map<std::string, double> data) : data_(data) {};
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &r) : data_(r.data_) {};
 
@@ -26,117 +26,79 @@ void BitcoinExchange::initDatabase(std::string file) {
     while (getline(f.getStream(), line)) { insertFromString(line); }
 }
 
-void BitcoinExchange::insertData( int year, int month, int day, double value) {
-    data_[year][month][day] = value;
-}
-
 void BitcoinExchange::insertFromString(const std::string& input) {
     std::istringstream ss(input);
-    int year, month, day;
+    std::string s;
     double value;
-    char dash, comma;
-
-    ss >> year >> dash >> month >> dash >> day >> comma >> value;
-    
-    if (ss.fail() || dash != '-' || comma != DATABASEDELIMITER || !ss.eof()) {
+    std::getline(ss, s, ',');
+    ss >> value;
+    if (ss.fail() || !ss.eof()) {
         throw std::logic_error("Error: database format");
     }
-    if(!isValidDate(year, month, day)){
-        std::stringstream ss;
-        ss << "Error: year, month or day out of range." << year << "-" << month << "-" << day;
-        throw std::out_of_range(ss.str());
+    if ( !BitcoinExchange::isValidDate(s)) {
+        throw std::out_of_range("Error: year, month or day out of range." + s);
     }
-    insertData(year, month, day, value);
+    data_[s] = value;
 }
 
-double  BitcoinExchange::getBitcoinExchangeRate(int year, int month, int day) {
-    if (data_[year][month].find(day) == data_[year][month].end()) {
-        return findDataCloseTo(year, month, day);
+double  BitcoinExchange::getBitcoinExchangeRate(std::string s) {
+    std::map<std::string, double>::iterator it = data_.lower_bound(s);
+
+    if(s.compare(it->first)) {
+        --it;
     }
-    return data_[year][month][day];
+    return it->second;
 }
 
-double  BitcoinExchange::findDataCloseTo(int year, int month, int day) {
-    int findYear = year;
-    int findMonth = month;
-    int findDay = day;
+bool    BitcoinExchange::isValidDate(std::string s) {
+    std::istringstream ss(s);
+    int year, month, day;
+    char dash, dash2;
 
-    for (; findYear >= MINYEAR; --findYear) {
-        BitCoinMap::iterator yearIt = data_.find(findYear);
-        if (yearIt != data_.end()) {
-            for (; findMonth >= MINMONTH; --findMonth) {
-                MonthMap::iterator monthIt = yearIt->second.find(findMonth);
-                if (monthIt != yearIt->second.end()) {
-                    for (; findDay >= MINDAY; --findDay) {
-                        DayMap::iterator dayIt = monthIt->second.find(findDay);
-                        if (dayIt != monthIt->second.end()) {
-                            return dayIt->second;
-                        }
-                    }
-                    findDay = MAXDAY;
-                }
-            }
-            findMonth = MAXMONTH;
+    ss >> year >> dash >> month >> dash2 >> day;
+
+    if (ss.fail()) {
+        throw std::logic_error("Error: invalid number format or out of range => " + s);
+    }
+    if (dash != '-' || dash2 != '-'|| !ss.eof()) {
+        throw std::invalid_argument("Error: bad input => " + s);
+    }
+    if ( !BitcoinExchange::validDate(year, month, day)) {
+        return false;
+    }
+    return true;
+}
+
+bool BitcoinExchange::validDate(int year, int month, int day) {
+    if(year == BTCSTSRTYEAROFUSE && month == BTCSTSRTMONTHOFUSE && day < BTCSTSRTDAYOFUSE)
+        return false;
+    if (year < MINYEAR || MAXYEAR < year) 
+        return false;
+    if (month < MINMONTH || MAXMONTH < month)
+        return false;
+    if (day < MINDAY || MAXDAY < day)
+        return false;
+     
+   bool isLeap = false;
+    if (year % 4 == 0) {
+        if (year % 100 != 0 || year % 400 == 0) {
+            isLeap = true;
         }
     }
-
-    ///後で設計
-
-    throw std::runtime_error("Insufficient data. Please add more data.");
-    return 0;
-}
-
-void  BitcoinExchange::addData(int year, int month, int day, double value) {
-    if(!isValidDate(year, month,day)) {
-        std::stringstream ss;
-        ss << "Error: year, month or day out of range." << year << "-" << month << "-" << day;
-        throw std::out_of_range(ss.str());
+    if(month == 2) {
+        return (isLeap && day <= 29) || (!isLeap && day <= 28);
+    } else if ( month == 4 || month == 6 || month == 9 || month == 11 ) {
+        return day <= 30;
+    } else {
+        return day <= MAXDAY;
     }
-    data_[year][month][day] = value;
-}
-
-void    BitcoinExchange::findOrFail(int year, int month, int day) {
-    BitCoinMap::iterator yearIt = data_.find(year);
-    if (yearIt != data_.end()) {
-        MonthMap::iterator monthIt = yearIt->second.find(month);
-        if (monthIt != yearIt->second.end()) {
-            DayMap::iterator dayIt = monthIt->second.find(day);
-            if (dayIt != monthIt->second.end()) {
-                std::cout << \
-                year << "-" << \
-                std::setw(2) << std::setfill('0') << month << "-" << \
-                std::setw(2) << std::setfill('0') << day << \
-                " = [ "  << \
-                getBitcoinExchangeRate(year, month, day) << " ]" << std::endl;
-                return;
-            }
-        }
-    }
-    std::stringstream ss;
-    ss << year << '-'
-       << std::setw(2) << std::setfill('0') << month << '-'
-       << std::setw(2) << std::setfill('0') << day;
-    std::string message = ss.str();
-
-    //後で帰る
-    
-    throw FindOrFailException(message.c_str());
 }
 
 void BitcoinExchange::printDatabase() {
-    for (BitCoinMap::const_iterator yearIt = data_.begin(); yearIt != data_.end(); ++yearIt) {
-        int year = yearIt->first;
-        std::cout << year << std::endl;
-        
-        for (MonthMap::const_iterator monthIt = yearIt->second.begin(); monthIt != yearIt->second.end(); ++monthIt) {
-            int month = monthIt->first;
-            std::cout << "  " << month << std::endl;
+    
+    std::map<std::string, double>::iterator it = data_.begin();
 
-            for (DayMap::const_iterator dayIt = monthIt->second.begin(); dayIt != monthIt->second.end(); ++dayIt) {
-                int day = dayIt->first;
-                double value = dayIt->second;
-                std::cout << "    " << day << ": " << value << std::endl;
-            }
-        }
+    for ( ; it != data_.end(); ++it ) {
+        std::cout << it->first << " | " << it->second << std::endl; 
     }
 }

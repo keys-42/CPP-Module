@@ -22,6 +22,9 @@
 # define MAXMONTH 12
 # define MINYEAR 2009
 # define MAXYEAR 2024
+# define BTCSTSRTYEAROFUSE 2009
+# define BTCSTSRTMONTHOFUSE 1
+# define BTCSTSRTDAYOFUSE 2
 
 std::string getDelimiter(const std::string& line, const std::string& front, const std::string& back);
 void getValueAndDate(std::string line,std::string& date, std::string& rate,std::string delimiter);
@@ -54,43 +57,23 @@ public:
 
 class BitcoinExchange
 {
-    typedef std::map<int, double> DayMap;
-    typedef std::map<int, DayMap> MonthMap;
-    typedef std::map<int, MonthMap> BitCoinMap;
-    
     private:
-        BitCoinMap data_;
+        std::map<std::string, double> data_;
     
     public:
         BitcoinExchange();
         BitcoinExchange(std::string file);
-        BitcoinExchange(BitCoinMap data);
+        BitcoinExchange(std::map<std::string, double> data);
         BitcoinExchange(const BitcoinExchange &r);
         ~BitcoinExchange();
         BitcoinExchange & operator= (const BitcoinExchange &other);
-        void        initDatabase(std::string file);
-        void        insertData(int year, int month, int day, double value);
-        void        insertFromString(const std::string& input);
-        double      getBitcoinExchangeRate(int year, int month, int day);
-        double      findDataCloseTo(int year, int month, int day);
-        void        addData(int year, int month, int day, double value);
-        void        findOrFail(int year, int month, int day);
-        void        printDatabase();
-
-        class FindOrFailException : public std::exception {
-            std::string message_;
-            std::string fullMessage_;
-
-            public:
-                explicit FindOrFailException(const char *message)
-                    : message_(message), fullMessage_("Trying to get property " + message_ + " of non-object.") {}
-
-                virtual ~FindOrFailException() throw() {}
-
-                virtual const char* what() const throw() {
-                    return fullMessage_.c_str();
-                }
-        };
+        void                initDatabase(std::string file);
+        void                insertFromString(const std::string& input);
+        double              getBitcoinExchangeRate(std::string s);
+        void                addData(int year, int month, int day, double value);
+        void                printDatabase();
+        static bool         isValidDate(std::string s);
+        static bool         validDate(int year, int month, int day);
 };
 
 #endif

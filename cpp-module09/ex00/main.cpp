@@ -1,46 +1,5 @@
 #include "BitcoinExchange.hpp"
 
-bool isValidDate(int year, int month, int day) {
-    if (year < MINYEAR || MAXYEAR < year) 
-        return false;
-    if (month < MINMONTH || MAXMONTH < month)
-        return false;
-    if (day < MINDAY || MAXDAY < day)
-        return false;
-     
-   bool isLeap = false;
-    if (year % 4 == 0) {
-        if (year % 100 != 0 || year % 400 == 0) {
-            isLeap = true;
-        }
-    }
-    if(month == 2) {
-        return (isLeap && day <= 29) || (!isLeap && day <= 28);
-    } else if ( month == 4 || month == 6 || month == 9 || month == 11 ) {
-        return day <= 30;
-    } else {
-        return day <= MAXDAY;
-    }
-}
-
-std::string getDelimiter(const std::string& line, const std::string& front, const std::string& back) {
-    if (line.substr(0, front.size()) == front && 
-        line.substr(line.size() - back.size(), back.size()) == back) {
-        return line.substr(front.size(), line.size() - front.size() - back.size());
-    }
-    throw std::logic_error("No valid delimiter found or the string format is incorrect.");
-}
-
-void getValueAndDate(std::string line,std::string& date, std::string& rate,std::string delimiter)
-{
-    size_t pos = line.find(delimiter);
-
-    date = line.substr(0, pos);
-    if(line.size() > (date.size() + delimiter.size()))
-        rate = line.substr(pos + delimiter.length());
-    else
-        rate = "";
-}
 
 bool makeBitcoinExchange(BitcoinExchange& btc) {
 
@@ -53,13 +12,9 @@ bool makeBitcoinExchange(BitcoinExchange& btc) {
     return true;
 }
 
-void output(char dash, int year, int month, int day, double value, double newValue) {
+void output(std::string s, double value, double newValue) {
     std::cout  << \
-    year << \
-    dash << \
-    std::setfill('0') << std::setw(2) << month << \
-    dash << \
-    std::setfill('0') << std::setw(2) << day << \
+    s << \
     " => " << \
     value << \
     " = " << \
@@ -68,18 +23,19 @@ void output(char dash, int year, int month, int day, double value, double newVal
 }
 
 void tryExchange(std::string line, BitcoinExchange& btc) {
-    std::istringstream ss(line);
-    int year, month, day;
-    long double value;
-    char dash, dash2, pipe;
 
-    ss >> year >> dash >> month >> dash2 >> day >> std::ws >> pipe >> std::ws >> value;
+    std::string::size_type pos = line.find(" | ");
 
-    if (ss.fail()) {
-        throw std::logic_error("Error: invalid number format or out of range => " + line);
-    }
-    if (dash != '-' || dash2 != '-' || pipe != '|' || !ss.eof()) {
+    if (pos == std::string::npos) {
         throw std::invalid_argument("Error: bad input => " + line);
+    }
+    std::string datePart = line.substr(0, pos);
+    std::string valuePart = line.substr(pos + 3);
+    std::istringstream ss(valuePart);
+    double value;
+    ss >> value;
+    if (ss.fail() || !ss.eof() ) {
+        throw std::logic_error("Error: invalid number format or out of range => " + line);
     }
     if(value > 1000.0) {
         throw std::out_of_range("Error: too large a number.");
@@ -87,14 +43,12 @@ void tryExchange(std::string line, BitcoinExchange& btc) {
     if(value < 0.0) {
         throw std::out_of_range("Error: not a positive number.");
     }
-    if ( !isValidDate(year, month, day)) {
-        std::stringstream ss;
-        ss << "Error: year, month or day out of range." << year << "-" << month << "-" << day;
-        throw std::out_of_range(ss.str());
+    if ( !BitcoinExchange::isValidDate(datePart)) {
+        throw std::out_of_range("Error: year, month or day out of range." + datePart);
     }
-    double rate = btc.getBitcoinExchangeRate(year,month,day);
+    double rate = btc.getBitcoinExchangeRate(datePart);
     double newValue = rate * static_cast<double>(value);
-    output(dash, year, month, day, value, newValue);
+    output(datePart, value, newValue);
 }
 
 bool convert(char *file, BitcoinExchange& btc) {
@@ -130,10 +84,6 @@ int main( int argc, char **argv)
     if( ! convert(argv[1], btc) ) {
         return 1;
     }
+    // btc.printDatabase();
     return 0;
 }
-
-// __attribute__((destructor))
-// static void destructor() {
-//     system("leaks -q btc");
-// }
