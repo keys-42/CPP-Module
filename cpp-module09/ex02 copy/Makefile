@@ -1,4 +1,4 @@
-.PHONY: all clean fclean re leak address pair separate first insert dclean
+.PHONY: all clean fclean re leak address pair separate first insert
 
 NAME	= PmergeMe
 CXX		= c++
@@ -15,7 +15,6 @@ LOGDIR = ./log
 MKDIR = mkdir
 
 all: $(NAME)
-	./PmergeMe $(NUMBER)
 
 $(NAME): $(OBJ)
 	$(CXX) $(CXXFLAGS) $^ -o $@
@@ -56,9 +55,6 @@ first:all
 insert:fclean
 insert:CXXFLAGS+= -DINSERT
 insert:all
-
-dclean:fclean
-	$(RM) -r $(LOGDIR)
 
 # less -R pair.log
 debug:
