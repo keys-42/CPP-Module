@@ -31,8 +31,8 @@ re: fclean all
 
 
 # debug address leak pair separate first insert
-# CXXFLAGS+= -DLISTDEBUG
-CXXFLAGS+= -DVECTORDEBUG
+CXXFLAGS+= -DLISTDEBUG
+# CXXFLAGS+= -DVECTORDEBUG
 address:fclean
 address:CXXFLAGS+= -g -fsanitize=address
 address:all

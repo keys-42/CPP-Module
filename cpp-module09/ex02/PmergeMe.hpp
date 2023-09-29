@@ -25,15 +25,11 @@
 class PmergeMe
 {
     typedef std::list<int>::const_iterator ConstIntListIterator;
+    typedef std::list<int>::iterator IntListIterator;
 
     typedef std::vector<int>::iterator IntVecIterator;
     typedef std::vector<int>::const_iterator ConstIntVecIterator;
 
-    // struct UnpairedElemenat {
-    //     size_t length;
-    //     int value;
-    //     int position;
-    // };
     typedef enum 
     {
         LIST,
@@ -68,16 +64,16 @@ class PmergeMe
             }
 
 
-            // std::clock_t list_start;
-            // std::clock_t list_end;
-            // try {
-            //     list_start = std::clock();
-            //     mergeInsertionSort(this->List_mainChain_, 1);
-            //     list_end = std::clock();
-            // } catch (std::exception &e) {
-            //     std::cerr << e.what() << " " << "line: " << __LINE__ << std::endl;
-            //     exit(1);
-            // }
+            std::clock_t list_start;
+            std::clock_t list_end;
+            try {
+                list_start = std::clock();
+                mergeInsertionSort(this->List_mainChain_, 1);
+                list_end = std::clock();
+            } catch (std::exception &e) {
+                std::cerr << e.what() << " " << "line: " << __LINE__ << std::endl;
+                exit(1);
+            }
             
             std::clock_t vector_start ;
             std::clock_t vector_end ;
@@ -95,8 +91,8 @@ class PmergeMe
                     std::cout << "Before:  ";
                     PmergeMe::printContainer(input_);
                     std::cout << "After:   ";
-                    PmergeMe::printContainer(Vector_mainChain_);
-                    // printClock(list_start, list_end, LIST);
+                    PmergeMe::printContainer(List_mainChain_);
+                    printClock(list_start, list_end, LIST);
                     printClock(vector_start, vector_end, VECTOR);
                 }
             } catch ( std::exception &e ) {
@@ -119,25 +115,25 @@ class PmergeMe
      * list
     */
         //processPairs
-        bool                        shouldSwapPairs(const std::list<int>& lst, int pairSize, int startIndex);
-        void                        swapPairs(std::list<int>& lst, int pairSize, int startIndex);
-        bool                        isPairPresent(const std::list<int>& lst, int pairSize, size_t startIndex);
-        void                        processPairs(std::list<int>& lst, std::list<int>& subChain, int pairSize);
+        bool                        shouldSwapPairs(const int l, const int r) const ;
+        void                        swapPairs(std::list<int> lst, std::list<int>::iterator leftStart, std::list<int>::iterator leftEnd, std::list<int>::iterator  rightStart, std::list<int>::iterator rightEnd);
+        void                        processPairs(std::list<int>& vec, std::list<int>& subChain, int pairSize);
 
         //splitIntoMainAndSubChains
         void                        splitIntoMainAndSubChains(std::list<int>& mainChain, std::list<int>& subChain, int pairSize);
-    
-        // // first insert
-        // void                        prependSubchainToMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize);
-
+        
+        // first insert
+        void                        prependSubchainToMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize);
+        
         // // insert
-        // void                        mergeSubIntoMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize, UnpairedElemenat& unpairedData);
-        // int                         lower_bound(std::list<int> & mainChain, int key,int pairSize, UnpairedElemenat& unpairedData, int endpoint);
-        // void                        createComparisonListFromMainChain(std::list<int>& lst, std::list<int>& mainChain, int pairSize, UnpairedElemenat& unpairedData, int endpoint);
-        // bool                        elementExceedsKey(std::list<int>& lst, int index, int key);
-        // int                         find_lower_bound(std::list<int> & lst, int key);
-        // void                        insertSubChain(std::list<int> & mainChain, int insertPosition, ConstIntListIterator begin, ConstIntListIterator end);
-        // void                        insertSegmentToMainChain(std::list<int>& mainChain, std::list<int>& subChain, int segmentStart, int segmentEnd, int insertionPoint, int pairSize);
+        void                        mergeSubIntoMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize, std::list<int>& tmp);
+        int                         lower_bound(std::list<int> & mainChain, int key, int pairSize, int endpoint);
+        void                        createComparisonListFromMainChain(std::list<int>& lst, std::list<int>& mainChain, int pairSize, int endpoint);
+        bool                        elementExceedsKey(std::list<int>& lst, int index, int key);
+        int                         find_lower_bound(std::list<int> & lst, int key);
+        void                        insertSubChain(std::list<int> & mainChain, int insertPosition, ConstIntListIterator begin, ConstIntListIterator end);
+        void                        insertSegmentToMainChain(std::list<int>& mainChain, std::list<int>& subChain, int segmentStart, int segmentEnd, int insertionPoint, int pairSize);
+
     /**
      * vector
     */
@@ -156,7 +152,6 @@ class PmergeMe
         // // insert
         void                        mergeSubIntoMain(std::vector<int>& mainChain, std::vector<int>& subChain, int pairSize, std::vector<int>& tmp);
         int                         lower_bound(std::vector<int> & mainChain, int key, int pairSize, int endpoint);
-        int                         insertPoint(std::vector<int> & mainChin, int pairSize, int);
         void                        createComparisonVectorFromMainChain(std::vector<int>& lst, std::vector<int>& mainChain, int pairSize, int endpoint);
         bool                        elementExceedsKey(std::vector<int>& lst, int index, int key);
         int                         find_lower_bound(std::vector<int> & lst, int key);
@@ -169,23 +164,27 @@ class PmergeMe
             if (mainChain.size() <= 2 * static_cast<size_t>(pairSize)) {
                 if(mainChain.size()  <= static_cast<size_t>(pairSize)) return;
 
-                #ifdef PAIR
-                #ifdef LISTDEBUG
-                    testPairDebug(mainChain, pairSize, "Before process pairs.");
-                #endif
-                #ifdef VECTORDEBUG
-                    testPairDebug(mainChain, pairSize, "Before process pairs.");
-                #endif
-                #endif
-                if(!shouldSwapPairs(mainChain, pairSize, 0)) { swapPairs(mainChain, pairSize, 0);}
-                #ifdef PAIR
-                #ifdef LISTDEBUG
-                    testPairDebug(mainChain, pairSize, "After process pairs.");
-                #endif
-                #ifdef VECTORDEBUG
-                    testPairDebug(mainChain, pairSize, "After process pairs.");
-                #endif
-                #endif
+                // #ifdef PAIR
+                //     #ifdef LISTDEBUG
+                //         testPairDebug(mainChain, pairSize, "Before process pairs.");
+                //     #endif
+                //     #ifdef VECTORDEBUG
+                //         testPairDebug(mainChain, pairSize, "Before process pairs.");
+                //     #endif
+                // #endif
+                // T::iterator it = mainChain.begin();
+                // T::iterator it_next = getAdvanceTo(mainChain,it,pairSize);
+                // if(*it > *it_next) {
+                //     swapPairs(mainChain, it, it_next, it_next, mainChain.end());
+                // }
+                // #ifdef PAIR
+                //     #ifdef LISTDEBUG
+                //         testPairDebug(mainChain, pairSize, "After process pairs.");
+                //     #endif
+                //     #ifdef VECTORDEBUG
+                //         testPairDebug(mainChain, pairSize, "After process pairs.");
+                //     #endif
+                // #endif
                 return ; 
             }
 
@@ -208,6 +207,7 @@ class PmergeMe
                 #endif
             #endif
             T tmp(subChain);
+            subChain.clear();
             
             mergeInsertionSort(mainChain, pairSize * 2);
 
@@ -324,22 +324,38 @@ class PmergeMe
             }
         }
 
-        // template <typename T>
-        // typename std::list<T>::const_iterator advanceTo(std::list<T>& lst, typename std::list<T>::const_iterator itr, size_t index) {
-        //     for (size_t i=0; i< index ; ++i) {
-        //         ++itr;
-        //         if(itr == lst.end()) return lst.end();
-        //     }
-        //     return itr;
-        // }
+        template <typename T>
+        void advanceTo(std::list<T>& lst, typename std::list<T>::iterator& itr, size_t index) {
+            for (size_t i=0; i< index ; ++i) {
+                if(itr == lst.end()) return ;
+                ++itr;
+            }
+            return ;
+        }
+        
+        template <typename T>
+        void retreatBy(std::list<T>& lst, typename std::list<T>::iterator& itr, size_t index) {
+            for (size_t i=0; i< index ; ++i) {
+                if(itr == lst.begin()) return ;
+                --itr;
+            }
+            return ;
+        }
+        
+        template <typename T>
+        typename std::list<int>::iterator getAdvanceTo(std::list<T>& lst, typename std::list<T>::iterator& itr, size_t index) {
+            for (size_t i=0; i< index ; ++i) {
+                if(itr == lst.end()) return lst.end();
+                ++itr;
+            }
+            return itr;
+        }
 
         template <typename T>
         T getElementAtIndex(const std::vector<T>& vec, size_t index) {
             if (index >= vec.size()) { throw std::out_of_range("Index out of bounds"); }
 
-            typename std::vector<T>::const_iterator it = vec.begin();
-            it += index;
-            return *it;
+            return vec[index];
         }
 
         template <typename T>
@@ -364,19 +380,19 @@ class PmergeMe
         }
 
         bool isSorted() {
-            // ConstIntListIterator list_it = List_mainChain_.begin();
+            ConstIntListIterator list_it = List_mainChain_.begin();
 
             IntVecIterator vector_it = Vector_mainChain_.begin();
 
             std::set<int>::iterator set_it = sorted_.begin();
 
-            // while (set_it != sorted_.end()) {
-            //     if( *set_it != *list_it) throw std::logic_error("The sequence is not sorted.");
-            //     if( list_it == List_mainChain_.end() ) throw std::logic_error("The sequence is not sorted.");
-            //     ++list_it;
-            //     ++set_it;
-            // }
-            // if( list_it != List_mainChain_.end() ) throw std::logic_error("The sequence is not sorted.");
+            while (set_it != sorted_.end()) {
+                if( *set_it != *list_it) throw std::logic_error("The sequence is not sorted.");
+                if( list_it == List_mainChain_.end() ) throw std::logic_error("The sequence is not sorted.");
+                ++list_it;
+                ++set_it;
+            }
+            if( list_it != List_mainChain_.end() ) throw std::logic_error("The sequence is not sorted.");
 
             set_it = sorted_.begin();
             while (set_it != sorted_.end()) {
