@@ -26,21 +26,21 @@ std::string getDelimiter(const std::string& line, const std::string& front, cons
     throw std::runtime_error("No valid delimiter found or the string format is incorrect.");
 }
 
-void getValueAndDate(std::string line,std::string *date, std::string *rate,std::string delimiter)
+void getValueAndDate(std::string line,std::string& date, std::string& rate,std::string delimiter)
 {
     size_t pos = line.find(delimiter);
 
-    *date = line.substr(0, pos);
-    if(line.size() > (date->size() + delimiter.size()))
-        *rate = line.substr(pos + delimiter.length());
+    date = line.substr(0, pos);
+    if(line.size() > (date.size() + delimiter.size()))
+        rate = line.substr(pos + delimiter.length());
     else
-        *rate = "";
+        rate = "";
 }
 
-bool makeBitcoinExchange(BitcoinExchange* btc) {
+bool makeBitcoinExchange(BitcoinExchange& btc) {
 
     try {
-        btc->initDatabase(DATABASE);
+        btc.initDatabase(DATABASE);
     } catch (std::runtime_error &e) {
         std::cerr << "Exception: " << e.what() << std::endl;
         return false;
@@ -62,7 +62,7 @@ void output(char dash, int year, int month, int day, double value, double newVal
     << std::endl;
 }
 
-void tryExchange(std::string line, BitcoinExchange* btc) {
+void tryExchange(std::string line, BitcoinExchange& btc) {
     std::istringstream ss(line);
     int year, month, day;
     long double value;
@@ -87,12 +87,12 @@ void tryExchange(std::string line, BitcoinExchange* btc) {
         ss << "Error: year, month or day out of range." << year << "-" << month << "-" << day;
         throw std::runtime_error(ss.str());
     }
-    double rate = btc->getBitcoinExchangeRate(year,month,day);
+    double rate = btc.getBitcoinExchangeRate(year,month,day);
     double newValue = rate * static_cast<double>(value);
     output(dash, year, month, day, value, newValue);
 }
 
-bool convert(char *file,BitcoinExchange* btc) {
+bool convert(char *file, BitcoinExchange& btc) {
     std::ifstream f(file);
     if (!f) {
         std::cerr << "Error: could not open file." << std::endl;
@@ -124,16 +124,13 @@ int main( int argc, char **argv)
         std::cout << "Usage: " << argv[0] << " file" << std::endl;
         return 1;
     }
-    BitcoinExchange* btc = new BitcoinExchange();
+    BitcoinExchange btc;
     if( ! makeBitcoinExchange(btc) ) {
-        delete btc;
         return 1;
     }
     if( ! convert(argv[1], btc) ) {
-        delete btc;
         return 1;
     }
-    delete btc;
     return 0;
 }
 

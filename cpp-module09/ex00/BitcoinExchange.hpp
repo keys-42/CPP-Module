@@ -24,7 +24,7 @@
 # define MAXYEAR 2024
 
 std::string getDelimiter(const std::string& line, const std::string& front, const std::string& back);
-void getValueAndDate(std::string line,std::string *date, std::string *rate,std::string delimiter);
+void getValueAndDate(std::string line,std::string& date, std::string& rate,std::string delimiter);
 bool validateYear(int year);
 bool validateMonth(int month);
 bool validateDay(int day);
