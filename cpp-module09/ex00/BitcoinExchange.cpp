@@ -22,7 +22,7 @@ void BitcoinExchange::initDatabase(std::string file) {
     FileGuard f(file.c_str());
     std::string line;
     getline(f.getStream(), line);
-    if(line.compare(DATABASEFORMAT)) throw std::runtime_error("Error: database format");
+    if(line.compare(DATABASEFORMAT)) throw std::logic_error("Error: database format");
     while (getline(f.getStream(), line)) { insertFromString(line); }
 }
 
@@ -39,12 +39,12 @@ void BitcoinExchange::insertFromString(const std::string& input) {
     ss >> year >> dash >> month >> dash >> day >> comma >> value;
     
     if (ss.fail() || dash != '-' || comma != DATABASEDELIMITER || !ss.eof()) {
-        throw std::runtime_error("Error: database format");
+        throw std::logic_error("Error: database format");
     }
     if(!isValidDate(year, month, day)){
         std::stringstream ss;
         ss << "Error: year, month or day out of range." << year << "-" << month << "-" << day;
-        throw std::runtime_error(ss.str());
+        throw std::out_of_range(ss.str());
     }
     insertData(year, month, day, value);
 }
@@ -80,6 +80,8 @@ double  BitcoinExchange::findDataCloseTo(int year, int month, int day) {
         }
     }
 
+    ///後で設計
+
     throw std::runtime_error("Insufficient data. Please add more data.");
     return 0;
 }
@@ -88,7 +90,7 @@ void  BitcoinExchange::addData(int year, int month, int day, double value) {
     if(!isValidDate(year, month,day)) {
         std::stringstream ss;
         ss << "Error: year, month or day out of range." << year << "-" << month << "-" << day;
-        throw std::runtime_error(ss.str());
+        throw std::out_of_range(ss.str());
     }
     data_[year][month][day] = value;
 }
@@ -115,6 +117,9 @@ void    BitcoinExchange::findOrFail(int year, int month, int day) {
        << std::setw(2) << std::setfill('0') << month << '-'
        << std::setw(2) << std::setfill('0') << day;
     std::string message = ss.str();
+
+    //後で帰る
+    
     throw FindOrFailException(message.c_str());
 }
 
