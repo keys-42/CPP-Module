@@ -25,9 +25,32 @@
 
 std::string getDelimiter(const std::string& line, const std::string& front, const std::string& back);
 void getValueAndDate(std::string line,std::string& date, std::string& rate,std::string delimiter);
-bool validateYear(int year);
-bool validateMonth(int month);
-bool validateDay(int day);
+bool isValidDate(int year, int month, int day);
+
+struct FileGuard {
+private:
+    std::ifstream file;
+    FileGuard(){};
+
+public:
+    FileGuard(const std::string& filename) {
+        file.open(filename);
+        if (!file.is_open()) {
+            throw std::runtime_error("Failed to open file");
+        }
+    }
+
+    ~FileGuard() {
+        if (file.is_open()) {
+            file.close();
+        }
+    }
+
+    std::ifstream& getStream() {
+        return file;
+    }
+};
+
 
 class BitcoinExchange
 {

@@ -19,13 +19,11 @@ BitcoinExchange & BitcoinExchange::operator= (const BitcoinExchange &other) {
 }
 
 void BitcoinExchange::initDatabase(std::string file) {
-    std::ifstream f(file.c_str());
-    if (!f) throw std::runtime_error("Error: could not open database.");
+    FileGuard f(file.c_str());
     std::string line;
-    getline(f, line);
+    getline(f.getStream(), line);
     if(line.compare(DATABASEFORMAT)) throw std::runtime_error("Error: database format");
-    while (getline(f, line)) { insertFromString(line); }
-    f.close();
+    while (getline(f.getStream(), line)) { insertFromString(line); }
 }
 
 void BitcoinExchange::insertData( int year, int month, int day, double value) {
@@ -43,7 +41,7 @@ void BitcoinExchange::insertFromString(const std::string& input) {
     if (ss.fail() || dash != '-' || comma != DATABASEDELIMITER || !ss.eof()) {
         throw std::runtime_error("Error: database format");
     }
-    if( ! validateYear(year) || ! validateMonth(month) || ! validateDay(day)) {
+    if(!isValidDate(year, month, day)){
         std::stringstream ss;
         ss << "Error: year, month or day out of range." << year << "-" << month << "-" << day;
         throw std::runtime_error(ss.str());
@@ -87,7 +85,7 @@ double  BitcoinExchange::findDataCloseTo(int year, int month, int day) {
 }
 
 void  BitcoinExchange::addData(int year, int month, int day, double value) {
-    if( ! validateYear(year) || ! validateMonth(month) || ! validateDay(day)) {
+    if(!isValidDate(year, month,day)) {
         std::stringstream ss;
         ss << "Error: year, month or day out of range." << year << "-" << month << "-" << day;
         throw std::runtime_error(ss.str());

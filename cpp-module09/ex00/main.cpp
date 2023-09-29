@@ -1,21 +1,26 @@
 #include "BitcoinExchange.hpp"
 
-bool validateYear(int year) {
-    if (year < MINYEAR || year > MAXYEAR) 
+bool isValidDate(int year, int month, int day) {
+    if (year < MINYEAR || MAXYEAR < year) 
         return false;
-    return true;
-}
-
-bool validateMonth(int month) {
-    if (month < MINMONTH || month > MAXMONTH) 
+    if (month < MINMONTH || MAXMONTH < month)
         return false;
-    return true;
-}
-
-bool validateDay(int day) {
-    if (day < MINDAY || day > MAXDAY) 
+    if (day < MINDAY || MAXDAY < day)
         return false;
-    return true;
+     
+   bool isLeap = false;
+    if (year % 4 == 0) {
+        if (year % 100 != 0 || year % 400 == 0) {
+            isLeap = true;
+        }
+    }
+    if(month == 2) {
+        return (isLeap && day <= 29) || (!isLeap && day <= 28);
+    } else if ( month == 4 || month == 6 || month == 9 || month == 11 ) {
+        return day <= 30;
+    } else {
+        return day <= MAXDAY;
+    }
 }
 
 std::string getDelimiter(const std::string& line, const std::string& front, const std::string& back) {
@@ -82,7 +87,7 @@ void tryExchange(std::string line, BitcoinExchange& btc) {
     if(value < 0.0) {
         throw std::runtime_error("Error: not a positive number.");
     }
-    if( ! validateYear(year) || ! validateMonth(month) || ! validateDay(day) ) {
+    if ( !isValidDate(year, month, day)) {
         std::stringstream ss;
         ss << "Error: year, month or day out of range." << year << "-" << month << "-" << day;
         throw std::runtime_error(ss.str());
@@ -93,26 +98,20 @@ void tryExchange(std::string line, BitcoinExchange& btc) {
 }
 
 bool convert(char *file, BitcoinExchange& btc) {
-    std::ifstream f(file);
-    if (!f) {
-        std::cerr << "Error: could not open file." << std::endl;
-        return false;
-    }
     try {
+        FileGuard f(file);
         std::string line;
-        getline(f, line);
+        getline(f.getStream(), line);
         if(line.compare(INPUTFORMAT) != 0) throw std::runtime_error("Error: Input file format");
-        while (getline(f, line)) {
+        while (getline(f.getStream(), line)) {
             try {
                 tryExchange(line, btc);
             } catch (std::runtime_error &e) {
                 std::cerr << e.what() << std::endl;
             }
         }
-        f.close();
     } catch (std::runtime_error &e) {
         std::cerr << "Exception: " << e.what() << std::endl;
-        f.close();
         return false;
     }
     return true;
