@@ -1,60 +1,20 @@
 #include "BitcoinExchange.hpp"
 
-bool validateYear(int year) {
-    if (year < MINYEAR || year > MAXYEAR) 
-        return false;
-    return true;
-}
 
-bool validateMonth(int month) {
-    if (month < MINMONTH || month > MAXMONTH) 
-        return false;
-    return true;
-}
-
-bool validateDay(int day) {
-    if (day < MINDAY || day > MAXDAY) 
-        return false;
-    return true;
-}
-
-std::string getDelimiter(const std::string& line, const std::string& front, const std::string& back) {
-    if (line.substr(0, front.size()) == front && 
-        line.substr(line.size() - back.size(), back.size()) == back) {
-        return line.substr(front.size(), line.size() - front.size() - back.size());
-    }
-    throw std::runtime_error("No valid delimiter found or the string format is incorrect.");
-}
-
-void getValueAndDate(std::string line,std::string *date, std::string *rate,std::string delimiter)
-{
-    size_t pos = line.find(delimiter);
-
-    *date = line.substr(0, pos);
-    if(line.size() > (date->size() + delimiter.size()))
-        *rate = line.substr(pos + delimiter.length());
-    else
-        *rate = "";
-}
-
-bool makeBitcoinExchange(BitcoinExchange* btc) {
+bool makeBitcoinExchange(BitcoinExchange& btc) {
 
     try {
-        btc->initDatabase(DATABASE);
-    } catch (std::runtime_error &e) {
+        btc.initDatabase(DATABASE);
+    } catch (std::exception &e) {
         std::cerr << "Exception: " << e.what() << std::endl;
         return false;
     }
     return true;
 }
 
-void output(char dash, int year, int month, int day, double value, double newValue) {
+void output(std::string s, double value, double newValue) {
     std::cout  << \
-    year << \
-    dash << \
-    std::setfill('0') << std::setw(2) << month << \
-    dash << \
-    std::setfill('0') << std::setw(2) << day << \
+    s << \
     " => " << \
     value << \
     " = " << \
@@ -62,57 +22,50 @@ void output(char dash, int year, int month, int day, double value, double newVal
     << std::endl;
 }
 
-void tryExchange(std::string line, BitcoinExchange* btc) {
-    std::istringstream ss(line);
-    int year, month, day;
-    long double value;
-    char dash, dash2, pipe;
+void tryExchange(std::string line, BitcoinExchange& btc) {
 
-    ss >> year >> dash >> month >> dash2 >> day >> std::ws >> pipe >> std::ws >> value;
+    std::string::size_type pos = line.find(" | ");
 
-    if (ss.fail()) {
-        throw std::runtime_error("Error: invalid number format or out of range => " + line);
+    if (pos == std::string::npos) {
+        throw std::invalid_argument("Error: bad input => " + line);
     }
-    if (dash != '-' || dash2 != '-' || pipe != '|' || !ss.eof()) {
-        throw std::runtime_error("Error: bad input => " + line);
+    std::string datePart = line.substr(0, pos);
+    std::string valuePart = line.substr(pos + 3);
+    std::istringstream ss(valuePart);
+    double value;
+    ss >> value;
+    if (ss.fail() || !ss.eof() ) {
+        throw std::logic_error("Error: invalid number format or out of range => " + line);
     }
     if(value > 1000.0) {
-        throw std::runtime_error("Error: too large a number.");
+        throw std::out_of_range("Error: too large a number.");
     }
     if(value < 0.0) {
-        throw std::runtime_error("Error: not a positive number.");
+        throw std::out_of_range("Error: not a positive number.");
     }
-    if( ! validateYear(year) || ! validateMonth(month) || ! validateDay(day) ) {
-        std::stringstream ss;
-        ss << "Error: year, month or day out of range." << year << "-" << month << "-" << day;
-        throw std::runtime_error(ss.str());
+    if ( !BitcoinExchange::isValidDate(datePart)) {
+        throw std::out_of_range("Error: year, month or day out of range." + datePart);
     }
-    double rate = btc->getBitcoinExchangeRate(year,month,day);
+    double rate = btc.getBitcoinExchangeRate(datePart);
     double newValue = rate * static_cast<double>(value);
-    output(dash, year, month, day, value, newValue);
+    output(datePart, value, newValue);
 }
 
-bool convert(char *file,BitcoinExchange* btc) {
-    std::ifstream f(file);
-    if (!f) {
-        std::cerr << "Error: could not open file." << std::endl;
-        return false;
-    }
+bool convert(char *file, BitcoinExchange& btc) {
     try {
+        FileGuard f(file);
         std::string line;
-        getline(f, line);
-        if(line.compare(INPUTFORMAT) != 0) throw std::runtime_error("Error: Input file format");
-        while (getline(f, line)) {
+        getline(f.getStream(), line);
+        if(line.compare(INPUTFORMAT) != 0) throw std::logic_error("Error: Input file format");
+        while (getline(f.getStream(), line)) {
             try {
                 tryExchange(line, btc);
-            } catch (std::runtime_error &e) {
+            } catch (std::exception &e) {
                 std::cerr << e.what() << std::endl;
             }
         }
-        f.close();
-    } catch (std::runtime_error &e) {
+    } catch (std::exception &e) {
         std::cerr << "Exception: " << e.what() << std::endl;
-        f.close();
         return false;
     }
     return true;
@@ -124,20 +77,13 @@ int main( int argc, char **argv)
         std::cout << "Usage: " << argv[0] << " file" << std::endl;
         return 1;
     }
-    BitcoinExchange* btc = new BitcoinExchange();
+    BitcoinExchange btc;
     if( ! makeBitcoinExchange(btc) ) {
-        delete btc;
         return 1;
     }
     if( ! convert(argv[1], btc) ) {
-        delete btc;
         return 1;
     }
-    delete btc;
+    // btc.printDatabase();
     return 0;
 }
-
-// __attribute__((destructor))
-// static void destructor() {
-//     system("leaks -q btc");
-// }

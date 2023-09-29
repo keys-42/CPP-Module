@@ -78,6 +78,7 @@ void checkInput( const std::string &line ) {
 
 void Rpn::rpn(const std::string &line) {
     try {
+        if (line.empty()) throw std::invalid_argument("Error: The provided RPN expression is empty.");
         checkInput( line );
     } catch ( std::exception &e ) {
         std::cerr << "Exception: " << e.what() << std::endl;   

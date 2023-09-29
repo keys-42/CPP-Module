@@ -7,37 +7,8 @@ int main( int argc, char **argv )
         std::cout << "Usage: " << argv[0] << " {Reverse Polish Notation}" << std::endl;
         return 1;
     }
-	{
-		Rpn* rpn = new Rpn();
-		rpn->rpn( static_cast<std::string>(argv[1]) );
-		delete rpn;
-	}
-
-	{
-		Rpn* rpn = new Rpn();
-		Rpn r(*rpn);
-		r.rpn( static_cast<std::string>(argv[1]));
-		delete rpn;
-	}
-	{
-		Rpn* rpn = new Rpn();
-		Rpn r = *rpn;
-		r.rpn( static_cast<std::string>(argv[1]));
-		delete rpn;
-	}
-	{
-		Rpn* rpn = new Rpn();
-		rpn->rpn( static_cast<std::string>(argv[1]));
-		std::cout << "test" <<std::endl;
-		rpn->print();
-		std::cout << "empty" << std::endl;
-		delete rpn;
-	}
+	Rpn rpn;
+	rpn.rpn( std::string(argv[1]) );
 
     return 0;
 }
-
-// __attribute__((destructor))
-// static void destructor() {
-//     system("leaks -q RPN");
-// }
