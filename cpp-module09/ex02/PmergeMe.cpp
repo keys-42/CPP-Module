@@ -226,7 +226,7 @@ int  PmergeMe::lower_bound(std::list<int> & mainChain, int key, int pairSize, in
     return find_lower_bound(lst, key);
 }
 
-void PmergeMe::insertSubChain(std::list<int> & mainChain,int  insertPosition, ConstIntListIterator begin, ConstIntListIterator end) {
+void PmergeMe::insertSubChain(std::list<int> & mainChain,int  insertPosition, IntListIterator begin, IntListIterator end) {
     mainChain.insert(getIteratorAt(mainChain, insertPosition), begin, end);
 }
 
@@ -395,7 +395,7 @@ int  PmergeMe::lower_bound(std::vector<int> & mainChain, int key, int pairSize, 
     return find_lower_bound(vec, key);
 }
 
-void PmergeMe::insertSubChain(std::vector<int> & mainChain,int  insertPosition, ConstIntVecIterator begin, ConstIntVecIterator end) {
+void PmergeMe::insertSubChain(std::vector<int> & mainChain,int  insertPosition, IntVecIterator begin, IntVecIterator end) {
     mainChain.insert(getIteratorAt(mainChain, insertPosition), begin, end);
 }
 

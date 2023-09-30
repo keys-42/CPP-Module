@@ -24,11 +24,9 @@
 
 class PmergeMe
 {
-    typedef std::list<int>::const_iterator ConstIntListIterator;
     typedef std::list<int>::iterator IntListIterator;
 
     typedef std::vector<int>::iterator IntVecIterator;
-    typedef std::vector<int>::const_iterator ConstIntVecIterator;
 
     typedef enum 
     {
@@ -98,8 +96,7 @@ class PmergeMe
             } catch ( std::exception &e ) {
                 std::cerr << e.what() << " " << "line: " << __LINE__ << std::endl;
                 exit(1);
-            } 
-
+            }
         }
     
     private:
@@ -131,7 +128,7 @@ class PmergeMe
         void                        createComparisonListFromMainChain(std::list<int>& lst, std::list<int>& mainChain, int pairSize, int endpoint);
         bool                        elementExceedsKey(std::list<int>& lst, int index, int key);
         int                         find_lower_bound(std::list<int> & lst, int key);
-        void                        insertSubChain(std::list<int> & mainChain, int insertPosition, ConstIntListIterator begin, ConstIntListIterator end);
+        void                        insertSubChain(std::list<int> & mainChain, int insertPosition, IntListIterator begin, IntListIterator end);
         void                        insertSegmentToMainChain(std::list<int>& mainChain, std::list<int>& subChain, int segmentStart, int segmentEnd, int insertionPoint, int pairSize);
 
     /**
@@ -155,13 +152,13 @@ class PmergeMe
         void                        createComparisonVectorFromMainChain(std::vector<int>& lst, std::vector<int>& mainChain, int pairSize, int endpoint);
         bool                        elementExceedsKey(std::vector<int>& lst, int index, int key);
         int                         find_lower_bound(std::vector<int> & lst, int key);
-        void                        insertSubChain(std::vector<int> & mainChain, int insertPosition, ConstIntVecIterator begin, ConstIntVecIterator end);
+        void                        insertSubChain(std::vector<int> & mainChain, int insertPosition, IntVecIterator begin, IntVecIterator end);
         void                        insertSegmentToMainChain(std::vector<int>& mainChain, std::vector<int>& subChain, int segmentStart, int segmentEnd, int insertionPoint, int pairSize);
 
 
         template <typename T>
         void mergeInsertionSort(T & mainChain,int pairSize) {
-            if ( mainChain.size() / pairSize < 2) return ;
+            if ( mainChain.size() / pairSize < 2 ) return ;
             T subChain;
             #ifdef PAIR
                 #ifdef LISTDEBUG
