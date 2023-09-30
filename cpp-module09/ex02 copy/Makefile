@@ -1,4 +1,4 @@
-.PHONY: all clean fclean re leak address pair separate first insert
+.PHONY: all clean fclean re leak address pair separate first insert dclean
 
 NAME	= PmergeMe
 CXX		= c++
@@ -30,8 +30,8 @@ re: fclean all
 
 
 # debug address leak pair separate first insert
-# CXXFLAGS+= -DLISTDEBUG
-CXXFLAGS+= -DVECTORDEBUG
+CXXFLAGS+= -DLISTDEBUG
+# CXXFLAGS+= -DVECTORDEBUG
 address:fclean
 address:CXXFLAGS+= -g -fsanitize=address
 address:all
@@ -55,6 +55,9 @@ first:all
 insert:fclean
 insert:CXXFLAGS+= -DINSERT
 insert:all
+
+dclean:fclean
+	$(RM) -r $(LOGDIR)
 
 # less -R pair.log
 debug:

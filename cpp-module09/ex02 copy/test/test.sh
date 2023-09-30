@@ -48,7 +48,6 @@ fi
 
 
 for ((i=1; i<=count; i++)); do
-    # numbers=$(python3 -c "import random; print(' '.join(str(random.randint(1, $length)) for _ in range($number)))")
     numbers=$(python3 -c "import random; print(' '.join(str(i) for i in random.sample(range(1, $length + 1), $number)))")
     echo $numbers
     ./PmergeMe $numbers >> $LOG 2>$ERRORLOG
@@ -81,3 +80,5 @@ if [ $? -eq 0 ]; then
     echo "all test complete"
     echo -e "\033[0m"  
 fi
+
+cat log/sorted.log

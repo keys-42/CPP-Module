@@ -9,10 +9,9 @@ int main( int argc, char **argv )
         return 1;
     }
 
-    PmergeMe *p = new PmergeMe();
-    p->FordJohnsonAlgorithm(argc - 1,++argv);
+    PmergeMe p;
+    p.FordJohnsonAlgorithm(argc - 1,++argv);
     
-    delete p;
     return 0;
 }
 
