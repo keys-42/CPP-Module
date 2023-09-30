@@ -22,6 +22,7 @@ Rpn & Rpn::operator= (const Rpn &other) {
     }
     return *this;
 }
+
 int Rpn::sumNumber(int x,int y) const { return y + x; }
 int Rpn::differenceNumber(int x, int y) const  { return y - x; }
 int Rpn::productNumber(int x, int y) const  { return y * x; }
