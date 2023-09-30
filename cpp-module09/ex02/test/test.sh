@@ -80,3 +80,5 @@ if [ $? -eq 0 ]; then
     echo "all test complete"
     echo -e "\033[0m"  
 fi
+
+cat log/sorted.log

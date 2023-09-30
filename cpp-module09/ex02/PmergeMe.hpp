@@ -44,54 +44,6 @@ class PmergeMe
         int size_;
     
     public:
-void displayWithColor() {
-    std::list<int>::iterator list_it = List_mainChain_.begin();
-    std::vector<int>::iterator vector_it = Vector_mainChain_.begin();
-    std::set<int>::iterator set_it = sorted_.begin();
-
-    // Display List_mainChain_ with color
-    std::cout << "List_mainChain_:   ";
-    while (list_it != List_mainChain_.end()) {
-        if(set_it == sorted_.end() || *list_it != *set_it) {
-            // Red color for unsorted part
-            std::cout << "\033[31m" << *list_it << " ";
-        } else {
-            // Reset color for sorted part
-            std::cout << "\033[0m" << *list_it << " ";
-            ++set_it;
-        }
-        ++list_it;
-    }
-    std::cout << "\033[0m" << std::endl; // Reset color at the end of line
-
-    set_it = sorted_.begin(); // Reset the set iterator for the next loop
-
-    // Display Vector_mainChain_ with color
-    std::cout << "Vector_mainChain_: ";
-    while (vector_it != Vector_mainChain_.end()) {
-        if(set_it == sorted_.end() || *vector_it != *set_it) {
-            // Red color for unsorted part
-            std::cout << "\033[31m" << *vector_it << " ";
-        } else {
-            // Reset color for sorted part
-            std::cout << "\033[0m" << *vector_it << " ";
-            ++set_it;
-        }
-        ++vector_it;
-    }
-    std::cout << "\033[0m" << std::endl; // Reset color at the end of line
-
-    // Display sorted_ without any color since it's always sorted
-    std::cout << "sorted_:           ";
-    for(set_it = sorted_.begin(); set_it != sorted_.end(); ++set_it) {
-        std::cout << *set_it << " ";
-    }
-    std::cout << std::endl;
-}
-
-
-
-
         PmergeMe();
         PmergeMe(const PmergeMe & r);
         ~PmergeMe();
@@ -135,15 +87,14 @@ void displayWithColor() {
             }
 
             try {
-                // if(isSorted()) {
+                if(isSorted()) {
                     std::cout << "Before:  ";
                     PmergeMe::printContainer(input_);
                     std::cout << "After:   ";
                     PmergeMe::printContainer(List_mainChain_);
                     printClock(list_start, list_end, LIST);
                     printClock(vector_start, vector_end, VECTOR);
-                    displayWithColor();
-                // }
+                }
             } catch ( std::exception &e ) {
                 std::cerr << e.what() << " " << "line: " << __LINE__ << std::endl;
                 exit(1);
@@ -172,7 +123,7 @@ void displayWithColor() {
         void                        splitIntoMainAndSubChains(std::list<int>& mainChain, std::list<int>& subChain, int pairSize);
         
         // first insert
-        void                        prependSubchainToMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize);
+        void                        prependFirstOfSubchainToMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize);
         
         // // insert
         void                        mergeSubIntoMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize, std::list<int>& tmp);
@@ -196,7 +147,7 @@ void displayWithColor() {
         void                        splitIntoMainAndSubChains(std::vector<int>& mainChain, std::vector<int>& subChain, int pairSize);
         
         // first insert
-        void                        prependSubchainToMain(std::vector<int>& mainChain, std::vector<int>& subChain, int pairSize);
+        void                        prependFirstOfSubchainToMain(std::vector<int>& mainChain, std::vector<int>& subChain, int pairSize);
         
         // // insert
         void                        mergeSubIntoMain(std::vector<int>& mainChain, std::vector<int>& subChain, int pairSize, std::vector<int>& tmp);
@@ -260,7 +211,7 @@ void displayWithColor() {
                     testFirstInsertDebug(mainChain, subChain, pairSize, "Before prepend sub-chain to main.");
                 #endif
             #endif
-            prependSubchainToMain(mainChain, subChain, pairSize);
+            prependFirstOfSubchainToMain(mainChain, subChain, pairSize);
             #ifdef FIRST
                 #ifdef LISTDEBUG
                     testFirstInsertDebug(mainChain, subChain, pairSize, "After prepend sub-chain to main.");
@@ -436,38 +387,9 @@ void displayWithColor() {
             if( vector_it != Vector_mainChain_.end() ) 
                 throw std::logic_error("The sequence is not sorted.");
 
-            return true; // Assuming it's sorted if no exceptions were thrown.
+            return true;
         }
 
-        // bool isSorted() {
-        //     std::list<int>::iterator list_it = List_mainChain_.begin();
-
-        //     std::vector<int>::iterator vector_it = Vector_mainChain_.begin();
-
-        //     std::set<int>::iterator set_it = sorted_.begin();
-
-        //     while (set_it != sorted_.end()) {
-        //         if( *set_it != *list_it) throw std::logic_error("The sequence is not sorted.");
-        //         if( list_it == List_mainChain_.end() ) throw std::logic_error("The sequence is not sorted.");
-        //         ++list_it;
-        //         ++set_it;
-        //     }
-        //     if( list_it != List_mainChain_.end() ) throw std::logic_error("The sequence is not sorted.");
-
-        //     set_it = sorted_.begin();
-        //     while (set_it != sorted_.end()) {
-        //         if( *set_it != *vector_it) throw std::logic_error("The sequence is not sorted.");
-        //         if( vector_it == Vector_mainChain_.end() ) throw std::logic_error("The sequence is not sorted.");
-        //         ++vector_it;
-        //         ++set_it;
-        //     }
-        //     if( vector_it != Vector_mainChain_.end() ) throw std::logic_error("The sequence is not sorted.");
-        //     return false;
-        // }
-
-
-
-    //debug
     public:
         template <typename T>
         void testPairDebug(T main, int pairSize, std::string s) {

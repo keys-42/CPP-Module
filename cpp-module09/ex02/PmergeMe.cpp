@@ -185,17 +185,16 @@ void PmergeMe::splitIntoMainAndSubChains(std::list<int>& mainChain, std::list<in
 /**
  * insert first subPair
 */
-void PmergeMe::prependSubchainToMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize) {
+void PmergeMe::prependFirstOfSubchainToMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize) {
     std::list<int>::iterator subStart = subChain.begin();
     std::list<int>::iterator subEnd = getIteratorAt(subChain, pairSize);
     mainChain.insert(mainChain.begin(), subStart, subEnd);
 }
 
 
-// /**
-//  * insert
-// */
-
+/**
+ * insert
+*/
 bool PmergeMe::elementExceedsKey(std::list<int>& lst, int index, int key) {
     return getElementAtIndex(lst, index) >= key;
 }
@@ -293,41 +292,6 @@ void PmergeMe::mergeSubIntoMain(std::list<int>& mainChain, std::list<int>& subCh
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  * vector
 */
@@ -403,16 +367,14 @@ void PmergeMe::splitIntoMainAndSubChains(std::vector<int>& mainChain, std::vecto
 /**
  * insert first subPair
 */
-void PmergeMe::prependSubchainToMain(std::vector<int>& mainChain, std::vector<int>& subChain, int pairSize) {
+void PmergeMe::prependFirstOfSubchainToMain(std::vector<int>& mainChain, std::vector<int>& subChain, int pairSize) {
     std::vector<int>::iterator subStart = subChain.begin();
     mainChain.insert(mainChain.begin(), subStart, subStart + pairSize);
 }
 
-
-// /**
-//  * insert
-// */
-
+/**
+ * insert
+*/
 bool PmergeMe::elementExceedsKey(std::vector<int>& vec, int index, int key) {
     return getElementAtIndex(vec, index) >= key;
 }
@@ -455,7 +417,6 @@ void PmergeMe::insertSegmentToMainChain(std::vector<int>& mainChain, std::vector
     std::vector<int>::iterator endIter = (segmentEnd == -1) ? subChain.end() : getIteratorAt(subChain, segmentEnd * pairSize);
     mainChain.insert(getIteratorAt(mainChain, pairSize * insertionPoint), startIter, endIter);
 }
-
 
 void PmergeMe::mergeSubIntoMain(std::vector<int>& mainChain, std::vector<int>& subChain, int pairSize, std::vector<int>& tmp) {
 
