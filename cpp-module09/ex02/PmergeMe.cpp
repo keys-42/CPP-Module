@@ -463,3 +463,31 @@ void PmergeMe::mergeSubIntoMain(std::vector<int>& mainChain, std::vector<int>& s
 
 
 
+
+
+bool PmergeMe::isSorted() {
+    std::list<int>::iterator list_it = List_mainChain_.begin();
+    std::vector<int>::iterator vector_it = Vector_mainChain_.begin();
+    std::set<int>::iterator set_it = sorted_.begin();
+
+    while (set_it != sorted_.end()) {
+        if(list_it == List_mainChain_.end() || *set_it != *list_it) 
+            throw std::logic_error("The sequence is not sorted.");
+        ++list_it;
+        ++set_it;
+    }
+    if( list_it != List_mainChain_.end() ) 
+        throw std::logic_error("The sequence is not sorted.");
+
+    set_it = sorted_.begin();
+    while (set_it != sorted_.end()) {
+        if(vector_it == Vector_mainChain_.end() || *set_it != *vector_it) 
+            throw std::logic_error("The sequence is not sorted.");
+        ++vector_it;
+        ++set_it;
+    }
+    if( vector_it != Vector_mainChain_.end() ) 
+        throw std::logic_error("The sequence is not sorted.");
+
+    return true;
+}

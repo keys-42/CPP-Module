@@ -52,6 +52,7 @@ class PmergeMe
         std::list<int> getList() const;
         std::vector<int> getVector() const;
         void printClock(std::clock_t start, std::clock_t end, E_Type type);
+        bool isSorted();
     
         template <typename T>
         void FordJohnsonAlgorithm(int size, T numbers) {
@@ -62,7 +63,6 @@ class PmergeMe
                 std::cerr << e.what() << " " << "line: " << __LINE__ << std::endl;
                 exit(1);
             }
-
 
             std::clock_t list_start;
             std::clock_t list_end;
@@ -361,33 +361,6 @@ class PmergeMe
                     std::cout << " ";
             }
             std::cout << std::endl;
-        }
-
-        bool isSorted() {
-            std::list<int>::iterator list_it = List_mainChain_.begin();
-            std::vector<int>::iterator vector_it = Vector_mainChain_.begin();
-            std::set<int>::iterator set_it = sorted_.begin();
-
-            while (set_it != sorted_.end()) {
-                if(list_it == List_mainChain_.end() || *set_it != *list_it) 
-                    throw std::logic_error("The sequence is not sorted.");
-                ++list_it;
-                ++set_it;
-            }
-            if( list_it != List_mainChain_.end() ) 
-                throw std::logic_error("The sequence is not sorted.");
-
-            set_it = sorted_.begin();
-            while (set_it != sorted_.end()) {
-                if(vector_it == Vector_mainChain_.end() || *set_it != *vector_it) 
-                    throw std::logic_error("The sequence is not sorted.");
-                ++vector_it;
-                ++set_it;
-            }
-            if( vector_it != Vector_mainChain_.end() ) 
-                throw std::logic_error("The sequence is not sorted.");
-
-            return true;
         }
 
     public:
