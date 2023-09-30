@@ -181,7 +181,6 @@ void PmergeMe::splitIntoMainAndSubChains(std::list<int>& mainChain, std::list<in
     }
 }
 
-
 /**
  * insert first subPair
 */
@@ -190,7 +189,6 @@ void PmergeMe::prependFirstOfSubchainToMain(std::list<int>& mainChain, std::list
     std::list<int>::iterator subEnd = getIteratorAt(subChain, pairSize);
     mainChain.insert(mainChain.begin(), subStart, subEnd);
 }
-
 
 /**
  * insert
@@ -238,7 +236,6 @@ void PmergeMe::insertSegmentToMainChain(std::list<int>& mainChain, std::list<int
     mainChain.insert(getIteratorAt(mainChain, pairSize * insertionPoint), startIter, endIter);
 }
 
-
 void PmergeMe::mergeSubIntoMain(std::list<int>& mainChain, std::list<int>& subChain, int pairSize, std::list<int>& tmp) {
 
     std::list<int>::iterator it;
@@ -283,14 +280,6 @@ void PmergeMe::mergeSubIntoMain(std::list<int>& mainChain, std::list<int>& subCh
     tmp.clear();
     subChain.clear();
 }
-
-
-
-
-
-
-
-
 
 /**
  * vector
@@ -362,7 +351,6 @@ void PmergeMe::splitIntoMainAndSubChains(std::vector<int>& mainChain, std::vecto
         advanceTo(mainChain, segmentStart, pairSize);
     }
 }
-
 
 /**
  * insert first subPair
@@ -459,11 +447,6 @@ void PmergeMe::mergeSubIntoMain(std::vector<int>& mainChain, std::vector<int>& s
 
     subChain.clear();
 }
-
-
-
-
-
 
 bool PmergeMe::isSorted() {
     std::list<int>::iterator list_it = List_mainChain_.begin();
