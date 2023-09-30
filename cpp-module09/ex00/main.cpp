@@ -1,6 +1,5 @@
 #include "BitcoinExchange.hpp"
 
-
 bool makeBitcoinExchange(BitcoinExchange& btc) {
 
     try {

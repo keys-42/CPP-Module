@@ -2,9 +2,7 @@
 
 BitcoinExchange::BitcoinExchange() {}
 
-BitcoinExchange::BitcoinExchange(std::string file) {
-    initDatabase(file);
-}
+BitcoinExchange::BitcoinExchange(std::string file) { initDatabase(file); }
 
 BitcoinExchange::BitcoinExchange(std::map<std::string, double> data) : data_(data) {};
 

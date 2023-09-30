@@ -1,15 +1,15 @@
 #ifndef BITCOINEXCHANGE_HPP
-#define BITCOINEXCHANGE_HPP
+# define BITCOINEXCHANGE_HPP
 
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <map>
-#include <exception>
-#include <climits>
-#include <iomanip>
-#include <cmath>
-#include <limits>
+# include <iostream>
+# include <sstream>
+# include <fstream>
+# include <map>
+# include <exception>
+# include <climits>
+# include <iomanip>
+# include <cmath>
+# include <limits>
 
 # define DATABASE "data.csv"
 # define DATABASEFORMAT "date,exchange_rate"
@@ -25,10 +25,6 @@
 # define BTCSTSRTYEAROFUSE 2009
 # define BTCSTSRTMONTHOFUSE 1
 # define BTCSTSRTDAYOFUSE 2
-
-std::string getDelimiter(const std::string& line, const std::string& front, const std::string& back);
-void getValueAndDate(std::string line,std::string& date, std::string& rate,std::string delimiter);
-bool isValidDate(int year, int month, int day);
 
 struct FileGuard {
 private:
@@ -54,7 +50,6 @@ public:
     }
 };
 
-
 class BitcoinExchange
 {
     private:
@@ -70,7 +65,6 @@ class BitcoinExchange
         void                initDatabase(std::string file);
         void                insertFromString(const std::string& input);
         double              getBitcoinExchangeRate(std::string s);
-        void                addData(int year, int month, int day, double value);
         void                printDatabase();
         static bool         isValidDate(std::string s);
         static bool         validDate(int year, int month, int day);

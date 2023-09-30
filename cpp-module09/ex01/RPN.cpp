@@ -113,7 +113,6 @@ void Rpn::rpn(const std::string &line) {
     }
 }
 
-
 void Rpn::print() {
     while(! this->stack_.empty()) {
         std::cout << this->stackTop() <<std::endl;

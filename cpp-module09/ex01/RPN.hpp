@@ -1,15 +1,15 @@
 #ifndef RPN_HPP
 # define RPN_HPP
 
-#include <iostream>
-#include <string>
-#include <stack>
+# include <iostream>
+# include <string>
+# include <stack>
 # include <exception>
 
 class Rpn
 {
     typedef int (Rpn::*CalcPtr)(int, int) const ;
-    
+
     private:
         std::stack<int> stack_;
         int sumNumber(int x,int y) const ;
