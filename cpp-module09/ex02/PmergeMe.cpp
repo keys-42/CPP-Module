@@ -272,13 +272,16 @@ void PmergeMe::mergeSubIntoMain(std::list<int>& mainChain, std::list<int>& subCh
     }
     if(!tmp.empty()){
         int key =*(tmp.begin());
-        int insertionPoint = lower_bound(mainChain, key, pairSize, (mainChain.size()/pairSize)/2);
-        insertSegmentToMainChain(mainChain, tmp, 0, tmp.size() - 1, insertionPoint, pairSize);
+        int insertionPoint = lower_bound(mainChain, key, pairSize, mainChain.size()/pairSize);
+        std::cout << "[ last " << key  <<" : " << insertionPoint << " ]" << std::endl;
+        std::list<int>::iterator it_l = mainChain.begin();
+        advanceTo(mainChain, it_l, pairSize * insertionPoint);
+        mainChain.splice(it_l, tmp, tmp.begin(), tmp.end());
     }
     #ifdef INSERT
         std::cout << std::endl << std::endl;
     #endif
-
+    tmp.clear();
     subChain.clear();
 }
 
@@ -334,11 +337,9 @@ bool PmergeMe::shouldSwapPairs(const std::vector<int>& vec, int pairSize, int st
     return getElementAtIndex(vec, startIndex) < getElementAtIndex(vec, startIndex + pairSize);
 }
 
-void PmergeMe::swapPairs(std::vector<int>& vec, int pairSize, int startIndex) {
-    IntVecIterator leftStart = vec.begin() + startIndex;
-    IntVecIterator leftEnd = leftStart + pairSize;
-    IntVecIterator rightStart = leftEnd;
-
+void PmergeMe::swapPairs(std::vector<int> vec, std::vector<int>::iterator leftStart, std::vector<int>::iterator leftEnd, std::vector<int>::iterator  rightStart, std::vector<int>::iterator rightEnd){
+    (void)vec;
+    (void)rightEnd;
     std::swap_ranges(leftStart, leftEnd, rightStart);
 }
 
@@ -358,7 +359,7 @@ void PmergeMe::processPairs(std::vector<int>& vec, std::vector<int>& subChain, i
         }
 
         if (shouldSwapPairs(vec, pairSize, i)) {
-            swapPairs(vec, pairSize, i);
+            swapPairs(vec, vec.begin() + i, vec.begin() + i + pairSize, vec.begin() + i + pairSize, vec.end());
         }
 
         i += 2 * pairSize;
@@ -488,8 +489,8 @@ void PmergeMe::mergeSubIntoMain(std::vector<int>& mainChain, std::vector<int>& s
     }
     if(!tmp.empty()){
         int key = tmp[0];
-        int insertionPoint = lower_bound(mainChain, key, pairSize, (mainChain.size()/pairSize)/2);
-        insertSegmentToMainChain(mainChain, tmp, 0, tmp.size() - 1, insertionPoint, pairSize);
+        int insertionPoint = lower_bound(mainChain, key, pairSize, mainChain.size()/pairSize);
+        mainChain.insert(mainChain.begin() + pairSize * insertionPoint, tmp.begin(), tmp.end());
     }
     #ifdef INSERT
         std::cout << std::endl << std::endl;

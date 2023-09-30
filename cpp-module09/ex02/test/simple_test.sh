@@ -8,6 +8,7 @@ for ((i=$MIN; i<=$MAX; i+=INCREMENT)); do
     echo "count [100] length[$i] number[$i]"
     sleep 1
     
+    echo "bash test.sh -c 100 -l $i -n $i"
     OUTPUT=$(bash test.sh -c 100 -l $i -n $i)
     echo -e $OUTPUT
     if echo "$OUTPUT" | grep -q "all test complete"; then

@@ -15,7 +15,6 @@ LOGDIR = ./log
 MKDIR = mkdir
 
 all: $(NAME)
-	./PmergeMe $(NUMBER)
 
 $(NAME): $(OBJ)
 	$(CXX) $(CXXFLAGS) $^ -o $@
