@@ -3,16 +3,14 @@
 
 int main( int argc, char **argv )
 {
-    (void)argv;
     if (argc <= 1) {
         std::cerr << "Usage ./Pmerge numbers" << std::endl;
         return 1;
     }
 
-    PmergeMe *p = new PmergeMe();
-    p->FordJohnsonAlgorithm(argc - 1,++argv);
+    PmergeMe p;
+    p.FordJohnsonAlgorithm(argc - 1, ++argv);
     
-    delete p;
     return 0;
 }
 
