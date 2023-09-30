@@ -269,7 +269,6 @@ void PmergeMe::mergeSubIntoMain(std::list<int>& mainChain, std::list<int>& subCh
     if(!tmp.empty()){
         int key =*(tmp.begin());
         int insertionPoint = lower_bound(mainChain, key, pairSize, mainChain.size()/pairSize);
-        std::cout << "[ last " << key  <<" : " << insertionPoint << " ]" << std::endl;
         std::list<int>::iterator it_l = mainChain.begin();
         advanceTo(mainChain, it_l, pairSize * insertionPoint);
         mainChain.splice(it_l, tmp, tmp.begin(), tmp.end());
