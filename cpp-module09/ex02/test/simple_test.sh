@@ -1,6 +1,5 @@
 #!/bin/bash
 
-MIN=1
 MAX=100
 INCREMENT=10
 
@@ -9,17 +8,21 @@ for ((i=$MIN; i<=$MAX; i+=INCREMENT)); do
     sleep 1
     
     echo "bash test.sh -c 100 -l $i -n $i"
-    OUTPUT=$(bash test.sh -c 100 -l $i -n $i)
-    echo -e $OUTPUT
-    if echo "$OUTPUT" | grep -q "all test complete"; then
-        echo "Proceeding to the next iteration..."
-    else
-        echo "incompleted work"
-        break
+    bash test.sh -c 100 -l $i -n $i
+    
+    # Check the exit status of the last command (test.sh)
+    if [ $? -ne 0 ]; then
+        echo "test.sh failed for count [100] length[$i] number[$i]"
+        exit 1
     fi
 done
 
-echo finally
+echo "finally"
 echo "count [1] length[2147483647] number[777777]"
 sleep 1
 bash test.sh -c 1 -l 2147483647 -n 7777777
+
+if [ $? -ne 0 ]; then
+    echo "test.sh failed for count [1] length[2147483647] number[7777777]"
+    exit 1
+fi

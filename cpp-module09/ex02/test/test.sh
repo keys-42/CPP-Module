@@ -56,29 +56,29 @@ for ((i=1; i<=count; i++)); do
     echo "After:   "$sorted_numbers >> $TEST_LOG2
     diff $TEST_LOG $TEST_LOG2 > /dev/null
     if [ $? -eq 0 ]; then
-    RANDOM_FILE_NUM=$(( RANDOM % FILE_COUNT + 1 ))
-
-    RANDOM_FILE_PATH="./art/${RANDOM_FILE_NUM}.art"
-    echo -e "\033[32m"
-    cat "$RANDOM_FILE_PATH"
-    echo -e "\033[0m"  
+        RANDOM_FILE_NUM=$(( RANDOM % FILE_COUNT + 1 ))
+        RANDOM_FILE_PATH="./art/${RANDOM_FILE_NUM}.art"
+        echo -e "\033[32m"
+        cat "$RANDOM_FILE_PATH"
+        echo -e "\033[0m"  
     else
-    RANDOM_FILE_NUM=$(( RANDOM % FILE_COUNT + 1 ))
-
-    RANDOM_FILE_PATH="./art/${RANDOM_FILE_NUM}.art"
-    echo -e "\033[31m"
-    cat "$RANDOM_FILE_PATH"
-    echo -e "\033[0m"  
+        RANDOM_FILE_NUM=$(( RANDOM % FILE_COUNT + 1 ))
+        RANDOM_FILE_PATH="./art/${RANDOM_FILE_NUM}.art"
+        echo -e "\033[31m"
+        cat "$RANDOM_FILE_PATH"
+        echo -e "\033[0m"  
         echo "error: " $numbers >> $ERRORLOG
         break
     fi
 done
 
-
-if [ $? -eq 0 ]; then
+# This part will only execute if the for loop finished without breaking, i.e., all tests passed.
+if [ $i -gt $count ]; then
     echo -e "\033[32m"
     echo "all test complete"
     echo -e "\033[0m"  
+else
+    exit 1
 fi
 
 cat log/sorted.log
