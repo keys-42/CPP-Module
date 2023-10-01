@@ -25,6 +25,9 @@ fclean:clean
 
 re:fclean all
 
+tidy:
+	clang-tidy $(SRC) -- $(CXXFLAGS) -I./
+
 debug:fclean
 debug:DEBUGFLAG+= -g -fsanitize=address
 debug:all

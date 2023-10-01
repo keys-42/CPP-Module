@@ -1,79 +1,83 @@
 #ifndef BITCOINEXCHANGE_HPP
 #define BITCOINEXCHANGE_HPP
 
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <map>
-#include <exception>
 #include <climits>
-#include <iomanip>
 #include <cmath>
+#include <exception>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
 #include <limits>
+#include <map>
+#include <sstream>
 
-# define DATABASE "data.csv"
-# define DATABASEFORMAT "date,exchange_rate"
-# define DATABASEDELIMITER ','
-# define INPUTFORMAT  "date | value"
-# define INPUTDEDELIMITER " | "
-# define MINDAY 1
-# define MAXDAY 31
-# define MINMONTH 1
-# define MAXMONTH 12
-# define MINYEAR 2009
-# define MAXYEAR 2024
-# define BTCSTSRTYEAROFUSE 2009
-# define BTCSTSRTMONTHOFUSE 1
-# define BTCSTSRTDAYOFUSE 2
+#define DATABASE "data.csv"
+#define DATABASEFORMAT "date,exchange_rate"
+#define DATABASEDELIMITER ','
+#define INPUTFORMAT "date | value"
+#define INPUTDEDELIMITER " | "
+#define MINDAY 1
+#define MAXDAY 31
+#define MINMONTH 1
+#define MAXMONTH 12
+#define MINYEAR 2009
+#define MAXYEAR 2024
+#define BTCSTSRTYEAROFUSE 2009
+#define BTCSTSRTMONTHOFUSE 1
+#define BTCSTSRTDAYOFUSE 2
 
-std::string getDelimiter(const std::string& line, const std::string& front, const std::string& back);
-void getValueAndDate(std::string line,std::string& date, std::string& rate,std::string delimiter);
-bool isValidDate(int year, int month, int day);
+std::string
+getDelimiter(const std::string& line,
+			 const std::string& front,
+			 const std::string& back);
+void
+getValueAndDate(std::string line,
+				std::string& date,
+				std::string& rate,
+				std::string delimiter);
+bool
+isValidDate(int year, int month, int day);
 
 struct FileGuard {
 private:
-    std::ifstream file;
-    FileGuard(){};
+	std::ifstream file;
+	FileGuard(){};
 
 public:
-    FileGuard(const std::string& filename) {
-        file.open(filename);
-        if (!file.is_open()) {
-            throw std::runtime_error("Failed to open file");
-        }
-    }
+	FileGuard(const std::string& filename) {
+		file.open(filename.c_str());
+		if (!file.is_open()) {
+			throw std::runtime_error("Failed to open file");
+		}
+	}
 
-    ~FileGuard() {
-        if (file.is_open()) {
-            file.close();
-        }
-    }
+	~FileGuard() {
+		if (file.is_open()) {
+			file.close();
+		}
+	}
 
-    std::ifstream& getStream() {
-        return file;
-    }
+	std::ifstream& getStream() { return file; }
 };
 
+class BitcoinExchange {
+private:
+	std::map<std::string, double> data_;
 
-class BitcoinExchange
-{
-    private:
-        std::map<std::string, double> data_;
-    
-    public:
-        BitcoinExchange();
-        BitcoinExchange(std::string file);
-        BitcoinExchange(std::map<std::string, double> data);
-        BitcoinExchange(const BitcoinExchange &r);
-        ~BitcoinExchange();
-        BitcoinExchange & operator= (const BitcoinExchange &other);
-        void                initDatabase(std::string file);
-        void                insertFromString(const std::string& input);
-        double              getBitcoinExchangeRate(std::string s);
-        void                addData(int year, int month, int day, double value);
-        void                printDatabase();
-        static bool         isValidDate(std::string s);
-        static bool         validDate(int year, int month, int day);
+public:
+	BitcoinExchange();
+	BitcoinExchange(std::string file);
+	BitcoinExchange(std::map<std::string, double> data);
+	BitcoinExchange(const BitcoinExchange& r);
+	~BitcoinExchange();
+	BitcoinExchange& operator=(const BitcoinExchange& other);
+	void initDatabase(std::string file);
+	void insertFromString(const std::string& input);
+	double getBitcoinExchangeRate(std::string s);
+	void addData(int year, int month, int day, double value);
+	void printDatabase();
+	static bool isValidDate(std::string s);
+	static bool validDate(int year, int month, int day);
 };
 
 #endif
