@@ -19,7 +19,7 @@ jobs:
     - name: Run clang-tidy
       run: |
         cd cpp-module09/ex02
-        clang-tidy [your-source-files] -- [compiler-options]
+        clang-tidy main.cpp PmergeMe.cpp PmergeMe.hpp -- -Wall -Wextra -Werror -std=c++98
       
     - name: Check clang-format
       run: |
