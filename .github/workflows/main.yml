@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - feature/cpp09/*
 
 jobs:
   clang-tools:
@@ -18,21 +18,25 @@ jobs:
 
     - name: Run clang-tidy
       run: |
+        cd cpp-module09/ex02
         clang-tidy [your-source-files] -- [compiler-options]
       
     - name: Check clang-format
       run: |
+        cd cpp-module09/ex02
         find . -name '*.cpp' -or -name '*.h' | xargs clang-format -i
         git diff --exit-code
     
     - name: run simple test
       run: |
+        cd cpp-module09/ex02
         make
         cd test
         make
     
     - name: run test
       run: |
+        cd cpp-module09/ex02
         make
         cd test
         make test
