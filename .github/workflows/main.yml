@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install Clang Tools
-      run: sudo apt-get install clang-tidy clang-format
+      run: sudo apt-get install clang-tidy
 
     - name: Run clang-tidy
       run: |
