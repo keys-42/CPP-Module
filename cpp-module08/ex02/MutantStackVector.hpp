@@ -8,24 +8,24 @@
 
 // The internal container uses std::vector.
 template <typename T>
-class MutantStackVector : public std::stack<T, std::vector<T>> {
+class MutantStackVector : public std::stack<T, std::vector<T> > {
 public:
-  MutantStackVector() : std::stack<T, std::vector<T>>() {}
+  MutantStackVector() : std::stack<T, std::vector<T> >() {}
   MutantStackVector(MutantStackVector const &other)
-      : std::stack<T, std::vector<T>>(other) {}
+      : std::stack<T, std::vector<T> >(other) {}
   ~MutantStackVector() {}
   MutantStackVector &operator=(MutantStackVector const &other) {
     if (this != &other)
-      std::stack<T, std::vector<T>>::operator=(other);
+      std::stack<T, std::vector<T> >::operator=(other);
     return *this;
   }
-  operator std::stack<T, std::vector<T>>() const {
-    return std::stack<T, std::vector<T>>(this->c);
+  operator std::stack<T, std::vector<T> >() const {
+    return std::stack<T, std::vector<T> >(this->c);
   }
 
   typedef
-      typename std::stack<T, std::vector<T>>::container_type::iterator iterator;
-  typedef typename std::stack<T, std::vector<T>>::container_type::const_iterator
+      typename std::stack<T, std::vector<T> >::container_type::iterator iterator;
+  typedef typename std::stack<T, std::vector<T> >::container_type::const_iterator
       const_iterator;
   iterator begin() { return this->c.begin(); }
   const_iterator begin() const { return this->c.begin(); }
