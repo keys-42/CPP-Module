@@ -22,7 +22,7 @@ jobs:
     - name: Run clang-tidy
       run: |
         find . -name '*.cpp' -or -name '*.hpp' | while read file; do
-          if [[ $file == cpp/cpp-module06/ex00/* ]]; then
+          if [[ $file == ./cpp-module06/ex00/* ]]; then
             clang-tidy $file -- -Wall -Wextra -Werror -std=c++11
           else
             clang-tidy $file -- -Wall -Wextra -Werror -std=c++98
