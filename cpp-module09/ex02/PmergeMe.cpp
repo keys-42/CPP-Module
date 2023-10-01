@@ -132,7 +132,7 @@ bool PmergeMe::shouldSwapPairs(const int l, const int r) const {
     return l < r;
 }
 
-void PmergeMe::swapPairs(std::list<int> lst, std::list<int>::iterator leftStart, std::list<int>::iterator leftEnd, std::list<int>::iterator  rightStart, std::list<int>::iterator rightEnd){
+void PmergeMe::swapPairs(std::list<int>& lst, std::list<int>::iterator leftStart, std::list<int>::iterator leftEnd, std::list<int>::iterator  rightStart, std::list<int>::iterator rightEnd){
     lst.splice(leftStart, lst, rightStart, rightEnd);
     lst.splice(rightStart, lst, leftStart, leftEnd);
 }
@@ -149,7 +149,9 @@ void PmergeMe::processPairs(std::list<int>& lst, std::list<int>& subChain, int p
             break;
         }
         if (shouldSwapPairs(*l_it, *r_it)) {
-            swapPairs(lst, l_it, r_it,r_it,getAdvanceTo(lst, r_it, pairSize));
+            std::list<int>::iterator end_it = r_it;
+            advanceTo(lst, end_it, pairSize);
+            swapPairs(lst, l_it, r_it, r_it, end_it);
             advanceTo(lst, l_it, pairSize);
         } else {
             advanceTo(lst,l_it, 2*pairSize);
@@ -289,7 +291,7 @@ bool PmergeMe::shouldSwapPairs(const std::vector<int>& vec, int pairSize, int st
     return getElementAtIndex(vec, startIndex) < getElementAtIndex(vec, startIndex + pairSize);
 }
 
-void PmergeMe::swapPairs(std::vector<int> vec, std::vector<int>::iterator leftStart, std::vector<int>::iterator leftEnd, std::vector<int>::iterator  rightStart, std::vector<int>::iterator rightEnd){
+void PmergeMe::swapPairs(std::vector<int>& vec, std::vector<int>::iterator leftStart, std::vector<int>::iterator leftEnd, std::vector<int>::iterator  rightStart, std::vector<int>::iterator rightEnd){
     (void)vec;
     (void)rightEnd;
     std::swap_ranges(leftStart, leftEnd, rightStart);
@@ -454,22 +456,22 @@ bool PmergeMe::isSorted() {
 
     while (set_it != sorted_.end()) {
         if(list_it == List_mainChain_.end() || *set_it != *list_it) 
-            throw std::logic_error("The sequence is not sorted.");
+            throw std::logic_error("The sequence is not sorted. [ List ]");
         ++list_it;
         ++set_it;
     }
     if( list_it != List_mainChain_.end() ) 
-        throw std::logic_error("The sequence is not sorted.");
+        throw std::logic_error("The sequence is not sorted. [ List ]");
 
     set_it = sorted_.begin();
     while (set_it != sorted_.end()) {
         if(vector_it == Vector_mainChain_.end() || *set_it != *vector_it) 
-            throw std::logic_error("The sequence is not sorted.");
+            throw std::logic_error("The sequence is not sorted. [ Vector ]");
         ++vector_it;
         ++set_it;
     }
     if( vector_it != Vector_mainChain_.end() ) 
-        throw std::logic_error("The sequence is not sorted.");
+        throw std::logic_error("The sequence is not sorted. [ Vector ]");
 
     return true;
 }
