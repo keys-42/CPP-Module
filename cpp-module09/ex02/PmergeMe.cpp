@@ -149,7 +149,9 @@ void PmergeMe::processPairs(std::list<int>& lst, std::list<int>& subChain, int p
             break;
         }
         if (shouldSwapPairs(*l_it, *r_it)) {
-            swapPairs(lst, l_it, r_it,r_it,getAdvanceTo(lst, r_it, pairSize));
+            std::list<int>::iterator end_it = r_it;
+            advanceTo(lst, end_it, pairSize);
+            swapPairs(lst, l_it, r_it, r_it, end_it);
             advanceTo(lst, l_it, pairSize);
         } else {
             advanceTo(lst,l_it, 2*pairSize);
@@ -454,22 +456,22 @@ bool PmergeMe::isSorted() {
 
     while (set_it != sorted_.end()) {
         if(list_it == List_mainChain_.end() || *set_it != *list_it) 
-            throw std::logic_error("The sequence is not sorted.");
+            throw std::logic_error("The sequence is not sorted. [ List ]");
         ++list_it;
         ++set_it;
     }
     if( list_it != List_mainChain_.end() ) 
-        throw std::logic_error("The sequence is not sorted.");
+        throw std::logic_error("The sequence is not sorted. [ List ]");
 
     set_it = sorted_.begin();
     while (set_it != sorted_.end()) {
         if(vector_it == Vector_mainChain_.end() || *set_it != *vector_it) 
-            throw std::logic_error("The sequence is not sorted.");
+            throw std::logic_error("The sequence is not sorted. [ Vector ]");
         ++vector_it;
         ++set_it;
     }
     if( vector_it != Vector_mainChain_.end() ) 
-        throw std::logic_error("The sequence is not sorted.");
+        throw std::logic_error("The sequence is not sorted. [ Vector ]");
 
     return true;
 }
