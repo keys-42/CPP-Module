@@ -1,5 +1,6 @@
 #!/bin/bash
 
+MIN=1
 MAX=100
 INCREMENT=10
 
