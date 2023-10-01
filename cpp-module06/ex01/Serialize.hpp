@@ -9,14 +9,13 @@ typedef unsigned long long uintptr_t;
 typedef unsigned long uintptr_t;
 #endif
 
-class Serialize
-{
-    private:
-        Serialize(){};
+class Serialize {
+private:
+  Serialize(){};
 
-    public:
-        static uintptr_t serialize(Data* ptr);
-        static Data* deserialize(uintptr_t raw);
+public:
+  static uintptr_t serialize(Data *ptr);
+  static Data *deserialize(uintptr_t raw);
 };
 
 #endif

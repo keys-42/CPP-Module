@@ -1,20 +1,19 @@
 #ifndef WRONGANIMAL_HPP
-# define WRONGANIMAL_HPP
+#define WRONGANIMAL_HPP
 
+#include <iomanip>
 #include <iostream>
 #include <string>
-#include <iomanip>
 
-class WrongAnimal
-{
-    protected:
-        std::string type_;
-    
-    public:
-        WrongAnimal();
-        virtual ~WrongAnimal();
-        std::string getType( void ) const ;
-        void makeSound(void) const ;
+class WrongAnimal {
+protected:
+  std::string type_;
+
+public:
+  WrongAnimal();
+  virtual ~WrongAnimal();
+  std::string getType(void) const;
+  void makeSound(void) const;
 };
 
 #endif

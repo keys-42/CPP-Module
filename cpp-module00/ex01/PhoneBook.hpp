@@ -1,23 +1,22 @@
 #ifndef _PHONEBOOK_HPP
-# define _PHONEBOOK_HPP
-# include "Contact.hpp"
+#define _PHONEBOOK_HPP
+#include "Contact.hpp"
 #include <iostream>
 #include <sstream>
 #include <stdlib.h>
 
 void flush_cin();
-int get_cmd(std::string s,std::string *cmd);
+int get_cmd(std::string s, std::string *cmd);
 std::string get_line(std::string mess);
 
-class Phonebook
-{
-  public:
-	Phonebook();
-	~Phonebook();
+class Phonebook {
+public:
+  Phonebook();
+  ~Phonebook();
   void add();
   void search();
 
-  private:
+private:
   Contact contact_[8];
   int get_index();
   int next_index;
