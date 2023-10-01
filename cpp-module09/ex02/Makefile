@@ -1,4 +1,4 @@
-.PHONY: all clean fclean re leak address pair separate first insert dclean tidy help
+.PHONY: all clean fclean re leak address pair separate first insert dclean tidy help debug format
 
 NAME	= PmergeMe
 CXX		= c++
@@ -73,6 +73,9 @@ debug:
 
 tidy:
 	clang-tidy $(SRC) -- $(CXXFLAGS) -I./
+
+format:
+	find . -name '*.cpp' -or -name '*.hpp' | xargs clang-format -i
 
 help:
 	@echo "make address"
