@@ -6,14 +6,14 @@
 
 class ShrubberyCreationForm : public Form {
 private:
-  std::string target_;
+	std::string target_;
 
 public:
-  ShrubberyCreationForm(const std::string &target);
-  ShrubberyCreationForm(const ShrubberyCreationForm &r);
-  ~ShrubberyCreationForm();
-  ShrubberyCreationForm &operator=(ShrubberyCreationForm const &r);
-  void execute(Bureaucrat const &executor) const;
+	ShrubberyCreationForm(const std::string& target);
+	ShrubberyCreationForm(const ShrubberyCreationForm& r);
+	~ShrubberyCreationForm();
+	ShrubberyCreationForm& operator=(ShrubberyCreationForm const& r);
+	void execute(Bureaucrat const& executor) const;
 };
 
 #endif

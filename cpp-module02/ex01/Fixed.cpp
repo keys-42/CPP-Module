@@ -1,43 +1,52 @@
 #include "Fixed.hpp"
 
-Fixed::Fixed() : value_(0) {
-  std::cout << "Default constructor called" << std::endl;
+Fixed::Fixed()
+	: value_(0) {
+	std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::Fixed(const int value) {
-  std::cout << "Int constructor called" << std::endl;
-  value_ = value << bit_;
+	std::cout << "Int constructor called" << std::endl;
+	value_ = value << bit_;
 }
 
 Fixed::Fixed(const float value) {
-  std::cout << "Float constructor called" << std::endl;
-  value_ = roundf(value * (1 << bit_));
+	std::cout << "Float constructor called" << std::endl;
+	value_ = roundf(value * (1 << bit_));
 }
 
-Fixed::~Fixed() { std::cout << "Destructor called" << std::endl; }
-
-Fixed::Fixed(const Fixed &f) {
-  std::cout << "Copy constructor called" << std::endl;
-  *this = f;
+Fixed::~Fixed() {
+	std::cout << "Destructor called" << std::endl;
 }
 
-Fixed &Fixed::operator=(const Fixed &r) {
-  std::cout << "Copy assignment operator called" << std::endl;
-  this->setRawBits(r.getRawBits());
-  return *this;
+Fixed::Fixed(const Fixed& f) {
+	std::cout << "Copy constructor called" << std::endl;
+	*this = f;
 }
 
-std::ostream &operator<<(std::ostream &os, const Fixed &obj) {
-  os << obj.toFloat();
-  return os;
+Fixed& Fixed::operator=(const Fixed& r) {
+	std::cout << "Copy assignment operator called" << std::endl;
+	this->setRawBits(r.getRawBits());
+	return *this;
 }
 
-int Fixed::getRawBits(void) const { return value_; }
+std::ostream& operator<<(std::ostream& os, const Fixed& obj) {
+	os << obj.toFloat();
+	return os;
+}
 
-void Fixed::setRawBits(int const raw) { value_ = raw; }
+int Fixed::getRawBits(void) const {
+	return value_;
+}
 
-float Fixed::toFloat(void) const { return (float)value_ / (float)(1 << bit_); }
+void Fixed::setRawBits(int const raw) {
+	value_ = raw;
+}
+
+float Fixed::toFloat(void) const {
+	return (float)value_ / (float)(1 << bit_);
+}
 
 int Fixed::toInt(void) const {
-  return (int)roundf((float)value_ / (float)(1 << bit_));
+	return (int)roundf((float)value_ / (float)(1 << bit_));
 }

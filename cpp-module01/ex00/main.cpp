@@ -1,13 +1,13 @@
 #include "Zombie.hpp"
 
 int main() {
-  Zombie *zom1 = newZombie("first");
-  Zombie *zom2 = newZombie("second");
+	Zombie* zom1 = newZombie("first");
+	Zombie* zom2 = newZombie("second");
 
-  zom1->announce();
-  zom2->announce();
-  randomChump("random");
-  delete (zom1);
-  delete (zom2);
-  return 0;
+	zom1->announce();
+	zom2->announce();
+	randomChump("random");
+	delete (zom1);
+	delete (zom2);
+	return 0;
 }

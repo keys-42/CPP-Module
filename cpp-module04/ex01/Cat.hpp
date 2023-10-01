@@ -5,14 +5,14 @@
 
 class Cat : public Animal {
 private:
-  Brain *brain;
+	Brain* brain;
 
 public:
-  Cat();
-  Cat(const Cat &c);
-  virtual ~Cat();
-  Cat &operator=(const Cat &r);
-  void makeSound(void) const;
+	Cat();
+	Cat(const Cat& c);
+	virtual ~Cat();
+	Cat& operator=(const Cat& r);
+	void makeSound(void) const;
 };
 
 #endif

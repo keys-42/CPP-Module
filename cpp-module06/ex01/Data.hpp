@@ -5,9 +5,9 @@
 #include <iostream>
 
 struct Data {
-  int id_;
-  std::string name_;
-  std::time_t timestamp_;
+	int id_;
+	std::string name_;
+	std::time_t timestamp_;
 };
 
 #endif
