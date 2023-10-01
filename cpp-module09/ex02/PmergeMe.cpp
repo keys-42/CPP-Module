@@ -132,7 +132,7 @@ bool PmergeMe::shouldSwapPairs(const int l, const int r) const {
     return l < r;
 }
 
-void PmergeMe::swapPairs(std::list<int> lst, std::list<int>::iterator leftStart, std::list<int>::iterator leftEnd, std::list<int>::iterator  rightStart, std::list<int>::iterator rightEnd){
+void PmergeMe::swapPairs(std::list<int>& lst, std::list<int>::iterator leftStart, std::list<int>::iterator leftEnd, std::list<int>::iterator  rightStart, std::list<int>::iterator rightEnd){
     lst.splice(leftStart, lst, rightStart, rightEnd);
     lst.splice(rightStart, lst, leftStart, leftEnd);
 }
@@ -289,7 +289,7 @@ bool PmergeMe::shouldSwapPairs(const std::vector<int>& vec, int pairSize, int st
     return getElementAtIndex(vec, startIndex) < getElementAtIndex(vec, startIndex + pairSize);
 }
 
-void PmergeMe::swapPairs(std::vector<int> vec, std::vector<int>::iterator leftStart, std::vector<int>::iterator leftEnd, std::vector<int>::iterator  rightStart, std::vector<int>::iterator rightEnd){
+void PmergeMe::swapPairs(std::vector<int>& vec, std::vector<int>::iterator leftStart, std::vector<int>::iterator leftEnd, std::vector<int>::iterator  rightStart, std::vector<int>::iterator rightEnd){
     (void)vec;
     (void)rightEnd;
     std::swap_ranges(leftStart, leftEnd, rightStart);

@@ -84,6 +84,8 @@ class PmergeMe
                 exit(1);
             }
 
+            PmergeMe::printContainer(List_mainChain_);
+            PmergeMe::printContainer(Vector_mainChain_);
             try {
                 if(isSorted()) {
                     std::cout << "Before:  ";
@@ -113,8 +115,8 @@ class PmergeMe
     */
         //processPairs
         bool                        shouldSwapPairs(const int l, const int r) const ;
-        void                        swapPairs(std::list<int> lst, std::list<int>::iterator leftStart, std::list<int>::iterator leftEnd, std::list<int>::iterator  rightStart, std::list<int>::iterator rightEnd);
-        void                        processPairs(std::list<int>& vec, std::list<int>& subChain, int pairSize);
+        void                        swapPairs(std::list<int>& lst, std::list<int>::iterator leftStart, std::list<int>::iterator leftEnd, std::list<int>::iterator  rightStart, std::list<int>::iterator rightEnd);
+        void                        processPairs(std::list<int>& list, std::list<int>& subChain, int pairSize);
 
         //splitIntoMainAndSubChains
         void                        splitIntoMainAndSubChains(std::list<int>& mainChain, std::list<int>& subChain, int pairSize);
@@ -136,7 +138,7 @@ class PmergeMe
     */
         //processPairs
         bool                        shouldSwapPairs(const std::vector<int>& vec, int pairSize, int startIndex);
-        void                        swapPairs(std::vector<int> vec, std::vector<int>::iterator leftStart, std::vector<int>::iterator leftEnd, std::vector<int>::iterator  rightStart, std::vector<int>::iterator rightEnd);
+        void                        swapPairs(std::vector<int>& vec, std::vector<int>::iterator leftStart, std::vector<int>::iterator leftEnd, std::vector<int>::iterator  rightStart, std::vector<int>::iterator rightEnd);
         bool                        isPairPresent(const std::vector<int>& vec, int pairSize, size_t startIndex);
         void                        processPairs(std::vector<int>& vec, std::vector<int>& subChain, int pairSize);
 
