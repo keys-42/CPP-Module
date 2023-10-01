@@ -1,4 +1,4 @@
-.PHONY: all clean fclean re leak address pair separate first insert dclean
+.PHONY: all clean fclean re leak address pair separate first insert dclean tidy help
 
 NAME	= PmergeMe
 CXX		= c++
@@ -71,6 +71,8 @@ debug:
 	$(MAKE) insert
 	./$(NAME) $(NUMBER) > $(LOGDIR)/insert.log
 
+tidy:
+	clang-tidy $(SRC) -- $(CXXFLAGS) -I./
 
 help:
 	@echo "make address"

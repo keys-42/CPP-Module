@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  clang-tools:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Clang Tools
+      run: sudo apt-get install clang-tidy clang-format
+
+    - name: Run clang-tidy
+      run: |
+        clang-tidy [your-source-files] -- [compiler-options]
+      
+    - name: Check clang-format
+      run: |
+        find . -name '*.cpp' -or -name '*.h' | xargs clang-format -i
+        git diff --exit-code
+    
+    - name: run simple test
+      run: |
+        make
+        cd test
+        make
+    
+    - name: run test
+      run: |
+        make
+        cd test
+        make test
+        
+
