@@ -84,6 +84,8 @@ class PmergeMe
                 exit(1);
             }
 
+            PmergeMe::printContainer(List_mainChain_);
+            PmergeMe::printContainer(Vector_mainChain_);
             try {
                 if(isSorted()) {
                     std::cout << "Before:  ";
@@ -114,7 +116,7 @@ class PmergeMe
         //processPairs
         bool                        shouldSwapPairs(const int l, const int r) const ;
         void                        swapPairs(std::list<int>& lst, std::list<int>::iterator leftStart, std::list<int>::iterator leftEnd, std::list<int>::iterator  rightStart, std::list<int>::iterator rightEnd);
-        void                        processPairs(std::list<int>& vec, std::list<int>& subChain, int pairSize);
+        void                        processPairs(std::list<int>& list, std::list<int>& subChain, int pairSize);
 
         //splitIntoMainAndSubChains
         void                        splitIntoMainAndSubChains(std::list<int>& mainChain, std::list<int>& subChain, int pairSize);
