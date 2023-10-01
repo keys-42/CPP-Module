@@ -6,13 +6,12 @@ ColumnLimit: 100
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
 AccessModifierOffset: -4
-# BreakBeforeBraces: Linux
 BreakBeforeBraces: Attach
 BraceWrapping:
   AfterStruct: true
   SplitEmptyRecord: true
 AlignAfterOpenBracket: DontAlign
-AlwaysBreakAfterDefinitionReturnType: All
-AlwaysBreakAfterReturnType: All
+AlwaysBreakAfterDefinitionReturnType: None
+AlwaysBreakAfterReturnType: None
 BinPackArguments: false
 BinPackParameters: false

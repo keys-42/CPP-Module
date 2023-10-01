@@ -10,8 +10,7 @@ PmergeMe::PmergeMe(const PmergeMe& r)
 
 PmergeMe::~PmergeMe(){};
 
-PmergeMe&
-PmergeMe::operator=(const PmergeMe& other) {
+PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
 	if (this != &other) {
 		this->input_ = other.input_;
 		this->List_mainChain_ = other.List_mainChain_;
@@ -21,18 +20,15 @@ PmergeMe::operator=(const PmergeMe& other) {
 	return *this;
 }
 
-std::list<int>
-PmergeMe::getList() const {
+std::list<int> PmergeMe::getList() const {
 	return this->List_mainChain_;
 }
 
-std::vector<int>
-PmergeMe::getVector() const {
+std::vector<int> PmergeMe::getVector() const {
 	return this->Vector_mainChain_;
 }
 
-void
-PmergeMe::printClock(std::clock_t start, std::clock_t end, E_Type type) {
+void PmergeMe::printClock(std::clock_t start, std::clock_t end, E_Type type) {
 	std::string t;
 	if (type == LIST)
 		t = "  List  ";
@@ -44,8 +40,7 @@ PmergeMe::printClock(std::clock_t start, std::clock_t end, E_Type type) {
 			  << "] : " << std::fixed << std::setprecision(5) << microseconds << " us" << std::endl;
 }
 
-int
-PmergeMe::stoi(const std::string& str) {
+int PmergeMe::stoi(const std::string& str) {
 	std::istringstream iss(str);
 	int value;
 	iss >> value;
@@ -57,8 +52,7 @@ PmergeMe::stoi(const std::string& str) {
 	return value;
 }
 
-void
-PmergeMe::initContainer(int size, int numbers[]) {
+void PmergeMe::initContainer(int size, int numbers[]) {
 	for (int i = 0; i < size; ++i) {
 		if (numbers[i] < 0)
 			throw std::invalid_argument("Received a negative number");
@@ -71,8 +65,7 @@ PmergeMe::initContainer(int size, int numbers[]) {
 	}
 }
 
-void
-PmergeMe::initContainer(int size, char* numbers) {
+void PmergeMe::initContainer(int size, char* numbers) {
 	(void)size;
 	std::stringstream ss(numbers);
 	std::string number;
@@ -92,8 +85,7 @@ PmergeMe::initContainer(int size, char* numbers) {
 	}
 }
 
-void
-PmergeMe::initContainer(int size, char* numbers[]) {
+void PmergeMe::initContainer(int size, char* numbers[]) {
 	int n;
 	for (int i = 0; i < size; ++i) {
 		n = stoi(numbers[i]);
@@ -108,8 +100,7 @@ PmergeMe::initContainer(int size, char* numbers[]) {
 	}
 }
 
-void
-PmergeMe::initContainer(int size, std::string numbers) {
+void PmergeMe::initContainer(int size, std::string numbers) {
 	(void)size;
 	std::stringstream ss(numbers);
 	std::string number;
@@ -129,8 +120,7 @@ PmergeMe::initContainer(int size, std::string numbers) {
 	}
 }
 
-void
-PmergeMe::initContainer(int size, std::string numbers[]) {
+void PmergeMe::initContainer(int size, std::string numbers[]) {
 	int n;
 	for (int i = 0; i < size; ++i) {
 		n = stoi(numbers[i]);
@@ -145,8 +135,7 @@ PmergeMe::initContainer(int size, std::string numbers[]) {
 	}
 }
 
-size_t
-PmergeMe::calculateJacobsthalNumber(size_t n) {
+size_t PmergeMe::calculateJacobsthalNumber(size_t n) {
 	if (n <= 0)
 		return 0;
 	if (n == 1)
@@ -158,13 +147,11 @@ PmergeMe::calculateJacobsthalNumber(size_t n) {
  * list
  */
 // pair comparison
-bool
-PmergeMe::shouldSwapPairs(const int l, const int r) const {
+bool PmergeMe::shouldSwapPairs(const int l, const int r) const {
 	return l < r;
 }
 
-void
-PmergeMe::swapPairs(std::list<int>& lst,
+void PmergeMe::swapPairs(std::list<int>& lst,
 	std::list<int>::iterator leftStart,
 	std::list<int>::iterator leftEnd,
 	std::list<int>::iterator rightStart,
@@ -173,8 +160,7 @@ PmergeMe::swapPairs(std::list<int>& lst,
 	lst.splice(rightStart, lst, leftStart, leftEnd);
 }
 
-void
-PmergeMe::processPairs(std::list<int>& lst, std::list<int>& subChain, int pairSize) {
+void PmergeMe::processPairs(std::list<int>& lst, std::list<int>& subChain, int pairSize) {
 	std::list<int>::iterator l_it = lst.begin();
 	std::list<int>::iterator r_it = l_it;
 	advanceTo(lst, r_it, pairSize);
@@ -200,8 +186,7 @@ PmergeMe::processPairs(std::list<int>& lst, std::list<int>& subChain, int pairSi
 /**
  * separate mainChain SubChain
  */
-void
-PmergeMe::splitIntoMainAndSubChains(std::list<int>& mainChain,
+void PmergeMe::splitIntoMainAndSubChains(std::list<int>& mainChain,
 	std::list<int>& subChain,
 	int pairSize) {
 	int segmentIndex = 1;
@@ -227,8 +212,7 @@ PmergeMe::splitIntoMainAndSubChains(std::list<int>& mainChain,
 /**
  * insert first subPair
  */
-void
-PmergeMe::prependFirstOfSubchainToMain(std::list<int>& mainChain,
+void PmergeMe::prependFirstOfSubchainToMain(std::list<int>& mainChain,
 	std::list<int>& subChain,
 	int pairSize) {
 	std::list<int>::iterator subStart = subChain.begin();
@@ -239,13 +223,11 @@ PmergeMe::prependFirstOfSubchainToMain(std::list<int>& mainChain,
 /**
  * insert
  */
-bool
-PmergeMe::elementExceedsKey(std::list<int>& lst, int index, int key) {
+bool PmergeMe::elementExceedsKey(std::list<int>& lst, int index, int key) {
 	return getElementAtIndex(lst, index) >= key;
 }
 
-int
-PmergeMe::find_lower_bound(std::list<int>& lst, int key) {
+int PmergeMe::find_lower_bound(std::list<int>& lst, int key) {
 	int left = -1;
 	int right = lst.size();
 
@@ -259,8 +241,7 @@ PmergeMe::find_lower_bound(std::list<int>& lst, int key) {
 	return right;
 }
 
-void
-PmergeMe::createComparisonListFromMainChain(std::list<int>& lst,
+void PmergeMe::createComparisonListFromMainChain(std::list<int>& lst,
 	std::list<int>& mainChain,
 	int pairSize,
 	int endpoint) {
@@ -274,23 +255,20 @@ PmergeMe::createComparisonListFromMainChain(std::list<int>& lst,
 	}
 }
 
-int
-PmergeMe::lower_bound(std::list<int>& mainChain, int key, int pairSize, int endpoint) {
+int PmergeMe::lower_bound(std::list<int>& mainChain, int key, int pairSize, int endpoint) {
 	std::list<int> lst;
 	createComparisonListFromMainChain(lst, mainChain, pairSize, endpoint);
 	return find_lower_bound(lst, key);
 }
 
-void
-PmergeMe::insertSubChain(std::list<int>& mainChain,
+void PmergeMe::insertSubChain(std::list<int>& mainChain,
 	int insertPosition,
 	IntListIterator begin,
 	IntListIterator end) {
 	mainChain.insert(getIteratorAt(mainChain, insertPosition), begin, end);
 }
 
-void
-PmergeMe::insertSegmentToMainChain(std::list<int>& mainChain,
+void PmergeMe::insertSegmentToMainChain(std::list<int>& mainChain,
 	std::list<int>& subChain,
 	int segmentStart,
 	int segmentEnd,
@@ -302,8 +280,7 @@ PmergeMe::insertSegmentToMainChain(std::list<int>& mainChain,
 	mainChain.insert(getIteratorAt(mainChain, pairSize * insertionPoint), startIter, endIter);
 }
 
-void
-PmergeMe::mergeSubIntoMain(std::list<int>& mainChain,
+void PmergeMe::mergeSubIntoMain(std::list<int>& mainChain,
 	std::list<int>& subChain,
 	int pairSize,
 	std::list<int>& tmp) {
@@ -356,13 +333,11 @@ PmergeMe::mergeSubIntoMain(std::list<int>& mainChain,
  */
 
 // pair comparison
-bool
-PmergeMe::shouldSwapPairs(const std::vector<int>& vec, int pairSize, int startIndex) {
+bool PmergeMe::shouldSwapPairs(const std::vector<int>& vec, int pairSize, int startIndex) {
 	return getElementAtIndex(vec, startIndex) < getElementAtIndex(vec, startIndex + pairSize);
 }
 
-void
-PmergeMe::swapPairs(std::vector<int>& vec,
+void PmergeMe::swapPairs(std::vector<int>& vec,
 	std::vector<int>::iterator leftStart,
 	std::vector<int>::iterator leftEnd,
 	std::vector<int>::iterator rightStart,
@@ -372,13 +347,11 @@ PmergeMe::swapPairs(std::vector<int>& vec,
 	std::swap_ranges(leftStart, leftEnd, rightStart);
 }
 
-bool
-PmergeMe::isPairPresent(const std::vector<int>& vec, int pairSize, size_t startIndex) {
+bool PmergeMe::isPairPresent(const std::vector<int>& vec, int pairSize, size_t startIndex) {
 	return getConstIteratorAt(vec, startIndex + 2 * pairSize - 1) != vec.end();
 }
 
-void
-PmergeMe::processPairs(std::vector<int>& vec, std::vector<int>& subChain, int pairSize) {
+void PmergeMe::processPairs(std::vector<int>& vec, std::vector<int>& subChain, int pairSize) {
 	for (size_t i = 0; i < vec.size();) {
 		if (!isPairPresent(vec, pairSize, i)) {
 			std::vector<int>::iterator iter = getIteratorAt(vec, i);
@@ -404,8 +377,7 @@ PmergeMe::processPairs(std::vector<int>& vec, std::vector<int>& subChain, int pa
 /**
  * separate mainChain SubChain
  */
-void
-PmergeMe::splitIntoMainAndSubChains(std::vector<int>& mainChain,
+void PmergeMe::splitIntoMainAndSubChains(std::vector<int>& mainChain,
 	std::vector<int>& subChain,
 	int pairSize) {
 	std::vector<int>::iterator segmentStart = mainChain.begin();
@@ -437,8 +409,7 @@ PmergeMe::splitIntoMainAndSubChains(std::vector<int>& mainChain,
 /**
  * insert first subPair
  */
-void
-PmergeMe::prependFirstOfSubchainToMain(std::vector<int>& mainChain,
+void PmergeMe::prependFirstOfSubchainToMain(std::vector<int>& mainChain,
 	std::vector<int>& subChain,
 	int pairSize) {
 	std::vector<int>::iterator subStart = subChain.begin();
@@ -448,13 +419,11 @@ PmergeMe::prependFirstOfSubchainToMain(std::vector<int>& mainChain,
 /**
  * insert
  */
-bool
-PmergeMe::elementExceedsKey(std::vector<int>& vec, int index, int key) {
+bool PmergeMe::elementExceedsKey(std::vector<int>& vec, int index, int key) {
 	return getElementAtIndex(vec, index) >= key;
 }
 
-int
-PmergeMe::find_lower_bound(std::vector<int>& vec, int key) {
+int PmergeMe::find_lower_bound(std::vector<int>& vec, int key) {
 	int left = -1;
 	int right = vec.size();
 
@@ -468,8 +437,7 @@ PmergeMe::find_lower_bound(std::vector<int>& vec, int key) {
 	return right;
 }
 
-void
-PmergeMe::createComparisonVectorFromMainChain(std::vector<int>& vec,
+void PmergeMe::createComparisonVectorFromMainChain(std::vector<int>& vec,
 	std::vector<int>& mainChain,
 	int pairSize,
 	int endpoint) {
@@ -483,23 +451,20 @@ PmergeMe::createComparisonVectorFromMainChain(std::vector<int>& vec,
 	}
 }
 
-int
-PmergeMe::lower_bound(std::vector<int>& mainChain, int key, int pairSize, int endpoint) {
+int PmergeMe::lower_bound(std::vector<int>& mainChain, int key, int pairSize, int endpoint) {
 	std::vector<int> vec;
 	createComparisonVectorFromMainChain(vec, mainChain, pairSize, endpoint);
 	return find_lower_bound(vec, key);
 }
 
-void
-PmergeMe::insertSubChain(std::vector<int>& mainChain,
+void PmergeMe::insertSubChain(std::vector<int>& mainChain,
 	int insertPosition,
 	IntVecIterator begin,
 	IntVecIterator end) {
 	mainChain.insert(getIteratorAt(mainChain, insertPosition), begin, end);
 }
 
-void
-PmergeMe::insertSegmentToMainChain(std::vector<int>& mainChain,
+void PmergeMe::insertSegmentToMainChain(std::vector<int>& mainChain,
 	std::vector<int>& subChain,
 	int segmentStart,
 	int segmentEnd,
@@ -511,8 +476,7 @@ PmergeMe::insertSegmentToMainChain(std::vector<int>& mainChain,
 	mainChain.insert(getIteratorAt(mainChain, pairSize * insertionPoint), startIter, endIter);
 }
 
-void
-PmergeMe::mergeSubIntoMain(std::vector<int>& mainChain,
+void PmergeMe::mergeSubIntoMain(std::vector<int>& mainChain,
 	std::vector<int>& subChain,
 	int pairSize,
 	std::vector<int>& tmp) {
@@ -558,8 +522,7 @@ PmergeMe::mergeSubIntoMain(std::vector<int>& mainChain,
 	subChain.clear();
 }
 
-bool
-PmergeMe::isSorted() {
+bool PmergeMe::isSorted() {
 	std::list<int>::iterator list_it = List_mainChain_.begin();
 	std::vector<int>::iterator vector_it = Vector_mainChain_.begin();
 	std::set<int>::iterator set_it = sorted_.begin();

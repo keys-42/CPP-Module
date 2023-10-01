@@ -2,8 +2,7 @@
 
 #include "PmergeMe.hpp"
 
-int
-main(int argc, char** argv) {
+int main(int argc, char** argv) {
 	if (argc <= 1) {
 		std::cerr << "Usage ./Pmerge numbers" << std::endl;
 		return 1;
@@ -16,8 +15,7 @@ main(int argc, char** argv) {
 }
 
 #ifdef LEAK
-__attribute__((destructor)) static void
-destructor() {
+__attribute__((destructor)) static void destructor() {
 	system("leaks -q Pmerge");
 }
 #endif
