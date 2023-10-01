@@ -16,7 +16,7 @@ int main() {
 	try {
 		for (int i = 0; i >= 0; i++) {
 			std::cout << i << ": " << std::setw(20);
-			easyfind<std::vector<int>>(v, i);
+			easyfind<std::vector<int> >(v, i);
 		}
 	} catch (std::exception& e) {
 		std::cout << std::setw(14) << "exception: " << e.what() << std::endl;
@@ -26,7 +26,7 @@ int main() {
 	try {
 		for (int i = 0; i >= 0; i++) {
 			std::cout << i << ": " << std::setw(20);
-			easyfind<std::list<int>>(l, i);
+			easyfind<std::list<int> >(l, i);
 		}
 	} catch (std::exception& e) {
 		std::cout << std::setw(14) << "exception: " << e.what() << std::endl;

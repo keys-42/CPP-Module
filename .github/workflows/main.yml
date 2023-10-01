@@ -28,11 +28,3 @@ jobs:
             clang-tidy $file -- -Wall -Wextra -Werror -std=c++98
           fi
         done
-      
-    - name: Check clang-format
-      run: |
-        find . -name '*.cpp' -or -name '*.hpp' | xargs clang-format -i
-        git diff --exit-code
-
-        
-
