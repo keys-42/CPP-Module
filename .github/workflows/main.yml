@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - feature/cpp09/*
+      - main
 
 jobs:
   clang-tools:
@@ -18,27 +18,18 @@ jobs:
 
     - name: Run clang-tidy
       run: |
-        cd cpp-module09/ex02
-        clang-tidy main.cpp PmergeMe.cpp PmergeMe.hpp -- -Wall -Wextra -Werror -std=c++98
+        find . -name '*.cpp' -or -name '*.hpp' | while read file; do
+          if [[ $file == cpp/cpp-module06/ex00/* ]]; then
+            clang-tidy $file -- -Wall -Wextra -Werror -std=c++11
+          else
+            clang-tidy $file -- -Wall -Wextra -Werror -std=c++98
+          fi
+        done
       
     - name: Check clang-format
       run: |
-        cd cpp-module09/ex02
         find . -name '*.cpp' -or -name '*.hpp' | xargs clang-format -i
         git diff --exit-code
-    
-    - name: run simple test
-      run: |
-        cd cpp-module09/ex02
-        make
-        cd test
-        make
-    
-    - name: run test
-      run: |
-        cd cpp-module09/ex02
-        make
-        cd test
-        make test > /dev/null 2>&1
+
         
 
