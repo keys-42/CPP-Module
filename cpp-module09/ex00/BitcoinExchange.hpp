@@ -26,17 +26,11 @@
 #define BTCSTSRTMONTHOFUSE 1
 #define BTCSTSRTDAYOFUSE 2
 
-std::string
-getDelimiter(const std::string& line,
-			 const std::string& front,
-			 const std::string& back);
-void
-getValueAndDate(std::string line,
-				std::string& date,
-				std::string& rate,
-				std::string delimiter);
-bool
-isValidDate(int year, int month, int day);
+std::string getDelimiter(const std::string& line,
+	const std::string& front,
+	const std::string& back);
+void getValueAndDate(std::string line, std::string& date, std::string& rate, std::string delimiter);
+bool isValidDate(int year, int month, int day);
 
 struct FileGuard {
 private:

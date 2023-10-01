@@ -1,7 +1,6 @@
 #include "BitcoinExchange.hpp"
 
-bool
-makeBitcoinExchange(BitcoinExchange& btc) {
+bool makeBitcoinExchange(BitcoinExchange& btc) {
 
 	try {
 		btc.initDatabase(DATABASE);
@@ -12,13 +11,11 @@ makeBitcoinExchange(BitcoinExchange& btc) {
 	return true;
 }
 
-void
-output(std::string s, double value, double newValue) {
+void output(std::string s, double value, double newValue) {
 	std::cout << s << " => " << value << " = " << newValue << std::endl;
 }
 
-void
-tryExchange(std::string line, BitcoinExchange& btc) {
+void tryExchange(std::string line, BitcoinExchange& btc) {
 
 	std::string::size_type pos = line.find(" | ");
 
@@ -31,8 +28,7 @@ tryExchange(std::string line, BitcoinExchange& btc) {
 	double value;
 	ss >> value;
 	if (ss.fail() || !ss.eof()) {
-		throw std::logic_error("Error: invalid number format or out of range => " +
-							   line);
+		throw std::logic_error("Error: invalid number format or out of range => " + line);
 	}
 	if (value > 1000.0) {
 		throw std::out_of_range("Error: too large a number.");
@@ -41,16 +37,14 @@ tryExchange(std::string line, BitcoinExchange& btc) {
 		throw std::out_of_range("Error: not a positive number.");
 	}
 	if (!BitcoinExchange::isValidDate(datePart)) {
-		throw std::out_of_range("Error: year, month or day out of range." +
-								datePart);
+		throw std::out_of_range("Error: year, month or day out of range." + datePart);
 	}
 	double rate = btc.getBitcoinExchangeRate(datePart);
 	double newValue = rate * static_cast<double>(value);
 	output(datePart, value, newValue);
 }
 
-bool
-convert(char* file, BitcoinExchange& btc) {
+bool convert(char* file, BitcoinExchange& btc) {
 	try {
 		FileGuard f(file);
 		std::string line;
@@ -71,8 +65,7 @@ convert(char* file, BitcoinExchange& btc) {
 	return true;
 }
 
-int
-main(int argc, char** argv) {
+int main(int argc, char** argv) {
 	if (argc != 2) {
 		std::cout << "Usage: " << argv[0] << " file" << std::endl;
 		return 1;

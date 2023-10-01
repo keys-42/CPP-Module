@@ -7,22 +7,20 @@ BitcoinExchange::BitcoinExchange(std::string file) {
 }
 
 BitcoinExchange::BitcoinExchange(std::map<std::string, double> data)
-										  : data_(data){};
+	: data_(data){};
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& r)
-										  : data_(r.data_){};
+	: data_(r.data_){};
 
 BitcoinExchange::~BitcoinExchange() {}
 
-BitcoinExchange&
-BitcoinExchange::operator=(const BitcoinExchange& other) {
+BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
 	if (this != &other)
 		this->data_ = other.data_;
 	return *this;
 }
 
-void
-BitcoinExchange::initDatabase(std::string file) {
+void BitcoinExchange::initDatabase(std::string file) {
 	FileGuard f(file.c_str());
 	std::string line;
 	getline(f.getStream(), line);
@@ -33,8 +31,7 @@ BitcoinExchange::initDatabase(std::string file) {
 	}
 }
 
-void
-BitcoinExchange::insertFromString(const std::string& input) {
+void BitcoinExchange::insertFromString(const std::string& input) {
 	std::istringstream ss(input);
 	std::string s;
 	double value;
@@ -49,8 +46,7 @@ BitcoinExchange::insertFromString(const std::string& input) {
 	data_[s] = value;
 }
 
-double
-BitcoinExchange::getBitcoinExchangeRate(std::string s) {
+double BitcoinExchange::getBitcoinExchangeRate(std::string s) {
 	std::map<std::string, double>::iterator it = data_.lower_bound(s);
 
 	if (s.compare(it->first)) {
@@ -59,8 +55,7 @@ BitcoinExchange::getBitcoinExchangeRate(std::string s) {
 	return it->second;
 }
 
-bool
-BitcoinExchange::isValidDate(std::string s) {
+bool BitcoinExchange::isValidDate(std::string s) {
 	std::istringstream ss(s);
 	int year, month, day;
 	char dash, dash2;
@@ -68,8 +63,7 @@ BitcoinExchange::isValidDate(std::string s) {
 	ss >> year >> dash >> month >> dash2 >> day;
 
 	if (ss.fail()) {
-		throw std::logic_error("Error: invalid number format or out of range => " +
-							   s);
+		throw std::logic_error("Error: invalid number format or out of range => " + s);
 	}
 	if (dash != '-' || dash2 != '-' || !ss.eof()) {
 		throw std::invalid_argument("Error: bad input => " + s);
@@ -80,10 +74,8 @@ BitcoinExchange::isValidDate(std::string s) {
 	return true;
 }
 
-bool
-BitcoinExchange::validDate(int year, int month, int day) {
-	if (year == BTCSTSRTYEAROFUSE && month == BTCSTSRTMONTHOFUSE &&
-		day < BTCSTSRTDAYOFUSE)
+bool BitcoinExchange::validDate(int year, int month, int day) {
+	if (year == BTCSTSRTYEAROFUSE && month == BTCSTSRTMONTHOFUSE && day < BTCSTSRTDAYOFUSE)
 		return false;
 	if (year < MINYEAR || MAXYEAR < year)
 		return false;
@@ -107,8 +99,7 @@ BitcoinExchange::validDate(int year, int month, int day) {
 	}
 }
 
-void
-BitcoinExchange::printDatabase() {
+void BitcoinExchange::printDatabase() {
 
 	std::map<std::string, double>::iterator it = data_.begin();
 

@@ -116,44 +116,44 @@ private:
 	// processPairs
 	bool shouldSwapPairs(const int l, const int r) const;
 	void swapPairs(std::list<int>& lst,
-				   std::list<int>::iterator leftStart,
-				   std::list<int>::iterator leftEnd,
-				   std::list<int>::iterator rightStart,
-				   std::list<int>::iterator rightEnd);
+		std::list<int>::iterator leftStart,
+		std::list<int>::iterator leftEnd,
+		std::list<int>::iterator rightStart,
+		std::list<int>::iterator rightEnd);
 	void processPairs(std::list<int>& list, std::list<int>& subChain, int pairSize);
 
 	// splitIntoMainAndSubChains
 	void splitIntoMainAndSubChains(std::list<int>& mainChain,
-								   std::list<int>& subChain,
-								   int pairSize);
+		std::list<int>& subChain,
+		int pairSize);
 
 	// first insert
 	void prependFirstOfSubchainToMain(std::list<int>& mainChain,
-									  std::list<int>& subChain,
-									  int pairSize);
+		std::list<int>& subChain,
+		int pairSize);
 
 	// // insert
 	void mergeSubIntoMain(std::list<int>& mainChain,
-						  std::list<int>& subChain,
-						  int pairSize,
-						  std::list<int>& tmp);
+		std::list<int>& subChain,
+		int pairSize,
+		std::list<int>& tmp);
 	int lower_bound(std::list<int>& mainChain, int key, int pairSize, int endpoint);
 	void createComparisonListFromMainChain(std::list<int>& lst,
-										   std::list<int>& mainChain,
-										   int pairSize,
-										   int endpoint);
+		std::list<int>& mainChain,
+		int pairSize,
+		int endpoint);
 	bool elementExceedsKey(std::list<int>& lst, int index, int key);
 	int find_lower_bound(std::list<int>& lst, int key);
 	void insertSubChain(std::list<int>& mainChain,
-						int insertPosition,
-						IntListIterator begin,
-						IntListIterator end);
+		int insertPosition,
+		IntListIterator begin,
+		IntListIterator end);
 	void insertSegmentToMainChain(std::list<int>& mainChain,
-								  std::list<int>& subChain,
-								  int segmentStart,
-								  int segmentEnd,
-								  int insertionPoint,
-								  int pairSize);
+		std::list<int>& subChain,
+		int segmentStart,
+		int segmentEnd,
+		int insertionPoint,
+		int pairSize);
 
 	/**
 	 * vector
@@ -161,50 +161,45 @@ private:
 	// processPairs
 	bool shouldSwapPairs(const std::vector<int>& vec, int pairSize, int startIndex);
 	void swapPairs(std::vector<int>& vec,
-				   std::vector<int>::iterator leftStart,
-				   std::vector<int>::iterator leftEnd,
-				   std::vector<int>::iterator rightStart,
-				   std::vector<int>::iterator rightEnd);
+		std::vector<int>::iterator leftStart,
+		std::vector<int>::iterator leftEnd,
+		std::vector<int>::iterator rightStart,
+		std::vector<int>::iterator rightEnd);
 	bool isPairPresent(const std::vector<int>& vec, int pairSize, size_t startIndex);
-	void processPairs(std::vector<int>& vec,
-					  std::vector<int>& subChain,
-					  int pairSize);
+	void processPairs(std::vector<int>& vec, std::vector<int>& subChain, int pairSize);
 
 	// splitIntoMainAndSubChains
 	void splitIntoMainAndSubChains(std::vector<int>& mainChain,
-								   std::vector<int>& subChain,
-								   int pairSize);
+		std::vector<int>& subChain,
+		int pairSize);
 
 	// first insert
 	void prependFirstOfSubchainToMain(std::vector<int>& mainChain,
-									  std::vector<int>& subChain,
-									  int pairSize);
+		std::vector<int>& subChain,
+		int pairSize);
 
 	// // insert
 	void mergeSubIntoMain(std::vector<int>& mainChain,
-						  std::vector<int>& subChain,
-						  int pairSize,
-						  std::vector<int>& tmp);
-	int lower_bound(std::vector<int>& mainChain,
-					int key,
-					int pairSize,
-					int endpoint);
+		std::vector<int>& subChain,
+		int pairSize,
+		std::vector<int>& tmp);
+	int lower_bound(std::vector<int>& mainChain, int key, int pairSize, int endpoint);
 	void createComparisonVectorFromMainChain(std::vector<int>& lst,
-											 std::vector<int>& mainChain,
-											 int pairSize,
-											 int endpoint);
+		std::vector<int>& mainChain,
+		int pairSize,
+		int endpoint);
 	bool elementExceedsKey(std::vector<int>& lst, int index, int key);
 	int find_lower_bound(std::vector<int>& lst, int key);
 	void insertSubChain(std::vector<int>& mainChain,
-						int insertPosition,
-						IntVecIterator begin,
-						IntVecIterator end);
+		int insertPosition,
+		IntVecIterator begin,
+		IntVecIterator end);
 	void insertSegmentToMainChain(std::vector<int>& mainChain,
-								  std::vector<int>& subChain,
-								  int segmentStart,
-								  int segmentEnd,
-								  int insertionPoint,
-								  int pairSize);
+		std::vector<int>& subChain,
+		int segmentStart,
+		int segmentEnd,
+		int insertionPoint,
+		int pairSize);
 
 	template<typename T>
 	void mergeInsertionSort(T& mainChain, int pairSize) {
@@ -235,53 +230,37 @@ private:
 
 #ifdef SEPARATE
 #ifdef LISTDEBUG
-		testSeparateDebug(mainChain,
-						  subChain,
-						  pairSize,
-						  "Before split into main and sub-chains.");
+		testSeparateDebug(mainChain, subChain, pairSize, "Before split into main and sub-chains.");
 #endif
 #ifdef VECTORDEBUG
-		testSeparateDebug(mainChain,
-						  subChain,
-						  pairSize,
-						  "Before split into main and sub-chains.");
+		testSeparateDebug(mainChain, subChain, pairSize, "Before split into main and sub-chains.");
 #endif
 #endif
 		splitIntoMainAndSubChains(mainChain, subChain, pairSize);
 #ifdef SEPARATE
 #ifdef LISTDEBUG
-		testSeparateDebug(mainChain,
-						  subChain,
-						  pairSize,
-						  "After split into main and sub-chains.");
+		testSeparateDebug(mainChain, subChain, pairSize, "After split into main and sub-chains.");
 #endif
 #ifdef VECTORDEBUG
-		testSeparateDebug(mainChain,
-						  subChain,
-						  pairSize,
-						  "After split into main and sub-chains.");
+		testSeparateDebug(mainChain, subChain, pairSize, "After split into main and sub-chains.");
 #endif
 #endif
 
 #ifdef FIRST
 #ifdef LISTDEBUG
-		testFirstInsertDebug(
-				mainChain, subChain, pairSize, "Before prepend sub-chain to main.");
+		testFirstInsertDebug(mainChain, subChain, pairSize, "Before prepend sub-chain to main.");
 #endif
 #ifdef VECTORDEBUG
-		testFirstInsertDebug(
-				mainChain, subChain, pairSize, "Before prepend sub-chain to main.");
+		testFirstInsertDebug(mainChain, subChain, pairSize, "Before prepend sub-chain to main.");
 #endif
 #endif
 		prependFirstOfSubchainToMain(mainChain, subChain, pairSize);
 #ifdef FIRST
 #ifdef LISTDEBUG
-		testFirstInsertDebug(
-				mainChain, subChain, pairSize, "After prepend sub-chain to main.");
+		testFirstInsertDebug(mainChain, subChain, pairSize, "After prepend sub-chain to main.");
 #endif
 #ifdef VECTORDEBUG
-		testFirstInsertDebug(
-				mainChain, subChain, pairSize, "After prepend sub-chain to main.");
+		testFirstInsertDebug(mainChain, subChain, pairSize, "After prepend sub-chain to main.");
 #endif
 #endif
 
@@ -308,8 +287,7 @@ private:
 	// utils
 private:
 	template<typename T>
-	typename std::vector<T>::iterator getIteratorAt(std::vector<T>& vec,
-													size_t index) {
+	typename std::vector<T>::iterator getIteratorAt(std::vector<T>& vec, size_t index) {
 		if (index >= vec.size()) {
 			return vec.end();
 		}
@@ -331,9 +309,8 @@ private:
 	}
 
 	template<typename T>
-	typename std::vector<T>::const_iterator getConstIteratorAt(
-			const std::vector<T>& vec,
-			size_t index) {
+	typename std::vector<T>::const_iterator getConstIteratorAt(const std::vector<T>& vec,
+		size_t index) {
 		if (index >= vec.size()) {
 			return vec.end();
 		}
@@ -345,7 +322,7 @@ private:
 
 	template<typename T>
 	typename std::list<T>::const_iterator getConstIteratorAt(const std::list<T>& lst,
-															 size_t index) {
+		size_t index) {
 		if (index >= lst.size()) {
 			return lst.end();
 		}
@@ -356,9 +333,7 @@ private:
 	}
 
 	template<typename T>
-	void advanceTo(std::vector<T>& vec,
-				   typename std::vector<T>::iterator& itr,
-				   size_t index) {
+	void advanceTo(std::vector<T>& vec, typename std::vector<T>::iterator& itr, size_t index) {
 		if (itr + index < vec.end()) {
 			itr += index;
 		} else {
@@ -367,9 +342,7 @@ private:
 	}
 
 	template<typename T>
-	void retreatBy(std::vector<T>& vec,
-				   typename std::vector<T>::iterator& itr,
-				   size_t index) {
+	void retreatBy(std::vector<T>& vec, typename std::vector<T>::iterator& itr, size_t index) {
 		if (itr - index >= vec.begin()) {
 			itr -= index;
 		} else {
@@ -378,9 +351,7 @@ private:
 	}
 
 	template<typename T>
-	void advanceTo(std::list<T>& lst,
-				   typename std::list<T>::iterator& itr,
-				   size_t index) {
+	void advanceTo(std::list<T>& lst, typename std::list<T>::iterator& itr, size_t index) {
 		for (size_t i = 0; i < index; ++i) {
 			if (itr == lst.end())
 				return;
@@ -390,9 +361,7 @@ private:
 	}
 
 	template<typename T>
-	void retreatBy(std::list<T>& lst,
-				   typename std::list<T>::iterator& itr,
-				   size_t index) {
+	void retreatBy(std::list<T>& lst, typename std::list<T>::iterator& itr, size_t index) {
 		for (size_t i = 0; i < index; ++i) {
 			if (itr == lst.begin())
 				return;
@@ -402,10 +371,9 @@ private:
 	}
 
 	template<typename T>
-	typename std::vector<T>::iterator getAdvanceTo(
-			std::vector<T>& vec,
-			typename std::vector<T>::iterator& itr,
-			size_t index) {
+	typename std::vector<T>::iterator getAdvanceTo(std::vector<T>& vec,
+		typename std::vector<T>::iterator& itr,
+		size_t index) {
 		if (itr + index < vec.end()) {
 			itr += index;
 		} else {
@@ -415,10 +383,9 @@ private:
 	}
 
 	template<typename T>
-	typename std::list<T>::iterator getAdvanceTo(
-			std::list<T>& lst,
-			typename std::list<T>::iterator& itr,
-			size_t index) {
+	typename std::list<T>::iterator getAdvanceTo(std::list<T>& lst,
+		typename std::list<T>::iterator& itr,
+		size_t index) {
 		for (size_t i = 0; i < index; ++i) {
 			if (itr == lst.end())
 				return lst.end();
@@ -450,8 +417,7 @@ private:
 public:
 	template<typename T>
 	static void printContainer(const T& container) {
-		for (typename T::const_iterator it = container.begin();
-			 it != container.end();) {
+		for (typename T::const_iterator it = container.begin(); it != container.end();) {
 			std::cout << *it;
 			++it;
 			if (it != container.end())
@@ -466,12 +432,11 @@ public:
 		typedef typename T::iterator Iter;
 		int i = 0;
 		if (s.compare(0, 6, "Before", 0, 6) == 0) {
-			std::cout
-					<< CYAN
-					<< "-----------------------------------------------------------"
-					   "----------------------------------------------------------"
-					<< RESET << std::endl
-					<< std::endl;
+			std::cout << CYAN
+					  << "-----------------------------------------------------------"
+						 "----------------------------------------------------------"
+					  << RESET << std::endl
+					  << std::endl;
 			std::cout << GREEN;
 			std::cout << s << " pairSize: " << pairSize << std::endl;
 			std::cout << RESET;
@@ -504,12 +469,11 @@ public:
 		typedef typename T::iterator Iter;
 		int i = 0;
 		if (s.compare(0, 6, "Before", 0, 6) == 0) {
-			std::cout
-					<< CYAN
-					<< "-----------------------------------------------------------"
-					   "----------------------------------------------------------"
-					<< RESET << std::endl
-					<< std::endl;
+			std::cout << CYAN
+					  << "-----------------------------------------------------------"
+						 "----------------------------------------------------------"
+					  << RESET << std::endl
+					  << std::endl;
 			std::cout << GREEN;
 			std::cout << s << " pairSize: " << pairSize << std::endl;
 			std::cout << RESET;
@@ -576,12 +540,11 @@ public:
 		typedef typename T::iterator Iter;
 		int i = 0;
 		if (s.compare(0, 6, "Before", 0, 6) == 0) {
-			std::cout
-					<< CYAN
-					<< "-----------------------------------------------------------"
-					   "----------------------------------------------------------"
-					<< RESET << std::endl
-					<< std::endl;
+			std::cout << CYAN
+					  << "-----------------------------------------------------------"
+						 "----------------------------------------------------------"
+					  << RESET << std::endl
+					  << std::endl;
 			std::cout << GREEN;
 			std::cout << s << " pairSize: " << pairSize << std::endl;
 			std::cout << RESET;
@@ -627,21 +590,15 @@ public:
 	}
 
 	template<typename T>
-	void testInsertDebug(T main,
-						 T sub,
-						 int pairSize,
-						 std::string s,
-						 int key,
-						 int jacoNum) {
+	void testInsertDebug(T main, T sub, int pairSize, std::string s, int key, int jacoNum) {
 		typedef typename T::iterator Iter;
 		int i = 0;
 		if (s.compare(0, 6, "Before", 0, 6) == 0) {
-			std::cout
-					<< CYAN
-					<< "-----------------------------------------------------------"
-					   "----------------------------------------------------------"
-					<< RESET << std::endl
-					<< std::endl;
+			std::cout << CYAN
+					  << "-----------------------------------------------------------"
+						 "----------------------------------------------------------"
+					  << RESET << std::endl
+					  << std::endl;
 			std::cout << GREEN;
 			std::cout << s << " pairSize: " << pairSize << std::endl;
 			std::cout << RESET;
@@ -707,8 +664,8 @@ public:
 			std::cout << std::endl << std::endl;
 			;
 		} else {
-			std::cout << BLUE << "[" << RESET << "n: " << jacoNum << " key: " << key
-					  << BLUE << "]" << RESET;
+			std::cout << BLUE << "[" << RESET << "n: " << jacoNum << " key: " << key << BLUE << "]"
+					  << RESET;
 		}
 	}
 };
