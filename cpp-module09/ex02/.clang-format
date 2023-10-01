@@ -1,2 +1,13 @@
-BasedOnStyle: Google
-
+BasedOnStyle: Mozilla
+IndentWidth: 4
+TabWidth:        4
+UseTab:          Always
+ColumnLimit:     85
+ConstructorInitializerIndentWidth: 42
+ContinuationIndentWidth: 8
+AccessModifierOffset: -4
+# BreakBeforeBraces: Linux
+BreakBeforeBraces: Attach
+BraceWrapping:
+  AfterStruct:     true
+  SplitEmptyRecord: true
