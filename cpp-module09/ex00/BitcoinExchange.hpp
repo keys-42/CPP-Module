@@ -26,10 +26,6 @@
 #define BTCSTSRTMONTHOFUSE 1
 #define BTCSTSRTDAYOFUSE 2
 
-std::string getDelimiter(const std::string& line,
-	const std::string& front,
-	const std::string& back);
-
 struct FileGuard {
 private:
 	std::ifstream file;
@@ -68,6 +64,7 @@ public:
 	double getBitcoinExchangeRate(std::string s);
 	static bool isValidDate(std::string s);
 	static bool validDate(int year, int month, int day);
+	static bool isAcceptableValue(const std::string& input);
 };
 
 #endif

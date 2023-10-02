@@ -46,7 +46,41 @@ void BitcoinExchange::insertFromString(const std::string& input) {
 	data_[s] = value;
 }
 
+bool BitcoinExchange::isAcceptableValue(const std::string& input) {
+    if (input.size() != 10) {
+        return false;
+    }
+
+    for (int i = 0; i < 4; ++i) {
+        if (!std::isdigit(input[i])) {
+            return false;
+        }
+    }
+
+    if (input[4] != '-' || input[7] != '-') {
+        return false;
+    }
+
+    for (int i = 5; i < 7; ++i) {
+        if (!std::isdigit(input[i])) {
+            return false;
+        }
+    }
+
+    for (int i = 8; i < 10; ++i) {
+        if (!std::isdigit(input[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
 double BitcoinExchange::getBitcoinExchangeRate(std::string s) {
+	if ( !isAcceptableValue(s) )
+		throw std::out_of_range("Error: year, month or day out of range." + s);
+
 	std::map<std::string, double>::iterator it = data_.lower_bound(s);
 
 	if (s.compare(it->first)) {
