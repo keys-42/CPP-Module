@@ -28,3 +28,22 @@ jobs:
             clang-tidy $file -- -Wall -Wextra -Werror -std=c++98
           fi
         done
+
+  cppcheck-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install cppcheck
+      run: sudo apt-get install cppcheck
+
+    - name: Run cppcheck
+      run: cppcheck --enable=all --error-exitcode=1 --inconclusive --force --suppress=missingIncludeSystem ./ 2> cppcheck.txt
+
+    - name: Upload cppcheck report
+      uses: actions/upload-artifact@v2
+      with:
+        name: cppcheck-report
+        path: cppcheck.txt
