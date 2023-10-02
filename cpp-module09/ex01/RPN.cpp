@@ -20,6 +20,9 @@ Rpn::~Rpn(){};
 Rpn& Rpn::operator=(const Rpn& other) {
 	if (this != &other) {
 		this->stack_ = other.stack_;
+		for (int i=0; i < 4; ++i) {
+			this->calcPtr[i] = other.calcPtr[i];
+		}
 	}
 	return *this;
 }
@@ -130,12 +133,5 @@ void Rpn::rpn(const std::string& line) {
 		std::cout << result << std::endl;
 	} catch (std::exception& e) {
 		std::cerr << "Exception: " << e.what() << std::endl;
-	}
-}
-
-void Rpn::print() {
-	while (!this->stack_.empty()) {
-		std::cout << this->stackTop() << std::endl;
-		this->stackPop();
 	}
 }

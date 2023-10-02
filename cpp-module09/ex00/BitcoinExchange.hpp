@@ -29,8 +29,6 @@
 std::string getDelimiter(const std::string& line,
 	const std::string& front,
 	const std::string& back);
-void getValueAndDate(std::string line, std::string& date, std::string& rate, std::string delimiter);
-bool isValidDate(int year, int month, int day);
 
 struct FileGuard {
 private:
@@ -68,8 +66,6 @@ public:
 	void initDatabase(const std::string& file);
 	void insertFromString(const std::string& input);
 	double getBitcoinExchangeRate(std::string s);
-	void addData(int year, int month, int day, double value);
-	void printDatabase();
 	static bool isValidDate(std::string s);
 	static bool validDate(int year, int month, int day);
 };

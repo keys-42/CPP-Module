@@ -98,12 +98,3 @@ bool BitcoinExchange::validDate(int year, int month, int day) {
 		return day <= MAXDAY;
 	}
 }
-
-void BitcoinExchange::printDatabase() {
-
-	std::map<std::string, double>::iterator it = data_.begin();
-
-	for (; it != data_.end(); ++it) {
-		std::cout << it->first << " | " << it->second << std::endl;
-	}
-}

@@ -29,8 +29,6 @@ public:
 	void calc(char c);
 
 	void rpn(const std::string& line);
-
-	void print();
 };
 
 #endif
