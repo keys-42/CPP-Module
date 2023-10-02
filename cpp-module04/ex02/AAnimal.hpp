@@ -12,7 +12,7 @@ protected:
 
 public:
 	AAnimal();
-	Aexplicit Animal(const std::string& name);
+	explicit AAnimal(const std::string& name);
 	AAnimal(const AAnimal& a);
 	virtual ~AAnimal();
 	AAnimal& operator=(const AAnimal& r);

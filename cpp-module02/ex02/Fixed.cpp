@@ -89,7 +89,7 @@ Fixed& Fixed::operator++(void) {
 }
 
 Fixed Fixed::operator++(int) {
-	Fixed tmp = *this;
+	Fixed tmp(*this);
 	++this->value_;
 	return tmp;
 }

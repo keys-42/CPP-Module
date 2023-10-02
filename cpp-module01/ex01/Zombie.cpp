@@ -5,7 +5,7 @@ Zombie::Zombie() {}
 Zombie::Zombie(const std::string& name)
 	: name_(name) {}
 
-void Zombie::setName(const std::string& name) const {
+void Zombie::setName(const std::string& name) {
 	name_ = name;
 };
 

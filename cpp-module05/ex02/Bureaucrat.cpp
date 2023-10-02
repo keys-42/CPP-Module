@@ -64,7 +64,7 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& b) {
 	return *this;
 }
 
-void Bureaucrat::signForm(Form& f) const const {
+void Bureaucrat::signForm(Form& f) const {
 	try {
 		f.beSigned(*this);
 		std::cout << this->getName() << " signed " << f.getName() << std::endl;
