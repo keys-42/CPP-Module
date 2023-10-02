@@ -14,6 +14,6 @@ public:
 	Intern(Intern const& other);
 	~Intern();
 	Intern& operator=(Intern const& other);
-	Form* makeForm(std::string formName, std::string target);
+	static Form* makeForm(const std::string& formName, const std::string& target);
 };
 #endif

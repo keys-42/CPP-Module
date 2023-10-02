@@ -1,0 +1,83 @@
+ex01/ScavTrap.cpp:15:16: warning: The class 'ScavTrap' defines member function with name 'attack' also defined in its parent class 'ClapTrap'. [duplInheritedMember]
+void ScavTrap::attack(const std::string& target) {
+               ^
+ex01/ClapTrap.hpp:22:7: note: Parent function 'ClapTrap::attack'
+ void attack(const std::string& target);
+      ^
+ex01/ScavTrap.cpp:15:16: note: Derived function 'ScavTrap::attack'
+void ScavTrap::attack(const std::string& target) {
+               ^
+ex01/ScavTrap.hpp:8:2: style: Class 'ScavTrap' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+ ScavTrap(std::string name);
+ ^
+ex01/ScavTrap.cpp:3:32: performance: Function parameter 'name' should be passed by const reference. [passedByValue]
+ScavTrap::ScavTrap(std::string name)
+                               ^
+ex01/ScavTrap.hpp:11:7: warning: The class 'ScavTrap' defines member function with name 'attack' also defined in its parent class 'ClapTrap'. [duplInheritedMember]
+ void attack(const std::string& target);
+      ^
+ex01/ClapTrap.hpp:22:7: note: Parent function 'ClapTrap::attack'
+ void attack(const std::string& target);
+      ^
+ex01/ScavTrap.hpp:11:7: note: Derived function 'ScavTrap::attack'
+ void attack(const std::string& target);
+      ^
+ex02/FragTrap.hpp:10:7: style: inconclusive: Technically the member function 'FragTrap::highFivesGuys' can be const. [functionConst]
+ void highFivesGuys();
+      ^
+ex02/FragTrap.cpp:23:16: note: Technically the member function 'FragTrap::highFivesGuys' can be const.
+void FragTrap::highFivesGuys(void) {
+               ^
+ex02/FragTrap.hpp:10:7: note: Technically the member function 'FragTrap::highFivesGuys' can be const.
+ void highFivesGuys();
+      ^
+ex02/FragTrap.cpp:15:16: warning: The class 'FragTrap' defines member function with name 'attack' also defined in its parent class 'ClapTrap'. [duplInheritedMember]
+void FragTrap::attack(const std::string& target) {
+               ^
+ex02/ClapTrap.hpp:22:7: note: Parent function 'ClapTrap::attack'
+ void attack(const std::string& target);
+      ^
+ex02/FragTrap.cpp:15:16: note: Derived function 'FragTrap::attack'
+void FragTrap::attack(const std::string& target) {
+               ^
+ex02/FragTrap.hpp:8:2: style: Class 'FragTrap' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+ FragTrap(std::string name);
+ ^
+ex02/FragTrap.cpp:3:32: performance: Function parameter 'name' should be passed by const reference. [passedByValue]
+FragTrap::FragTrap(std::string name)
+                               ^
+ex02/ScavTrap.cpp:15:16: warning: The class 'ScavTrap' defines member function with name 'attack' also defined in its parent class 'ClapTrap'. [duplInheritedMember]
+void ScavTrap::attack(const std::string& target) {
+               ^
+ex02/ClapTrap.hpp:22:7: note: Parent function 'ClapTrap::attack'
+ void attack(const std::string& target);
+      ^
+ex02/ScavTrap.cpp:15:16: note: Derived function 'ScavTrap::attack'
+void ScavTrap::attack(const std::string& target) {
+               ^
+ex02/ScavTrap.hpp:8:2: style: Class 'ScavTrap' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+ ScavTrap(std::string name);
+ ^
+ex02/ScavTrap.cpp:3:32: performance: Function parameter 'name' should be passed by const reference. [passedByValue]
+ScavTrap::ScavTrap(std::string name)
+                               ^
+ex02/FragTrap.hpp:11:7: warning: The class 'FragTrap' defines member function with name 'attack' also defined in its parent class 'ClapTrap'. [duplInheritedMember]
+ void attack(const std::string& target);
+      ^
+ex02/ClapTrap.hpp:22:7: note: Parent function 'ClapTrap::attack'
+ void attack(const std::string& target);
+      ^
+ex02/FragTrap.hpp:11:7: note: Derived function 'FragTrap::attack'
+ void attack(const std::string& target);
+      ^
+ex02/ScavTrap.hpp:11:7: warning: The class 'ScavTrap' defines member function with name 'attack' also defined in its parent class 'ClapTrap'. [duplInheritedMember]
+ void attack(const std::string& target);
+      ^
+ex02/ClapTrap.hpp:22:7: note: Parent function 'ClapTrap::attack'
+ void attack(const std::string& target);
+      ^
+ex02/ScavTrap.hpp:11:7: note: Derived function 'ScavTrap::attack'
+ void attack(const std::string& target);
+      ^
+nofile:0:0: information: Unmatched suppression: missingOverride [unmatchedSuppression]
+

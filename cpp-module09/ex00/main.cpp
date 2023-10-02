@@ -11,7 +11,7 @@ bool makeBitcoinExchange(BitcoinExchange& btc) {
 	return true;
 }
 
-void output(std::string s, double value, double newValue) {
+void output(const std::string& s, double value, double newValue) {
 	std::cout << s << " => " << value << " = " << newValue << std::endl;
 }
 

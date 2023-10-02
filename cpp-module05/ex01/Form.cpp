@@ -61,7 +61,7 @@ std::ostream& operator<<(std::ostream& os, const Form& obj) {
 	return os;
 }
 
-void Form::beSigned(Bureaucrat& b) {
+void Form::beSigned(const Bureaucrat& b) {
 	if (b.getGrade() > this->sigingGrade_) {
 		throw GradeTooLowException("his grade was too low");
 	}

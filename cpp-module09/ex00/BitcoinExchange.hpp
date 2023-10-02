@@ -38,7 +38,7 @@ private:
 	FileGuard(){};
 
 public:
-	FileGuard(const std::string& filename) {
+	explicit FileGuard(const std::string& filename) {
 		file.open(filename.c_str());
 		if (!file.is_open()) {
 			throw std::runtime_error("Failed to open file");
@@ -60,12 +60,12 @@ private:
 
 public:
 	BitcoinExchange();
-	BitcoinExchange(std::string file);
-	BitcoinExchange(std::map<std::string, double> data);
+	explicit BitcoinExchange(const std::string& file);
+	explicit BitcoinExchange(const std::map<std::string, double>& data);
 	BitcoinExchange(const BitcoinExchange& r);
 	~BitcoinExchange();
 	BitcoinExchange& operator=(const BitcoinExchange& other);
-	void initDatabase(std::string file);
+	void initDatabase(const std::string& file);
 	void insertFromString(const std::string& input);
 	double getBitcoinExchangeRate(std::string s);
 	void addData(int year, int month, int day, double value);

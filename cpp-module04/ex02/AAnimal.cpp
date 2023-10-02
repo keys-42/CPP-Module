@@ -5,7 +5,7 @@ AAnimal::AAnimal()
 	std::cout << "AAnimal Default constructor called" << std::endl;
 }
 
-AAnimal::AAnimal(std::string name)
+AAnimal::AAnimal(const std::string& name)
 	: type_(name) {
 	std::cout << "AAnimal Default constructor called" << std::endl;
 }

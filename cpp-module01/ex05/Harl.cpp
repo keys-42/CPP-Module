@@ -6,7 +6,6 @@ Harl::~Harl() {}
 
 void Harl::complain(std::string level) {
 	std::string l[4] = { "DEBUG", "INFO", "WARNING", "ERROR" };
-	void (Harl::*fcPtr[])() = { &Harl::debug, &Harl::info, &Harl::warning, &Harl::error };
 	std::size_t k = 5;
 	for (std::size_t i = 0; i < 4; ++i) {
 		if (l[i].compare(level) == 0) {
@@ -14,8 +13,10 @@ void Harl::complain(std::string level) {
 			break;
 		}
 	}
-	if (k < 4)
-		(this->*fcPtr[k])();
+	if (k < 4) {
+		void (*fcPtr[])() = { &Harl::debug, &Harl::info, &Harl::warning, &Harl::error };
+    fcPtr[k]();
+	}
 }
 
 void Harl::debug(void) {

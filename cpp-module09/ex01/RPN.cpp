@@ -24,16 +24,16 @@ Rpn& Rpn::operator=(const Rpn& other) {
 	return *this;
 }
 
-int Rpn::sumNumber(int x, int y) const {
+int Rpn::sumNumber(int x, int y) {
 	return y + x;
 }
-int Rpn::differenceNumber(int x, int y) const {
+int Rpn::differenceNumber(int x, int y) {
 	return y - x;
 }
-int Rpn::productNumber(int x, int y) const {
+int Rpn::productNumber(int x, int y) {
 	return y * x;
 }
-int Rpn::quotientNumber(int x, int y) const {
+int Rpn::quotientNumber(int x, int y) {
 	return y / x;
 }
 
@@ -46,14 +46,14 @@ void Rpn::stackPop() {
 void Rpn::stackPush(int n) {
 	this->stack_.push(n);
 }
-bool Rpn::isStackEmpty() {
+bool Rpn::isStackEmpty() const {
 	if (this->stack_.empty())
 		return true;
 	return false;
 }
 
 void Rpn::calc(char c) {
-	char arr[4] = { '+', '-', '*', '/' };
+	const char arr[4] = { '+', '-', '*', '/' };
 	int x;
 	int y;
 
@@ -67,7 +67,7 @@ void Rpn::calc(char c) {
 				throw std::logic_error("logic error: The provided expression is not in RPN.");
 			y = this->stackTop();
 			this->stackPop();
-			this->stackPush((this->*calcPtr[i])(x, y));
+			this->stackPush((this->calcPtr[i])(x, y));
 		}
 	}
 }

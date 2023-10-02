@@ -10,7 +10,7 @@ protected:
 	long long attack_damage_;
 
 public:
-	ClapTrap(std::string name);
+	explicit ClapTrap(const std::string& name);
 	~ClapTrap();
 	void takeDamage(unsigned int amount);
 	void beRepaired(unsigned int amount);

@@ -20,7 +20,7 @@ void ScavTrap::attack(const std::string& target) {
 			  << this->getAttackDamage() << " points of damage!" << std::endl;
 }
 
-void ScavTrap::guardGate() {
+void ScavTrap::guardGate() const{
 	if (!checkPoints())
 		return;
 	std::cout << "ScavTrap " << this->getName() << " is now in Gate keeper mode." << std::endl;

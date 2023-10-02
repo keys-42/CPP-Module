@@ -11,7 +11,7 @@ protected:
 
 public:
 	Animal();
-	Animal(std::string name);
+	explicit Animal(const std::string& name);
 	Animal(const Animal& a);
 	virtual ~Animal();
 	Animal& operator=(const Animal& r);

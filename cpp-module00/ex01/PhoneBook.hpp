@@ -6,8 +6,8 @@
 #include <stdlib.h>
 
 void flush_cin();
-int get_cmd(std::string s, std::string* cmd);
-std::string get_line(std::string mess);
+int get_cmd(const std::string& s, std::string* cmd);
+std::string get_line(const std::string& mess);
 
 class Phonebook {
 public:

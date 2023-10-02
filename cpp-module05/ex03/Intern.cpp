@@ -22,7 +22,7 @@ Intern& Intern::operator=(Intern const& other) {
 }
 
 int getFormIndex(const std::string& formName) {
-	std::string requestName[3] = {
+	const std::string requestName[3] = {
 		"ShrubberyCreationForm", "RobotomyRequestForm", "PresidentialPardonForm"
 	};
 	for (std::size_t i = 0; i < 3; ++i) {
@@ -33,7 +33,7 @@ int getFormIndex(const std::string& formName) {
 	return -1;
 }
 
-Form* Intern::makeForm(std::string formName, std::string target) {
+Form* Intern::makeForm(const std::string& formName, const std::string& target) {
 	Form* ret = NULL;
 
 	switch (getFormIndex(formName)) {

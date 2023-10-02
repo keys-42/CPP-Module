@@ -25,11 +25,10 @@ int Phonebook::get_index() {
 }
 
 int Phonebook::request_index() {
-	std::string str;
 	int index;
 
 	try {
-		str = get_line("Please enter the index:	 ");
+		std::string str = get_line("Please enter the index:	 ");
 		std::stringstream ss(str);
 		ss >> index;
 		if (ss.fail() || !ss.eof()) {
@@ -39,7 +38,7 @@ int Phonebook::request_index() {
 		return -1;
 	}
 	index--;
-	if (0 <= index && index <= 8) {
+	if (0 <= index && index < 8) {
 		if (contact_[index].getFlag() == true)
 			return index;
 	}

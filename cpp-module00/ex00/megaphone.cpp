@@ -3,7 +3,6 @@
 int main(int argc, char** argv) {
 	int i;
 	char c;
-	int k;
 
 	i = 1;
 	if (argc == 1) {
@@ -11,7 +10,7 @@ int main(int argc, char** argv) {
 		return (0);
 	}
 	while (i < argc) {
-		k = 0;
+	int k = 0;
 		while (argv[i][k]) {
 			c = toupper(argv[i][k]);
 			std::cout << c;

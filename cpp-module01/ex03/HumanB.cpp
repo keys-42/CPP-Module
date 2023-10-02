@@ -1,12 +1,12 @@
 #include "HumanB.hpp"
 
-HumanB::HumanB(const std::string name)
+HumanB::HumanB(const std::string& name)
 	: name_(name)
 	, w_(NULL) {}
 
 HumanB::~HumanB(){};
 
-void HumanB::attack() {
+void HumanB::attack() const {
 	std::cout << name_ << " attacks with their " << w_->getType() << std::endl;
 }
 
