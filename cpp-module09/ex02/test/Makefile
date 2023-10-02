@@ -2,7 +2,7 @@ all:
 	bash test.sh -n 30 -c 1 -l 100
 
 test:
-	bash simple_test.sh
+	bash simple.sh
 
 clean:
 	rm -f PmergeMe
