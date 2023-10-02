@@ -37,6 +37,7 @@ int Rpn::productNumber(int x, int y) {
 	return y * x;
 }
 int Rpn::quotientNumber(int x, int y) {
+	if (y == 0) throw std::logic_error("Division by zero is not allowed");
 	return y / x;
 }
 
