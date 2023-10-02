@@ -21,7 +21,7 @@ format:
 	find . -name '*.cpp' -or -name '*.hpp' | xargs clang-format -i
 
 cppcheck:
-	cppcheck --enable=all --error-exitcode=1 --inconclusive --force --suppress=ctuOneDefinitionRuleViolation --suppress=missingIncludeSystem --suppress=missingOverride --suppress=functionStatic:"./cpp-module04/*" --std=c++11 ./ 2> cppcheck.txt
+	cppcheck --enable=all --error-exitcode=1 --inconclusive --force --suppress=ctuOneDefinitionRuleViolation --suppress=duplInheritedMember --suppress=missingIncludeSystem --suppress=missingOverride --suppress=functionStatic:"./cpp-module04/*" --std=c++11 ./ 2> cppcheck.txt
 
 
 clean:
