@@ -17,7 +17,7 @@ Dog::~Dog(void) {
 };
 
 Dog& Dog::operator=(const Dog& r) {
-	if( this != &r ) {
+	if (this != &r) {
 		this->type_ = r.getType();
 		this->brain = new Brain(*r.brain);
 	}

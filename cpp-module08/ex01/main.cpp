@@ -73,7 +73,7 @@ int main() {
 			bigumber[i] = i * random_value;
 		try {
 			Span b(BIGNUMBER);
-			b.containerInsert<std::vector<int> >(bigumber);
+			b.containerInsert<std::vector<int>>(bigumber);
 			// b.printContainer();
 			std::cout << "shortest span: " << b.shortestSpan() << std::endl;
 			std::cout << "longest span : " << b.longestSpan() << std::endl;
@@ -96,7 +96,7 @@ int main() {
 		bbigumber[1] = 2147483647;
 		try {
 			Span b(2);
-			b.containerInsert<std::vector<int> >(bbigumber);
+			b.containerInsert<std::vector<int>>(bbigumber);
 			b.printContainer();
 			std::cout << "shortest span: " << b.shortestSpan() << std::endl;
 			std::cout << "longest span : " << b.longestSpan() << std::endl;

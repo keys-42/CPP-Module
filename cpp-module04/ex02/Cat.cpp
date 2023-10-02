@@ -17,7 +17,7 @@ Cat::~Cat(void) {
 }
 
 Cat& Cat::operator=(const Cat& r) {
-	if( this != &r ) {
+	if (this != &r) {
 		this->type_ = r.getType();
 		this->brain = new Brain(*r.brain);
 	}

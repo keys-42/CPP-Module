@@ -1,19 +1,18 @@
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe():
-    input_(),
-    List_mainChain_(),
-    Vector_mainChain_(),
-    sorted_(),
-    size_(0)
-{}
+PmergeMe::PmergeMe()
+	: input_()
+	, List_mainChain_()
+	, Vector_mainChain_()
+	, sorted_()
+	, size_(0) {}
 
 PmergeMe::PmergeMe(const PmergeMe& r)
 	: input_(r.input_)
 	, List_mainChain_(r.List_mainChain_)
 	, Vector_mainChain_(r.Vector_mainChain_)
 	, sorted_(r.sorted_)
-	, size_(r.size_){}
+	, size_(r.size_) {}
 
 PmergeMe::~PmergeMe(){};
 
@@ -28,7 +27,7 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
 	return *this;
 }
 
-void PmergeMe::printClock(std::clock_t start, std::clock_t end, E_Type type) const{
+void PmergeMe::printClock(std::clock_t start, std::clock_t end, E_Type type) const {
 	std::string t;
 	if (type == LIST)
 		t = "  List  ";
@@ -105,7 +104,7 @@ void PmergeMe::initContainer(int size, std::string& numbers) {
 	std::string number;
 	while (std::getline(ss, number, ' ')) {
 		if (!number.empty()) {
-	int n =stoi(number);
+			int n = stoi(number);
 			if (n < 0)
 				throw std::invalid_argument("Received a negative number");
 			if (sorted_.find(n) != sorted_.end())
@@ -120,7 +119,7 @@ void PmergeMe::initContainer(int size, std::string& numbers) {
 
 void PmergeMe::initContainer(int size, const std::string numbers[]) {
 	for (int i = 0; i < size; ++i) {
-	int n = stoi(numbers[i]);
+		int n = stoi(numbers[i]);
 		if (n < 0)
 			throw std::invalid_argument("Received a negative number");
 		if (sorted_.find(n) != sorted_.end())
@@ -525,5 +524,4 @@ void PmergeMe::isSorted() {
 	}
 	if (vector_it != Vector_mainChain_.end())
 		throw std::logic_error("The sequence is not sorted. [ Vector ]");
-
 }

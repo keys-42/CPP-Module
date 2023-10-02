@@ -86,13 +86,13 @@ public:
 		try {
 			isSorted();
 
-				std::cout << "Before:  ";
-				PmergeMe::printContainer(input_);
-				std::cout << "After:   ";
-				PmergeMe::printContainer(List_mainChain_);
-				printClock(list_start, list_end, LIST);
-				printClock(vector_start, vector_end, VECTOR);
-			
+			std::cout << "Before:  ";
+			PmergeMe::printContainer(input_);
+			std::cout << "After:   ";
+			PmergeMe::printContainer(List_mainChain_);
+			printClock(list_start, list_end, LIST);
+			printClock(vector_start, vector_end, VECTOR);
+
 		} catch (std::exception& e) {
 			std::cerr << e.what() << " "
 					  << "line: " << __LINE__ << std::endl;
@@ -324,7 +324,9 @@ private:
 	}
 
 	template<typename T>
-	static void advanceTo(std::vector<T>& vec, typename std::vector<T>::iterator& itr, size_t index) {
+	static void advanceTo(std::vector<T>& vec,
+		typename std::vector<T>::iterator& itr,
+		size_t index) {
 		if (itr + index < vec.end()) {
 			itr += index;
 		} else {
@@ -538,7 +540,12 @@ public:
 	}
 
 	template<typename T>
-	static void testInsertDebug(T main, T sub, int pairSize, const std::string& s, int key, int jacoNum) {
+	static void testInsertDebug(T main,
+		T sub,
+		int pairSize,
+		const std::string& s,
+		int key,
+		int jacoNum) {
 		typedef typename T::iterator Iter;
 		int i = 0;
 		if (s.compare(0, 6, "Before", 0, 6) == 0) {

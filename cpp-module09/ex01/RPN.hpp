@@ -7,7 +7,7 @@
 #include <string>
 
 class Rpn {
-	typedef int (*CalcPtr)(int, int); 
+	typedef int (*CalcPtr)(int, int);
 
 private:
 	std::stack<int> stack_;

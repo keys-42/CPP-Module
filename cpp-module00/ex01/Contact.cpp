@@ -1,6 +1,12 @@
 #include "PhoneBook.hpp"
 
-Contact::Contact() : f(false), first_name_(""), last_name_(""), nickname_(""), phone_number_(""), darkest_secret_(""){}
+Contact::Contact()
+	: f(false)
+	, first_name_("")
+	, last_name_("")
+	, nickname_("")
+	, phone_number_("")
+	, darkest_secret_("") {}
 
 Contact::~Contact() {}
 void Contact::set() {

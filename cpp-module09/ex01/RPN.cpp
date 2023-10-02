@@ -20,7 +20,7 @@ Rpn::~Rpn(){};
 Rpn& Rpn::operator=(const Rpn& other) {
 	if (this != &other) {
 		this->stack_ = other.stack_;
-		for (int i=0; i < 4; ++i) {
+		for (int i = 0; i < 4; ++i) {
 			this->calcPtr[i] = other.calcPtr[i];
 		}
 	}

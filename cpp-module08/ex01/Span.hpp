@@ -20,7 +20,7 @@ public:
 	~Span();
 	Span& operator=(const Span& other);
 
-	void checkMaxSize(unsigned int len) const ;
+	void checkMaxSize(unsigned int len) const;
 	void addNumber(int number);
 	unsigned int shortestSpan();
 	unsigned int longestSpan();

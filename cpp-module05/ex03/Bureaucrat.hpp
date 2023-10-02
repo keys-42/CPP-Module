@@ -23,7 +23,7 @@ public:
 	int getGrade() const;
 	void upgrade(int n);
 	void downgrade(int n);
-	void signForm(Form& f) const ;
+	void signForm(Form& f) const;
 	void executeForm(Form const& form) const;
 
 	class GradeTooHighException : public std::exception {

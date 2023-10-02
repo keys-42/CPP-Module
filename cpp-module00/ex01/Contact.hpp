@@ -10,7 +10,7 @@ public:
 	~Contact();
 	void set();
 	bool getFlag() const;
-	void getContants() ;
+	void getContants();
 	void displayInfo() const;
 
 private:

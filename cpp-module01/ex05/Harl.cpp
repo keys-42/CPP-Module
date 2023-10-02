@@ -15,7 +15,7 @@ void Harl::complain(std::string level) {
 	}
 	if (k < 4) {
 		void (*fcPtr[])() = { &Harl::debug, &Harl::info, &Harl::warning, &Harl::error };
-    fcPtr[k]();
+		fcPtr[k]();
 	}
 }
 
