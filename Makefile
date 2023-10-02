@@ -1,9 +1,5 @@
 .PHONY: clean tidy format cppcheck
 
-CXX		= c++
-
-CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
-
 SRC =	$(shell find . -name '*.cpp' -or -name '*.hpp')
 
 SHELL := /bin/bash
