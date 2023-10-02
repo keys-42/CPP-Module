@@ -131,7 +131,7 @@ private:
 		std::list<int>& subChain,
 		int pairSize);
 
-	// // insert
+	// insert
 	void mergeSubIntoMain(std::list<int>& mainChain,
 		std::list<int>& subChain,
 		int pairSize,
@@ -160,7 +160,7 @@ private:
 		std::vector<int>::iterator leftEnd,
 		std::vector<int>::iterator rightStart,
 		std::vector<int>::iterator rightEnd);
-	static bool isPairPresent(const std::vector<int>& vec, int pairSize, size_t startIndex);
+	static bool hasPair(const std::vector<int>& vec, int pairSize, size_t startIndex);
 	static void processPairs(std::vector<int>& vec, std::vector<int>& subChain, int pairSize);
 
 	// splitIntoMainAndSubChains

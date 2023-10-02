@@ -76,7 +76,7 @@ void Rpn::calc(char c) {
 }
 
 void checkInput(const std::string& line) {
-	std::string s = "+-*/";
+	const std::string s = "+-*/";
 
 	for (std::size_t i = 0; i < line.size(); ++i) {
 		if ((i % 2) == 0) {

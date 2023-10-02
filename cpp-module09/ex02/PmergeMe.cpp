@@ -182,26 +182,24 @@ void PmergeMe::processPairs(std::list<int>& lst, std::list<int>& subChain, int p
  * separate mainChain SubChain
  */
 void PmergeMe::splitIntoMainAndSubChains(std::list<int>& mainChain,
-	std::list<int>& subChain,
-	int pairSize) {
-	int segmentIndex = 1;
+                                         std::list<int>& subChain,
+                                         int pairSize) {
+    int segmentIndex = 1;
+    std::list<int>::iterator segmentStart = mainChain.begin();
+    advanceTo(mainChain, segmentStart, segmentIndex * pairSize);
 
-	while (true) {
-		std::list<int>::iterator segmentStart = getIteratorAt(mainChain, segmentIndex * pairSize);
+    std::list<int>::iterator subChainInsertPosition = subChain.begin();
 
-		if (segmentStart == mainChain.end()) {
-			break;
-		}
+    while (segmentStart != mainChain.end()) {
+        std::list<int>::iterator segmentEnd = segmentStart;
+        advanceTo(mainChain, segmentEnd, pairSize);
 
-		std::list<int>::iterator segmentEnd =
-			getIteratorAt(mainChain, (segmentIndex + 1) * pairSize);
-		std::list<int>::iterator subChainInsertPosition =
-			getIteratorAt(subChain, (segmentIndex - 1) * pairSize);
+        subChain.splice(subChainInsertPosition, mainChain, segmentStart, segmentEnd);
 
-		subChain.splice(subChainInsertPosition, mainChain, segmentStart, segmentEnd);
-
-		++segmentIndex;
-	}
+        advanceTo(subChain, subChainInsertPosition, pairSize);
+        segmentStart = segmentEnd;
+        ++segmentIndex;
+    }
 }
 
 /**
@@ -262,11 +260,23 @@ void PmergeMe::insertSegmentToMainChain(std::list<int>& mainChain,
 	int segmentEnd,
 	int insertionPoint,
 	int pairSize) {
-	std::list<int>::iterator startIter = getIteratorAt(subChain, segmentStart * pairSize);
-	std::list<int>::iterator endIter =
-		(segmentEnd == -1) ? subChain.end() : getIteratorAt(subChain, segmentEnd * pairSize);
-	mainChain.insert(getIteratorAt(mainChain, pairSize * insertionPoint), startIter, endIter);
+	
+	std::list<int>::iterator insertionIter = mainChain.begin();
+	advanceTo(mainChain, insertionIter, pairSize * insertionPoint);
+
+	std::list<int>::iterator startIter = subChain.begin();
+	advanceTo(subChain, startIter, segmentStart * pairSize);
+
+	std::list<int>::iterator endIter = startIter;
+	if (segmentEnd != -1) {
+		advanceTo(subChain, endIter, (segmentEnd - segmentStart) * pairSize);
+	} else {
+		endIter = subChain.end();
+	}
+
+	mainChain.insert(insertionIter, startIter, endIter);
 }
+
 
 void PmergeMe::mergeSubIntoMain(std::list<int>& mainChain,
 	std::list<int>& subChain,
@@ -334,13 +344,13 @@ void PmergeMe::swapPairs(std::vector<int>& vec,
 	std::swap_ranges(leftStart, leftEnd, rightStart);
 }
 
-bool PmergeMe::isPairPresent(const std::vector<int>& vec, int pairSize, size_t startIndex) {
+bool PmergeMe::hasPair(const std::vector<int>& vec, int pairSize, size_t startIndex) {
 	return getConstIteratorAt(vec, startIndex + 2 * pairSize - 1) != vec.end();
 }
 
 void PmergeMe::processPairs(std::vector<int>& vec, std::vector<int>& subChain, int pairSize) {
 	for (size_t i = 0; i < vec.size();) {
-		if (!isPairPresent(vec, pairSize, i)) {
+		if (!hasPair(vec, pairSize, i)) {
 			std::vector<int>::iterator iter = getIteratorAt(vec, i);
 			if (iter != vec.end()) {
 				subChain.insert(subChain.begin(), iter, vec.end());

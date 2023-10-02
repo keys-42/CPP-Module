@@ -1,14 +1,15 @@
 #!/bin/bash
 
-MIN=1
-MAX=10000
-INCREMENT=1
+MIN=10
+MAX=100
+INCREMENT=10
 
 for ((i=$MIN; i<=$MAX; i+=INCREMENT)); do
     echo "count [100] length[$i] number[$i]"
+    sleep 1
     
-    echo "bash test.sh -c 1 -l $i -n $i"
-    bash test.sh -c 1 -l $i -n $i
+    echo "bash test.sh -c 100 -l $i -n $i"
+    bash test.sh -c 100 -l $i -n $i
     
     # Check the exit status of the last command (test.sh)
     if [ $? -ne 0 ]; then
