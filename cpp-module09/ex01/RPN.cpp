@@ -20,20 +20,23 @@ Rpn::~Rpn(){};
 Rpn& Rpn::operator=(const Rpn& other) {
 	if (this != &other) {
 		this->stack_ = other.stack_;
+		for (int i = 0; i < 4; ++i) {
+			this->calcPtr[i] = other.calcPtr[i];
+		}
 	}
 	return *this;
 }
 
-int Rpn::sumNumber(int x, int y) const {
+int Rpn::sumNumber(int x, int y) {
 	return y + x;
 }
-int Rpn::differenceNumber(int x, int y) const {
+int Rpn::differenceNumber(int x, int y) {
 	return y - x;
 }
-int Rpn::productNumber(int x, int y) const {
+int Rpn::productNumber(int x, int y) {
 	return y * x;
 }
-int Rpn::quotientNumber(int x, int y) const {
+int Rpn::quotientNumber(int x, int y) {
 	return y / x;
 }
 
@@ -46,14 +49,14 @@ void Rpn::stackPop() {
 void Rpn::stackPush(int n) {
 	this->stack_.push(n);
 }
-bool Rpn::isStackEmpty() {
+bool Rpn::isStackEmpty() const {
 	if (this->stack_.empty())
 		return true;
 	return false;
 }
 
 void Rpn::calc(char c) {
-	char arr[4] = { '+', '-', '*', '/' };
+	const char arr[4] = { '+', '-', '*', '/' };
 	int x;
 	int y;
 
@@ -67,7 +70,7 @@ void Rpn::calc(char c) {
 				throw std::logic_error("logic error: The provided expression is not in RPN.");
 			y = this->stackTop();
 			this->stackPop();
-			this->stackPush((this->*calcPtr[i])(x, y));
+			this->stackPush((this->calcPtr[i])(x, y));
 		}
 	}
 }
@@ -130,12 +133,5 @@ void Rpn::rpn(const std::string& line) {
 		std::cout << result << std::endl;
 	} catch (std::exception& e) {
 		std::cerr << "Exception: " << e.what() << std::endl;
-	}
-}
-
-void Rpn::print() {
-	while (!this->stack_.empty()) {
-		std::cout << this->stackTop() << std::endl;
-		this->stackPop();
 	}
 }

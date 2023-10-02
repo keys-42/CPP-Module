@@ -2,11 +2,11 @@
 
 BitcoinExchange::BitcoinExchange() {}
 
-BitcoinExchange::BitcoinExchange(std::string file) {
+BitcoinExchange::BitcoinExchange(const std::string& file) {
 	initDatabase(file);
 }
 
-BitcoinExchange::BitcoinExchange(std::map<std::string, double> data)
+BitcoinExchange::BitcoinExchange(const std::map<std::string, double>& data)
 	: data_(data){};
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& r)
@@ -20,7 +20,7 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
 	return *this;
 }
 
-void BitcoinExchange::initDatabase(std::string file) {
+void BitcoinExchange::initDatabase(const std::string& file) {
 	FileGuard f(file.c_str());
 	std::string line;
 	getline(f.getStream(), line);
@@ -96,14 +96,5 @@ bool BitcoinExchange::validDate(int year, int month, int day) {
 		return day <= 30;
 	} else {
 		return day <= MAXDAY;
-	}
-}
-
-void BitcoinExchange::printDatabase() {
-
-	std::map<std::string, double>::iterator it = data_.begin();
-
-	for (; it != data_.end(); ++it) {
-		std::cout << it->first << " | " << it->second << std::endl;
 	}
 }

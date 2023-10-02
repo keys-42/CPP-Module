@@ -36,8 +36,8 @@ void ShrubberyCreationForm::execute(Bureaucrat const& executor) const {
 	}
 	int height = 10;
 	int decorationFrequency = 3;
-	int trunkWidth;
-	int baseWidth;
+	int trunkWidth = 0;
+	int baseWidth = 0;
 
 	for (int i = 0; i < height; ++i) {
 		for (int j = 0; j < height - i - 1; ++j) {

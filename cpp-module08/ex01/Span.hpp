@@ -15,12 +15,12 @@ private:
 	Span();
 
 public:
-	Span(unsigned int n);
+	explicit Span(unsigned int n);
 	Span(const Span& r);
 	~Span();
 	Span& operator=(const Span& other);
 
-	void checkMaxSize(unsigned int len);
+	void checkMaxSize(unsigned int len) const;
 	void addNumber(int number);
 	unsigned int shortestSpan();
 	unsigned int longestSpan();

@@ -18,7 +18,7 @@ void flush_buffer_if_not_empty() {
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-int get_cmd(std::string s, std::string* cmd) {
+int get_cmd(const std::string& s, std::string* cmd) {
 	std::cout << s;
 	if (!std::getline(std::cin, *cmd)) {
 		if (std::cin.eof()) {
@@ -42,7 +42,7 @@ static bool isspace_string(std::string s) {
 	return true;
 }
 
-std::string get_line(std::string mess) {
+std::string get_line(const std::string& mess) {
 	std::string tmp;
 
 	for (;;) {

@@ -1,27 +1,25 @@
 #include "ScalarConverter.hpp"
 
 void ScalarConverter::convert(std::string const& str) {
-	LiteralType types[] = {
-		CHAR,
-		INT,
-		FLOAT,
-		DOUBLE,
-		PSEUDO,
-	};
-
-	typedef void (*FuncPtr)(const std::string&);
-	FuncPtr fcPtr[] = {
-		ScalarConverter::char_literal,
-		ScalarConverter::int_literal,
-		ScalarConverter::float_literal,
-		ScalarConverter::double_literal,
-		ScalarConverter::pseudo_literal,
-	};
-
 	try {
+		const LiteralType types[] = {
+			CHAR,
+			INT,
+			FLOAT,
+			DOUBLE,
+			PSEUDO,
+		};
 		LiteralType type = getLiteralType(str);
 		for (int i = 0; i < 5; ++i) {
 			if (types[i] == type) {
+				typedef void (*FuncPtr)(const std::string&);
+				FuncPtr fcPtr[] = {
+					ScalarConverter::char_literal,
+					ScalarConverter::int_literal,
+					ScalarConverter::float_literal,
+					ScalarConverter::double_literal,
+					ScalarConverter::pseudo_literal,
+				};
 				fcPtr[i](str);
 				break;
 			}

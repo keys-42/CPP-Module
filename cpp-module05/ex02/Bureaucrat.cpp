@@ -1,7 +1,7 @@
 #include "Bureaucrat.hpp"
 #include <sstream>
 
-Bureaucrat::Bureaucrat(std::string name, int grade)
+Bureaucrat::Bureaucrat(const std::string& name, int grade)
 	: name_(name) {
 	std::cout << "Bureaucrat Default constructor called. grade is " << grade << "." << std::endl;
 	if (grade < 1)
@@ -38,7 +38,6 @@ void Bureaucrat::downgrade(int n) {
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& obj) {
 	std::stringstream ss;
 	ss << obj.getGrade();
-	std::string str = ss.str();
 	os << obj.getName() + " bureaucrat grade " + ss.str() + ".";
 	return os;
 }

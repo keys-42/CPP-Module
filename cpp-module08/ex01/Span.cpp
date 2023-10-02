@@ -18,7 +18,7 @@ Span& Span::operator=(const Span& other) {
 	return *this;
 }
 
-void Span::checkMaxSize(unsigned int len) {
+void Span::checkMaxSize(unsigned int len) const {
 	if ((v_.capacity() < len) || (v_.size() > v_.capacity() - len))
 		throw SizeOverFlowException();
 }

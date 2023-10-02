@@ -17,7 +17,7 @@ public:
 	Array()
 		: array_(new T[0])
 		, size_(0){};
-	Array(unsigned int n)
+	explicit Array(unsigned int n)
 		: array_(new T[n])
 		, size_(n) {
 		for (unsigned int i = 0; i < n; ++i) {

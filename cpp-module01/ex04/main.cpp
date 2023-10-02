@@ -27,7 +27,7 @@ void flush_cin() {
 	flush_buffer_if_not_empty();
 }
 
-int get_cmd(std::string s, std::string* cmd) {
+int get_cmd(const std::string& s, std::string* cmd) {
 	std::cout << s;
 	if (!std::getline(std::cin, *cmd)) {
 		if (std::cin.eof()) {

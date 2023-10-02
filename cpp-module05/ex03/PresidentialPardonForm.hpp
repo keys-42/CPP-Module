@@ -8,7 +8,7 @@ private:
 	std::string target_;
 
 public:
-	PresidentialPardonForm(const std::string& target);
+	explicit PresidentialPardonForm(const std::string& target);
 	PresidentialPardonForm(PresidentialPardonForm const& r);
 	~PresidentialPardonForm();
 	PresidentialPardonForm& operator=(PresidentialPardonForm const& r);

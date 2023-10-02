@@ -1,17 +1,15 @@
 #include "PhoneBook.hpp"
 
-Contact::Contact() {
-	f = false;
-	first_name_ = "";
-	last_name_ = "";
-	nickname_ = "";
-	phone_number_ = "";
-	darkest_secret_ = "";
-}
+Contact::Contact()
+	: f(false)
+	, first_name_("")
+	, last_name_("")
+	, nickname_("")
+	, phone_number_("")
+	, darkest_secret_("") {}
 
 Contact::~Contact() {}
 void Contact::set() {
-	std::string tmp;
 
 	first_name_ = get_line("Please enter first name			"
 						   "	:");
@@ -41,7 +39,7 @@ void Contact::set() {
 	f = true;
 }
 
-bool Contact::getFlag() {
+bool Contact::getFlag() const {
 	return f;
 }
 
@@ -57,7 +55,7 @@ void Contact::getContants() {
 			  << "|" << std::endl;
 }
 
-void Contact::displayInfo() {
+void Contact::displayInfo() const {
 	std::cout << "first name		:" << first_name_ << std::endl;
 	std::cout << "last name		:" << last_name_ << std::endl;
 	std::cout << "nickname		:" << nickname_ << std::endl;

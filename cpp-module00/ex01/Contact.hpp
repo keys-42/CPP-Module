@@ -9,9 +9,9 @@ public:
 	Contact();
 	~Contact();
 	void set();
-	bool getFlag();
+	bool getFlag() const;
 	void getContants();
-	void displayInfo();
+	void displayInfo() const;
 
 private:
 	bool f;
@@ -20,7 +20,7 @@ private:
 	std::string nickname_;
 	std::string phone_number_;
 	std::string darkest_secret_;
-	std::string changeContent(std::string s);
+	static std::string changeContent(std::string s);
 };
 
 #endif

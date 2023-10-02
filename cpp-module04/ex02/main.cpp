@@ -21,8 +21,9 @@ int main() {
 	};
 
 	std::cout << "24================================" << std::endl;
-	for (int i = 0; i < 4; i++) {
-		delete a[i];
+	for (int idx = 0; idx < 4; idx++) {
+		a[idx]->makeSound();
+		delete a[idx];
 	}
 
 	std::cout << "27================================" << std::endl;

@@ -8,9 +8,9 @@
 
 class HumanB {
 public:
-	HumanB(const std::string name);
+	explicit HumanB(const std::string& name);
 	~HumanB();
-	void attack();
+	void attack() const;
 	void setWeapon(Weapon& w);
 
 private:

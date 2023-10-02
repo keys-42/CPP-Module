@@ -1,6 +1,6 @@
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap(std::string name)
+FragTrap::FragTrap(const std::string& name)
 	: ClapTrap(name) {
 	std::cout << "FragTrap defualt constructor called: " << name << std::endl;
 	hit_points_ = 100;
@@ -20,7 +20,7 @@ void FragTrap::attack(const std::string& target) {
 			  << this->getAttackDamage() << " points of damage!" << std::endl;
 }
 
-void FragTrap::highFivesGuys(void) {
+void FragTrap::highFivesGuys(void) const {
 	if (!checkPoints())
 		return;
 	std::cout << "FragTrap " << this->getName() << " asks for a high five." << std::endl;
