@@ -3,6 +3,8 @@
 
 int main() {
 	FragTrap a("Emily"), b("James");
+	ScavTrap scav("Emily");
+	scav.guardGate();
 	a.highFivesGuys();
 	b.highFivesGuys();
 	a.getInfo();

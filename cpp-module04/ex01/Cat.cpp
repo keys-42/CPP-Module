@@ -8,7 +8,7 @@ Cat::Cat(void)
 
 Cat::Cat(const Cat& c)
 	: Animal(c) {
-	*this = c;
+		*this = c;
 }
 
 Cat::~Cat(void) {
@@ -17,8 +17,10 @@ Cat::~Cat(void) {
 }
 
 Cat& Cat::operator=(const Cat& r) {
-	this->type_ = r.getType();
-	this->brain = new Brain(*r.brain);
+	if( this != &r ) {
+		this->type_ = r.getType();
+		this->brain = new Brain(*r.brain);
+	}
 	return *this;
 }
 

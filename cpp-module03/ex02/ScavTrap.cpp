@@ -1,6 +1,6 @@
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap(std::string name)
+ScavTrap::ScavTrap(const std::string& name)
 	: ClapTrap(name) {
 	std::cout << "ScavTrap defualt constructor called: " << name << std::endl;
 	hit_points_ = 100;
@@ -20,6 +20,6 @@ void ScavTrap::attack(const std::string& target) {
 			  << this->getAttackDamage() << " points of damage!" << std::endl;
 }
 
-void ScavTrap::guardGate() const {
+void ScavTrap::guardGate() {
 	std::cout << "ScavTrap is now in Gate keeper mode." << std::endl;
 }
