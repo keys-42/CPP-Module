@@ -40,7 +40,7 @@ jobs:
       run: sudo apt-get install cppcheck
 
     - name: Run cppcheck
-      run: cppcheck --enable=all --error-exitcode=1 --inconclusive --force --suppress=ctuOneDefinitionRuleViolation --suppress=missingIncludeSystem --suppress=missingOverride --suppress=duplInheritedMember --suppress=functionStatic:"./cpp-module04/*" --std=c++98 ./ 2> cppcheck.txt
+      run: cppcheck --enable=all --error-exitcode=1 --inconclusive --force --suppress=ctuOneDefinitionRuleViolation --suppress=missingIncludeSystem --suppress=missingOverride --suppress=functionStatic:"./cpp-module04/*" --std=c++98 ./ 2> cppcheck.txt
 
     - name: Upload cppcheck report
       uses: actions/upload-artifact@v2

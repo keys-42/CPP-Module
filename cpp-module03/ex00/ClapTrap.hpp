@@ -12,7 +12,7 @@ public:
 	void beRepaired(unsigned int amount);
 	std::string getName() const;
 	long long getAttackDamage() const;
-	static bool checkPoints(void);
+	bool checkPoints(void) const;
 	void consumeEnergyPoints(void);
 	void getInfo(void) const;
 
