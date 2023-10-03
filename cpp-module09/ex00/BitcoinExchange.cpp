@@ -32,6 +32,8 @@ void BitcoinExchange::initDatabase(const std::string& file) {
 }
 
 void BitcoinExchange::insertFromString(const std::string& input) {
+	if ( !isAcceptableValue(input) )
+		throw std::out_of_range("Error: database format: " + input);
 	std::istringstream ss(input);
 	std::string s;
 	double value;
